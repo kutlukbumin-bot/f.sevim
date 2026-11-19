@@ -251,6 +251,107 @@ body.sh .sbg{opacity:1;visibility:visible}body.sh .sheet{transform:none;visibili
 
 @media (max-width:380px){.mt td.n{display:none}}
 
+.selw{position:relative;margin-bottom:8px}
+.sel{width:100%;display:flex;align-items:center;gap:10px;background:var(--p2);border:1px solid var(--am);padding:11px 12px;font-weight:800;font-size:15px;color:var(--am);letter-spacing:.06em;cursor:pointer;text-align:left}
+.sel small,.selm small{display:block;font-size:10px;color:var(--tx3);font-weight:600;letter-spacing:.04em;margin-top:2px}
+.sel i{margin-left:auto;font-style:normal;transition:transform .2s}
+.selw.open .sel i{transform:rotate(180deg)}
+.selm{display:none;position:absolute;left:0;right:0;top:100%;z-index:20;background:#070708;border:1px solid var(--am);border-top:0;box-shadow:0 14px 30px rgba(0,0,0,.75)}
+.selw.open .selm{display:block}
+.selm a{display:flex;align-items:center;gap:10px;padding:11px 12px;border-bottom:1px solid var(--ln);cursor:pointer;font-weight:800;font-size:13.5px;color:var(--tx)}
+.selm a:last-child{border-bottom:0}
+.selm a b{margin-left:auto;color:var(--am);font-size:12px}
+.selm a.on{background:var(--am-s);color:var(--am)}
+.mt tr[data-lsym]{cursor:pointer}.mt tr[data-lsym]:active td{background:var(--p2)}
+.mt.lt td.k{width:100px}
+
+/* ===================== CANLI TEMA ===================== */
+:root{--bg:#05070C;--p:#0B0F17;--p2:#111723;--p3:#182031;--ln:#1A2232;--ln2:#26304A;
+  --am:#FFA62B;--am2:#FFD27A;--am-s:rgba(255,166,43,.14);--up:#20E38C;--up-s:rgba(32,227,140,.16);--dn:#FF4D6A;--dn-s:rgba(255,77,106,.16);--cy:#35E0FF;--bl:#5CB8FF;--tx:#ECEEF3;--tx2:#9AA3B5;--tx3:#5B6478}
+html,body{background:var(--bg)}
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(900px 500px at 15% -10%,rgba(255,166,43,.10),transparent 60%),radial-gradient(800px 600px at 110% 30%,rgba(53,224,255,.07),transparent 60%),radial-gradient(700px 500px at 40% 120%,rgba(32,227,140,.06),transparent 60%)}
+body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px)}
+main{position:relative;z-index:1}
+.hdr{background:linear-gradient(180deg,rgba(5,7,12,.97),rgba(8,11,18,.94));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,166,43,.25);box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.burger i{background:linear-gradient(90deg,var(--am),var(--am2));box-shadow:0 0 8px rgba(255,166,43,.5)}
+.logo{background:linear-gradient(100deg,#FFB44A,#FFE3A1 45%,#FFA62B 70%,#FF7A1A)}
+.brand{filter:drop-shadow(0 0 6px rgba(255,166,43,.35))}
+#clock{background:linear-gradient(90deg,var(--am),var(--am2));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:13px;text-shadow:none}
+.dot.on{animation:beat 1.8s ease-in-out infinite}
+@keyframes beat{0%,100%{box-shadow:0 0 0 0 rgba(32,227,140,.6)}50%{box-shadow:0 0 0 5px rgba(32,227,140,0)}}
+.dot.er{box-shadow:0 0 6px var(--dn)}
+.tape{background:linear-gradient(90deg,#0A0E16,#0E1420 50%,#0A0E16);border-top:1px solid var(--ln)}
+.tape span{border-right:1px solid rgba(255,255,255,.05)}
+.tape b{color:var(--am);text-shadow:0 0 8px rgba(255,166,43,.35)}
+.fkeys{background:#070A11}
+.fkeys a{transition:color .2s,background .2s;position:relative}
+.fkeys a.on{background:linear-gradient(180deg,#FFB547,#FF9A1F);color:#160C00;box-shadow:0 0 18px rgba(255,166,43,.45) inset,0 0 14px rgba(255,166,43,.35)}
+.ttl h1{background:linear-gradient(90deg,#FFB547,#FFE3A1 60%,#FFA62B);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:19px;filter:drop-shadow(0 0 10px rgba(255,166,43,.25))}
+.ttl{border-bottom:1px solid transparent;border-image:linear-gradient(90deg,rgba(255,166,43,.6),rgba(53,224,255,.25),transparent) 1}
+.pn{background:linear-gradient(180deg,rgba(17,23,35,.92),rgba(11,15,23,.92));border:1px solid var(--ln);border-radius:6px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.ph{background:linear-gradient(90deg,rgba(255,166,43,.16),rgba(255,166,43,.03) 55%,transparent);border-bottom:1px solid rgba(255,166,43,.18)}
+.ph b:before{background:var(--am);box-shadow:0 0 8px var(--am);border-radius:1px}
+.ph .r .up,.ph .r span.up{text-shadow:0 0 8px rgba(32,227,140,.5)}
+.mt td{border-bottom:1px solid rgba(255,255,255,.045)}
+.mt tr:active td,.mt tr:hover td{background:rgba(255,166,43,.04)}
+.mt td.k{text-shadow:0 0 10px rgba(255,166,43,.25)}
+.chg{border-radius:3px}
+.chg.up{background:linear-gradient(90deg,rgba(32,227,140,.10),rgba(32,227,140,.24));box-shadow:inset 0 0 0 1px rgba(32,227,140,.25)}
+.chg.dn{background:linear-gradient(90deg,rgba(255,77,106,.10),rgba(255,77,106,.24));box-shadow:inset 0 0 0 1px rgba(255,77,106,.25)}
+tr.fl-up td.p,tr.fl-up td.k{animation:flu 1.2s ease-out}
+tr.fl-dn td.p,tr.fl-dn td.k{animation:fld 1.2s ease-out}
+@keyframes flu{0%{background:rgba(32,227,140,.35);color:#fff}}
+@keyframes fld{0%{background:rgba(255,77,106,.35);color:#fff}}
+.big{text-shadow:0 0 18px rgba(255,255,255,.12)}
+.big.up,.kv b.up,.kp b.up{text-shadow:0 0 14px rgba(32,227,140,.35)}
+.big.dn,.kv b.dn,.kp b.dn{text-shadow:0 0 14px rgba(255,77,106,.35)}
+.kv div,.kp div,.sumb div{border-color:rgba(255,255,255,.05)!important}
+.sumb b.am{text-shadow:0 0 10px rgba(255,166,43,.4)}
+.btn{border-radius:4px;transition:transform .12s,box-shadow .2s,background .2s}
+.btn:active{transform:scale(.98)}
+.btn.go{background:linear-gradient(180deg,#FFB547,#FF961A);border-color:#FFB547;color:#160C00;box-shadow:0 6px 20px -6px rgba(255,166,43,.7),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn.rd{background:rgba(255,77,106,.08)}
+.tg button,.seg{border-radius:4px}.seg{overflow:hidden}
+.tg button.on{background:linear-gradient(180deg,#FFB547,#FF961A);box-shadow:0 0 12px rgba(255,166,43,.35)}
+.seg button.on{background:linear-gradient(180deg,rgba(255,166,43,.22),rgba(255,166,43,.08));color:var(--am2)}
+.inp{border-radius:4px;background:rgba(5,7,12,.8)}
+.inp:focus{box-shadow:0 0 0 3px rgba(255,166,43,.15)}
+.tag{border-radius:3px}
+.tag.L{background:linear-gradient(180deg,#3BF09E,#16C877);box-shadow:0 0 10px rgba(32,227,140,.45)}
+.tag.S{background:linear-gradient(180deg,#FF6E86,#F23A58);box-shadow:0 0 10px rgba(255,77,106,.45)}
+.tag.lv{box-shadow:0 0 8px rgba(32,227,140,.35)}
+.sr{transition:background .2s;position:relative}
+.sr:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;background:var(--c,transparent);opacity:.8}
+.sr .sy{text-shadow:0 0 12px rgba(255,166,43,.35)}
+.sc i{border-radius:2px;overflow:hidden}
+.sc i:after{background:linear-gradient(90deg,var(--c),#FFE3A1);box-shadow:0 0 8px var(--c)}
+.mtf i{border-radius:2px}
+.mtf i.u{background:rgba(32,227,140,.12)}.mtf i.d{background:rgba(255,77,106,.12)}
+.rng{border-radius:3px;background:linear-gradient(90deg,rgba(255,77,106,.7),rgba(38,48,74,.9) 50%,rgba(32,227,140,.7))}
+.rng .m{box-shadow:0 0 12px var(--am)}
+.po,.hrow,.nw,.ce{border-bottom-color:rgba(255,255,255,.05)!important}
+.nw .tm{color:var(--cy);text-shadow:0 0 8px rgba(53,224,255,.35)}
+.nw .so{color:var(--am)}
+.cd{background:linear-gradient(90deg,rgba(255,166,43,.2),rgba(255,166,43,.04));border-left:2px solid var(--am)}
+.ce .tm{color:var(--cy)}
+.cb em{text-shadow:0 0 10px rgba(255,166,43,.5)}
+.drawer{background:linear-gradient(180deg,#0B0F18,#06080D);border-right:1px solid rgba(255,166,43,.5);box-shadow:10px 0 40px rgba(0,0,0,.6)}
+.dr-i{transition:background .2s,color .2s}
+.dr-i.on{background:linear-gradient(90deg,#FFB547,#FF961A);box-shadow:0 0 16px rgba(255,166,43,.35)}
+.dr-g{color:var(--cy);text-shadow:0 0 8px rgba(53,224,255,.3)}
+.sheet{background:linear-gradient(180deg,#0E131E,#070A10);border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--cy),var(--am),var(--up)) 1;box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+.sh-t{text-shadow:0 0 14px rgba(255,166,43,.4)}
+canvas.ch{background:radial-gradient(400px 200px at 80% 0,rgba(255,166,43,.06),transparent),#05070C;border:1px solid var(--ln);border-radius:4px}
+.sel{background:linear-gradient(90deg,rgba(255,166,43,.18),rgba(17,23,35,.9));border-radius:6px;box-shadow:0 0 18px rgba(255,166,43,.18)}
+.selw.open .sel{border-radius:6px 6px 0 0}
+.selm{border-radius:0 0 6px 6px;overflow:hidden}
+.toast{border-radius:6px;background:rgba(14,19,30,.97);box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 16px rgba(255,166,43,.2)}
+#boot{background:radial-gradient(600px 400px at 50% 40%,rgba(255,166,43,.12),transparent 70%),#05070C}
+#boot .logo{animation:glow 1.6s ease-in-out infinite alternate}
+@keyframes glow{from{filter:drop-shadow(0 0 4px rgba(255,166,43,.3))}to{filter:drop-shadow(0 0 18px rgba(255,166,43,.75))}}
+.empty{color:var(--tx3)}
+
 </style>
 </head>
 <body>
@@ -267,7 +368,7 @@ body.sh .sbg{opacity:1;visibility:visible}body.sh .sheet{transform:none;visibili
   <nav class="fkeys" id="fk"></nav>
 </header>
 <div class="scrim" id="scrim"></div>
-<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v4.0</div></div><div class="dr-n" id="drn"></div><div class="dr-f"><span>SİMÜLASYON MODU</span><span>TR</span></div></nav>
+<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v4.0</div></div><div class="dr-n" id="drn"></div></nav>
 <main id="view"></main>
 <div class="sbg" id="sbg"></div>
 <div class="sheet" id="sheet"><div class="grab"></div><div id="shc"></div></div>
@@ -481,16 +582,19 @@ var AUTHORS = [
     }
     if (need('15m')) out['15m'] = dropPartial((await yChart(sym, '15m', '30d')).bars, '15m').slice(-320);
     if (need('30m')) out['30m'] = dropPartial((await yChart(sym, '30m', '60d')).bars, '30m').slice(-320);
-    if (need('1d')) { var d = await yChart(sym, '1d', '2y'); meta = meta.regularMarketPrice ? meta : d.meta; out['1d'] = dropPartial(d.bars, '1d').slice(-320); }
+    var day = null;
+    if (need('1d')) { var d = await yChart(sym, '1d', '2y'); meta = meta.regularMarketPrice ? meta : d.meta; var full = d.bars, done = dropPartial(full, '1d'); out['1d'] = done.slice(-320);
+      if (full.length >= 2) { var lastF = full[full.length - 1]; var px = d.meta.regularMarketPrice != null ? d.meta.regularMarketPrice : lastF.c; var prev = done.length === full.length ? full[full.length - 2].c : done[done.length - 1].c; day = {price: px, prev: prev, vol: lastF.v, t: (d.meta.regularMarketTime || 0) * 1000}; } }
     if (need('1w')) out['1w'] = dropPartial((await yChart(sym, '1wk', '10y')).bars, '1w').slice(-320);
-    return {tf: out, price: meta.regularMarketPrice};
+    return {tf: out, price: meta.regularMarketPrice, day: day};
   }
   var r6 = function (x) { return x == null ? null : +(+x).toPrecision(6); };
   var CANDLES = {};
   async function scanMarket(key, items, tfs) {
-    var res = [], failed = 0, ok = 0;
+    var res = [], failed = 0, ok = 0, list = [];
     await pool(items, 5, async function (it) {
       var c; try { c = await candlesFor(it.sym, tfs); ok++; } catch (e) { failed++; return; }
+      if (c.day) list.push({sym: it.sym, name: it.name, price: r6(c.day.price), chg: c.day.prev ? r6((c.day.price / c.day.prev - 1) * 100) : null, vol: Math.round(c.day.vol || 0), t: c.day.t});
       var trend = {}, sigs = [];
       tfs.forEach(function (tf) {
         var B = c.tf[tf]; if (!B || B.length < 60) return;
@@ -509,6 +613,7 @@ var AUTHORS = [
     ['entry', 'stop', 'target', 't2', 'level', 'risk', 'atr', 'price'].forEach(function (k) { res.forEach(function (s) { s[k] = r6(s[k]); }); });
     res.forEach(function (s) { s.rsi = r6(s.rsi); s.vx = r6(s.vx); s.riskPct = r6(s.riskPct); });
     log(key, 'tamam:', ok, 'sembol,', failed, 'hata,', res.length, 'sinyal');
+    DATA.lists[key] = list;
     return {at: Date.now(), results: res, scanned: items.length, failed: failed, tfs: tfs};
   }
 
@@ -535,7 +640,7 @@ var AUTHORS = [
   }
 
   /* ---- çalıştır ---- */
-  var DATA = {v: ENGINE_V, at: Date.now(), quotes: {}, scans: {}, news: {}, authors: {}, cal: [], errors: []};
+  var DATA = {v: ENGINE_V, at: Date.now(), quotes: {}, scans: {}, lists: {}, news: {}, authors: {}, cal: [], errors: []};
   var QUOTES = ['XU100.IS', 'XU030.IS', '^NDX', '^GSPC', 'DX-Y.NYB', '^TNX', '^VIX', 'TRY=X', 'EURTRY=X', 'GC=F', 'SI=F', 'BZ=F', 'CL=F'];
   await pool(QUOTES, 4, async function (s) {
     try { var c = await yChart(s, '15m', '1d'); var m = c.meta; var p = m.regularMarketPrice != null ? m.regularMarketPrice : (c.bars.length ? c.bars[c.bars.length - 1].c : null); var prev = m.chartPreviousClose != null ? m.chartPreviousClose : m.previousClose;
@@ -623,13 +728,13 @@ async function bnJSON(path, base) {
   try { const j = await (await tfetch(b + path)).json(); NETST.bn = 1; return j; }
   catch (e) { if (b === BN.spot) { const j = await (await tfetch(BN.spot2 + path)).json(); NETST.bn = 1; return j; } NETST.bn = -1; throw e; }
 }
-let UNIV = null, UNIV_T = 0;
-async function bnUniverse() {
-  if (UNIV && Date.now() - UNIV_T < 10 * 60e3) return UNIV;
+let UNIV = null, UNIV_T = 0, BINFO = null, BINFO_T = 0;
+async function bnUniverse(fresh) {
+  if (UNIV && Date.now() - UNIV_T < (fresh ? 15e3 : 10 * 60e3)) return UNIV;
   let list = [];
   try {
-    const [info, tick] = await Promise.all([bnJSON('/exchangeInfo', BN.fut), bnJSON('/ticker/24hr', BN.fut)]);
-    const base = {}; info.symbols.filter(s => s.contractType === 'PERPETUAL' && s.quoteAsset === 'USDT' && s.status === 'TRADING' && (!s.underlyingType || s.underlyingType === 'COIN')).forEach(s => base[s.symbol] = s.baseAsset);
+    if (!BINFO || Date.now() - BINFO_T > 6 * 36e5) { const info = await bnJSON('/exchangeInfo', BN.fut); BINFO = {}; info.symbols.filter(s => s.contractType === 'PERPETUAL' && s.quoteAsset === 'USDT' && s.status === 'TRADING' && (!s.underlyingType || s.underlyingType === 'COIN')).forEach(s => BINFO[s.symbol] = s.baseAsset); BINFO_T = Date.now(); }
+    const tick = await bnJSON('/ticker/24hr', BN.fut); const base = BINFO;
     list = tick.filter(t => base[t.symbol] && !STABLES.has(base[t.symbol])).map(t => ({sym: t.symbol, name: base[t.symbol], price: +t.lastPrice, chg: +t.priceChangePercent, vol: +t.quoteVolume}));
     bnMode = 'fut';
   } catch (e) {
@@ -691,7 +796,7 @@ function applyCloud() {
   if (!CLOUD.m || !CLOUD.m.scans) return;
   ['bist', 'ndx'].forEach(k => { const s = CLOUD.m.scans[k]; if (s) Object.assign(SC[k], {results: s.results || [], at: s.at, scanned: s.scanned, failed: s.failed}); });
   mergeCom();
-  if (MK[route]) softRender();
+  if (route === 'scan' || LST[route]) softRender();
 }
 
 /* ---------- piyasalar ---------- */
@@ -704,6 +809,9 @@ const MK = {
 const SC = {};
 for (const k in MK) SC[k] = Object.assign({running: false, done: 0, total: 0, results: [], at: 0, scanned: 0, cancel: false, filter: 'all', q: '', sort: 'score'}, LS.get('scan_' + k, {}), {running: false});
 const CANDLES = new Map();
+let SCANMK = LS.get('scanmk', 'crypto'); if (!MK[SCANMK]) SCANMK = 'crypto';
+const LST = {crypto: {q: '', sort: 'vol'}, bist: {q: '', sort: 'vol'}, ndx: {q: '', sort: 'vol'}, com: {q: '', sort: 'name'}};
+const COMQ = {};
 let COMLIVE = LS.get('comlive', null); // {at, results}
 function mergeCom() {
   const cloud = (CLOUD.m && CLOUD.m.scans && CLOUD.m.scans.com) || {results: [], at: 0};
@@ -745,7 +853,7 @@ async function runScan(mk, opts = {}) {
     toast(`<span class="am">■</span> ${list.length} sembol · <b>${res.length}</b> sinyal${failed ? ` · ${failed} hata` : ''}`);
     if (mk === 'crypto' && opts.trade && !st.cancel) await autoFill(res);
   } catch (e) { console.error(e); toast('Tarama hatası: ' + esc(e.message || e)); }
-  finally { st.running = false; if (route === mk || route === 'trade') renderPage(); else renderNav(); }
+  finally { st.running = false; if (route === 'scan' || route === 'trade') renderPage(); else renderNav(); }
 }
 
 /* ---------- simülasyon ---------- */
@@ -829,7 +937,7 @@ async function loadQuotes() {
   ALLROWS.forEach(([k, , o]) => { if (o.y && cq[o.y] && !(Q[k] && Q[k].live && Date.now() - Q[k].at < 120e3)) Q[k] = Object.assign({}, cq[o.y], {live: false, at: CLOUD.m.at}); });
   const m = await bnTradfi().catch(() => ({}));
   await pool(ALLROWS.filter(([, , o]) => o.bn || o.tf), 4, async ([k, , o]) => {
-    try { const r = o.bn ? await bnQuote(o.bn) : (m[o.tf] ? await bnQuote(m[o.tf], BN.fut) : null); if (r) { const prev = Q[k] && Q[k].price; Q[k] = Object.assign({}, r); if (prev && prev !== r.price) Q[k].flash = 1; } } catch (e) {}
+    try { const r = o.bn ? await bnQuote(o.bn) : (m[o.tf] ? await bnQuote(m[o.tf], BN.fut) : null); if (r) { const prev = Q[k] && Q[k].price; Q[k] = Object.assign({}, r); if (prev && prev !== r.price) Q[k].flash = r.price > prev ? 1 : -1; } } catch (e) {}
   });
   try { const [a, b] = await Promise.all([bnQuote('EURUSDT'), bnQuote('USDTTRY')]); Q.EURTRY = {price: a.price * b.price, chg: ((1 + a.chg / 100) * (1 + b.chg / 100) - 1) * 100, spark: a.spark.map((v, i) => v * (b.spark[i] ?? b.price)), live: true, at: Date.now()}; } catch (e) {}
   if (Q.XAU && Q.USDTRY && Q.XAU.price && Q.USDTRY.price) { const k = Q.USDTRY.price / 31.1035; Q.GRAM = {price: Q.XAU.price * k, chg: ((1 + (Q.XAU.chg || 0) / 100) * (1 + (Q.USDTRY.chg || 0) / 100) - 1) * 100, spark: (Q.XAU.spark || []).map(v => v * k), live: Q.XAU.live && Q.USDTRY.live, at: Date.now()}; }
@@ -901,32 +1009,32 @@ window.addEventListener('popstate', () => { if (shOpen) closeSheet(true); else i
 function confirmSheet(t, txt, ok, fn) { openSheet(`<h3 class="sh-t">${t}</h3><p class="t2" style="margin:8px 0 16px;font-size:12.5px">${txt}</p><div class="g2"><button class="btn" data-act="shclose">VAZGEÇ</button><button class="btn rd" id="cfok">${ok}</button></div>`, c => $('#cfok', c).onclick = () => { closeSheet(); fn(); }); }
 
 const NAV = [
-  ['PİYASA', [['home', 'F1', 'Piyasa Monitörü']]],
-  ['KRİPTO', [['crypto', 'F2', 'Kripto Tarayıcı'], ['trade', 'F3', 'Alım-Satım'], ['stats', 'F4', 'İstatistikler']]],
-  ['TARAYICILAR', [['bist', 'F5', 'BIST 100'], ['ndx', 'F6', 'Nasdaq 100'], ['com', 'F7', 'Emtia']]],
-  ['GÜNDEM', [['news', 'F8', 'Haberler & Makro'], ['cal', 'F9', 'Ekonomik Takvim']]],
-  ['SİSTEM', [['settings', 'F10', 'Ayarlar']]]
+  ['GENEL', [['home', '', 'Piyasa Monitörü'], ['scan', '', 'Tarama']]],
+  ['PİYASALAR', [['crypto', '', 'Kripto'], ['bist', '', 'BIST 100'], ['ndx', '', 'Nasdaq 100'], ['com', '', 'Emtia']]],
+  ['GÜNDEM', [['news', '', 'Haberler & Makro'], ['cal', '', 'Ekonomik Takvim']]],
+  ['SİSTEM', [['settings', '', 'Ayarlar']]],
+  ['KRİPTO İŞLEM', [['trade', '', 'Alım-Satım'], ['stats', '', 'İstatistikler']]]
 ];
-const FK = {home: 'PİYASA', crypto: 'KRİPTO', trade: 'İŞLEM', stats: 'İSTAT', bist: 'BIST', ndx: 'NDX', com: 'EMTİA', news: 'HABER', cal: 'TAKVİM', settings: 'AYAR'};
+const FK = {home: 'PİYASA', scan: 'TARAMA', crypto: 'KRİPTO', bist: 'BIST', ndx: 'NDX', com: 'EMTİA', news: 'HABER', cal: 'TAKVİM', settings: 'AYAR', trade: 'İŞLEM', stats: 'İSTAT'};
 let route = 'home';
 const PAGES = {};
 function renderNav() {
-  $('#drn').innerHTML = NAV.map(([g, it]) => `<div class="dr-g">${g}</div>` + it.map(([k, f, l]) => { let c = ''; if (k === 'trade' && POS.length) c = POS.length + ' AÇIK'; else if (SC[k] && SC[k].results.length) c = SC[k].results.length; return `<a class="dr-i ${route === k ? 'on' : ''}" data-go="${k}"><i>${f}</i>${l}${c ? `<span class="c">${c}</span>` : ''}</a>`; }).join('')).join('');
-  $('#fk').innerHTML = NAV.flatMap(([, it]) => it).map(([k, f]) => `<a class="${route === k ? 'on' : ''}" data-go="${k}"><i>${f}</i>${FK[k]}</a>`).join('');
+  $('#drn').innerHTML = NAV.map(([g, it]) => `<div class="dr-g">${g}</div>` + it.map(([k, f, l]) => { let c = ''; if (k === 'trade' && POS.length) c = POS.length + ' AÇIK'; else if (k === 'scan') { const n = Object.values(SC).reduce((a, x) => a + x.results.length, 0); if (n) c = n; } return `<a class="dr-i ${route === k ? 'on' : ''}" data-go="${k}">${l}${c ? `<span class="c">${c}</span>` : ''}</a>`; }).join('')).join('');
+  $('#fk').innerHTML = NAV.flatMap(([, it]) => it).map(([k, f]) => `<a class="${route === k ? 'on' : ''}" data-go="${k}">${FK[k]}</a>`).join('');
   const a = $('#fk .on'); if (a) a.scrollIntoView({inline: 'center', block: 'nearest'});
 }
 function go(r) { if (!PAGES[r]) r = 'home'; if (location.hash !== '#' + r) { location.hash = r; return; } route = r; renderNav(); renderPage(true); }
-function renderPage(top) { const p = PAGES[route]; $('#view').innerHTML = `<section class="pg">${p.html()}</section><div class="foot"><i class="logo"></i>F SEVİM TERMİNAL · YATIRIM TAVSİYESİ DEĞİLDİR</div>`; p.after && p.after(); if (top) window.scrollTo(0, 0); }
+function renderPage(top) { const p = PAGES[route]; $('#view').innerHTML = `<section class="pg">${p.html()}</section><div class="foot"><i class="logo"></i></div>`; p.after && p.after(); if (top) window.scrollTo(0, 0); }
 function softRender() { const p = PAGES[route]; if (p && p.soft) p.soft(); }
 window.addEventListener('hashchange', () => { const r = location.hash.slice(1) || 'home'; if (navOpen) { navOpen = false; document.body.classList.remove('nav'); } if (shOpen) { shOpen = false; document.body.classList.remove('sh'); } route = PAGES[r] ? r : 'home'; renderNav(); renderPage(true); });
 const panel = (t, body, r = '') => `<div class="pn"><div class="ph"><b>${t}</b>${r ? `<span class="r">${r}</span>` : ''}</div>${body}</div>`;
-const ttl = (t, s, r = '') => `<div class="ttl"><h1>${t}</h1><span>${s}</span>${r ? `<div class="r">${r}</div>` : ''}</div>`;
+const ttl = (t, s, r = '') => `<div class="ttl"><h1>${t}</h1>${s ? `<span>${s}</span>` : ''}${r ? `<div class="r">${r}</div>` : ''}</div>`;
 
 /* ---------- üst şerit ---------- */
 function paintStat() {
   const d = (v, l) => `<span><i class="dot ${v > 0 ? 'on' : v < 0 ? 'er' : 'wa'}"></i>${l}</span>`;
   const age = cloudAge(); const cv_ = !CLOUD.m ? -1 : age > 90 * 60e3 ? 0 : 1;
-  $('#st').innerHTML = d(NETST.bn, 'BN') + d(cv_, 'BULUT');
+  $('#st').innerHTML = d(NETST.bn, 'CANLI') + d(cv_, 'TARAMA');
 }
 function paintTape() {
   const items = ['BTC', 'ETH', 'XAU', 'GRAM', 'USDTRY', 'EURTRY', 'XU100', 'NDX', 'BRENT', 'XAG', 'DXY', 'VIX', 'SOL', 'US10Y'].map(k => { const r = ALLROWS.find(x => x[0] === k); const v = Q[k]; if (!r || !v || v.price == null) return ''; return `<span><b>${k}</b>${fmtQ(r[2], v.price)} <em class="${cls(v.chg)}" style="font-style:normal">${pct(v.chg)}</em></span>`; }).join('');
@@ -939,12 +1047,12 @@ function qRow([k, n, o]) {
   const v = Q[k] || {}; const dl = v.price != null && !v.live ? `<span class="dl">GECİK · ${v.at ? fTime(v.at) : ''}</span>` : '';
   return `<tr id="r-${k}"><td class="k">${k}</td><td class="n">${n}${dl}</td><td class="p ${v.price == null ? 'skel' : ''}">${fmtQ(o, v.price)}</td><td class="c"><span class="chg ${v.chg > 0 ? 'up' : v.chg < 0 ? 'dn' : ''} ${cls(v.chg)}">${pct(v.chg)}</span></td><td class="s">${spark(v.spark)}</td></tr>`;
 }
-function paintQuotes() { ALLROWS.forEach(r => { const el = document.getElementById('r-' + r[0]); if (el) { const fl = Q[r[0]] && Q[r[0]].flash; el.outerHTML = qRow(r); if (fl) { const n = document.getElementById('r-' + r[0]); n && n.classList.add('flash'); Q[r[0]].flash = 0; } } }); }
+function paintQuotes() { ALLROWS.forEach(r => { const el = document.getElementById('r-' + r[0]); if (el) { const fl = Q[r[0]] && Q[r[0]].flash; el.outerHTML = qRow(r); if (fl) { const n = document.getElementById('r-' + r[0]); n && n.classList.add(fl > 0 ? 'fl-up' : 'fl-dn'); Q[r[0]].flash = 0; } } }); }
 PAGES.home = {
   html() {
     const nx = ['Fed', 'TCMB'].map(b => CB_EVENTS.find(e => e.bank === b && Date.parse(e.t) > Date.now() - 2 * 36e5)).filter(Boolean);
     return ttl('PİYASA MONİTÖRÜ', dtf({weekday: 'long', day: 'numeric', month: 'long'}).format(Date.now()).toUpperCase()) +
-      panel('ENDEKSLER', `<table class="mt">${ROWS.idx.map(qRow).join('')}</table>`, 'BULUT · ' + (CLOUD.m ? fTime(CLOUD.m.at) : '—')) +
+      panel('ENDEKSLER', `<table class="mt">${ROWS.idx.map(qRow).join('')}</table>`, 'TARAMA · ' + (CLOUD.m ? fTime(CLOUD.m.at) : '—')) +
       panel('DÖVİZ & EMTİA', `<table class="mt">${ROWS.fx.map(qRow).join('')}</table>`, '<span class="up">● CANLI</span>') +
       panel('KRİPTO', `<table class="mt">${ROWS.cr.map(qRow).join('')}</table>`, '<span class="up">● CANLI</span> BINANCE') +
       panel('SİMÜLASYON PORTFÖYÜ', `<div id="pf">${this.pf()}</div>`, '<a data-go="trade">İŞLEM ›</a>') +
@@ -974,9 +1082,8 @@ function scanPage(mk) {
       const m = MK[mk], st = SC[mk];
       let ctl = '';
       if (m.live) ctl = `<div class="pb"><div class="tg" style="margin-bottom:10px">${m.tfs.map(t => `<button class="${CFG['tf_' + mk].includes(t) ? 'on' : ''}" data-tf="${mk}:${t}">${TFL[t].toUpperCase()}</button>`).join('')}</div><div id="sb-${mk}">${scanBtn(mk)}</div>${mk === 'crypto' && st.results.length && !st.running ? `<button class="btn bk" style="margin-top:6px" data-act="fill">EN GÜÇLÜ ${CFG.maxPos} POZİSYONU AÇ · ${CFG.lev}X</button>` : ''}</div><div class="prog"><i id="pg-${mk}"></i></div>`;
-      else ctl = `<div class="note" style="margin:10px">Bu piyasa GitHub sunucularında <b>~20 dakikada bir</b> otomatik taranır (1S · 4S · 1G · 1H). Son tarama: <b class="am">${st.at ? fDT(st.at) + ' (' + ago(st.at) + ')' : '—'}</b></div><div class="pb" style="padding-top:0"><button class="btn bk" data-act="scan:${mk}">BULUT VERİSİNİ YENİLE</button></div>`;
-      if (mk === 'com') ctl += `<div class="note" style="margin:10px 10px 0;border-color:var(--tx3);background:transparent">Canlı tarama: altın, gümüş, platin, paladyum, bakır, petrol, doğalgaz (Binance). Tarım ürünleri bulut taramasından gelir.${st.cloudAt ? ` Bulut: <b>${fTime(st.cloudAt)}</b>` : ''}</div><div style="height:10px"></div>`;
-      return ttl(m.t, m.s) + panel('KONTROL', ctl + `<div class="sumb" id="sm-${mk}">${scanSum(mk)}</div>`) +
+      else ctl = `<div class="pb"><button class="btn go bk" data-act="scan:${mk}">YENİLE</button></div>`;
+      return panel('KONTROL', ctl + `<div class="sumb" id="sm-${mk}">${scanSum(mk)}</div>`) +
         `<div class="g2" style="margin-bottom:8px"><div class="seg">${[['all', 'TÜMÜ'], ['long', 'AL'], ['short', 'SAT']].map(([k, l]) => `<button class="${st.filter === k ? 'on' : ''}" data-flt="${mk}:${k}">${l}</button>`).join('')}</div><div class="seg">${[['score', 'SKOR'], ['new', 'YENİ']].map(([k, l]) => `<button class="${st.sort === k ? 'on' : ''}" data-srt="${mk}:${k}">${l}</button>`).join('')}</div></div>
         <input class="inp" style="margin-bottom:8px" placeholder="SEMBOL ARA ›" value="${esc(st.q)}" data-q="${mk}">` + panel('SİNYALLER', `<div id="ls-${mk}">${scanList(mk)}</div>`);
     },
@@ -987,7 +1094,7 @@ function scanPage(mk) {
 function scanBtn(mk) { const st = SC[mk]; return st.running ? `<button class="btn bk" data-act="cancel:${mk}">DURDUR · ${st.done}/${st.total || '…'}</button>` : `<button class="btn go bk" data-act="scan:${mk}">TARA</button>`; }
 function scanSum(mk) { const st = SC[mk]; const l = st.results.filter(r => r.dir > 0).length; return `<div><span>SEMBOL</span><b>${st.scanned || '—'}</b></div><div><span>SİNYAL</span><b class="am">${st.results.length}</b></div><div><span>AL</span><b class="up">${l}</b></div><div><span>SAT</span><b class="dn">${st.results.length - l}</b></div><div><span>SON</span><b>${st.at ? fTime(st.at) : '—'}</b></div>`; }
 function renderProg(mk) { const st = SC[mk]; const p = $('#pg-' + mk); if (p) p.style.width = (st.running && st.total ? st.done / st.total * 100 : 0) + '%'; const b = $('#sb-' + mk); if (b) b.innerHTML = scanBtn(mk); const tb = $('#trscan'); if (tb && mk === 'crypto') { tb.disabled = st.running; tb.textContent = st.running ? `TARANIYOR ${st.done}/${st.total || '…'}` : 'TARA VE POZİSYON AÇ'; } }
-function renderScan(mk) { renderNav(); if (route === mk || route === 'trade') renderProg(mk); }
+function renderScan(mk) { renderNav(); if (route === 'scan' || route === 'trade') renderProg(mk); }
 function scanList(mk) {
   const st = SC[mk]; let r = st.results.slice();
   if (st.filter === 'long') r = r.filter(x => x.dir > 0); if (st.filter === 'short') r = r.filter(x => x.dir < 0);
@@ -1000,16 +1107,22 @@ function sigRow(s) {
   const L = s.dir > 0, col = s.score >= 80 ? 'var(--am)' : s.score >= 65 ? 'var(--up)' : 'var(--tx2)';
   const mtf = s.mtf ? `<span class="mtf">${Object.keys(TFL).filter(t => s.mtf[t] !== undefined).map(t => `<i class="${s.mtf[t] > 0 ? 'u' : s.mtf[t] < 0 ? 'd' : ''}">${TFL[t]}</i>`).join('')}</span>` : '';
   const src = s.mk === 'com' ? `<span class="tag ${s.live ? 'lv' : 'dlg'}">${s.live ? 'CANLI' : 'GECİK'}</span>` : '';
-  return `<div class="sr" data-sig="${esc(s.id)}"><div class="l1"><span class="sy">${esc(dispSym(s.mk, s.sym))}</span><span class="tag ${L ? 'L' : 'S'}">${L ? 'AL' : 'SAT'}</span><span class="tag o">${TFL[s.tf]}</span>${src}${POS.some(p => p.sym === s.sym) ? '<span class="tag o am">AÇIK</span>' : ''}<span class="sc" style="color:${col}"><i style="--w:${s.score}%;--c:${col}"></i>${s.score}</span></div>
+  return `<div class="sr" style="--c:${L ? 'var(--up)' : 'var(--dn)'}" data-sig="${esc(s.id)}"><div class="l1"><span class="sy">${esc(dispSym(s.mk, s.sym))}</span><span class="tag ${L ? 'L' : 'S'}">${L ? 'AL' : 'SAT'}</span><span class="tag o">${TFL[s.tf]}</span>${src}${POS.some(p => p.sym === s.sym) ? '<span class="tag o am">AÇIK</span>' : ''}<span class="am" style="font-size:11px;font-weight:700;white-space:nowrap">⏱ ${detT(s)}</span><span class="sc" style="color:${col}"><i style="--w:${s.score}%;--c:${col}"></i>${s.score}</span></div>
     <div class="l2"><span>GİR <b>${fp(s.entry)}</b></span><span>STP <b class="dn">${fp(s.stop)}</b></span><span>HDF <b class="up">${fp(s.target)}</b></span><span>R <b>${nf(s.riskPct, 1)}%</b></span></div>
     <div class="l3">${esc((s.mk === 'com' ? s.name + ' · ' : '') + s.type)} · RSI ${nf(s.rsi, 0)}${s.vx >= 1.3 ? ' · HACİM ×' + nf(s.vx, 1) : ''} ${mtf}</div></div>`;
+}
+function detT(s) {
+  const dd = t => dtf({day: '2-digit', month: '2-digit'}).format(t), today = dd(Date.now());
+  if (s.tf === '1w' || s.tf === '1d') return dd(s.barT);
+  const t = Math.min(s.barT + (TFMS[s.tf] || 0), Date.now());
+  return (dd(t) === today ? '' : dd(t) + ' ') + fTime(t);
 }
 function findSig(id) { for (const k in SC) { const s = SC[k].results.find(x => x.id === id); if (s) return s; } return null; }
 function sigSheet(s) {
   const L = s.dir > 0, mk = s.mk, lev = CFG.lev, liq = liqP(s.dir, s.entry, lev);
   const roeT = (L ? s.target / s.entry - 1 : 1 - s.target / s.entry) * lev * 100, roeS = (L ? s.stop / s.entry - 1 : 1 - s.stop / s.entry) * lev * 100; const isOpen = POS.some(p => p.sym === s.sym);
   openSheet(`<div style="display:flex;align-items:center;gap:8px"><h3 class="sh-t">${esc(dispSym(mk, s.sym))}</h3><span class="tag ${L ? 'L' : 'S'}">${L ? 'AL' : 'SAT'}</span><span class="tag o">${TFL[s.tf]}</span><span style="margin-left:auto;font-size:22px;font-weight:800;color:${s.score >= 80 ? 'var(--am)' : 'var(--up)'}">${s.score}</span></div>
-    <div class="t2" style="font-size:11.5px;margin:4px 0 10px">${esc(s.name)} · ${esc(s.type)} · MUM ${fDT(s.barT)}</div>
+    <div class="t2" style="font-size:11.5px;margin:4px 0 10px">${esc(s.name)} · ${esc(s.type)} · TESPİT <b class="am">${detT(s)}</b></div>
     <canvas class="ch" id="cv"></canvas>
     <div class="kp" style="border:1px solid var(--ln);border-bottom:0;margin-top:8px">${[['GİRİŞ', fp(s.entry)], ['STOP', `<span class="dn">${fp(s.stop)}</span>`], ['HEDEF 1', `<span class="up">${fp(s.target)}</span>`], ['HEDEF 2', `<span class="up">${fp(s.t2)}</span>`], ['RİSK', nf(s.riskPct, 2) + '%'], ['R:R', '1:' + CFG.rr], ['RSI', nf(s.rsi, 1)], ['HACİM', s.vx ? '×' + nf(s.vx, 2) : '—'], ['ÇOKLU TF', (s.mtfBonus > 0 ? '+' : '') + (s.mtfBonus || 0)]].map(([a, b]) => `<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>
     <ul class="why">${(s.why || []).map(w => `<li>${esc(w)}</li>`).join('')}</ul>
@@ -1021,16 +1134,74 @@ function sigSheet(s) {
       const el = $('#cv', c); if (el && bars) drawChart(el, bars, s); else if (el) { const {x, w, h} = cv(el); x.fillStyle = '#5F5E5B'; x.font = '600 11px JetBrains Mono'; x.fillText('GRAFİK VERİSİ YOK', 12, h / 2); }
     });
 }
-PAGES.crypto = scanPage('crypto'); PAGES.bist = scanPage('bist'); PAGES.ndx = scanPage('ndx'); PAGES.com = scanPage('com');
+const MKL = {crypto: ['KRİPTO', 'Binance · canlı'], bist: ['BIST 100', 'Borsa İstanbul'], ndx: ['NASDAQ 100', 'ABD hisseleri'], com: ['EMTİA', 'Metal · enerji · tarım']};
+const SCANP = {crypto: scanPage('crypto'), bist: scanPage('bist'), ndx: scanPage('ndx'), com: scanPage('com')};
+PAGES.scan = {
+  html() {
+    const opts = Object.keys(MKL).map(k => `<a class="${k === SCANMK ? 'on' : ''}" data-act="selmk:${k}"><span>${MKL[k][0]}<small>${MKL[k][1]}</small></span><b>${SC[k].results.length || ''}</b></a>`).join('');
+    return ttl('TARAMA', '') + `<div class="selw" id="selw"><button class="sel" data-act="seltog"><span>${MKL[SCANMK][0]}<small>${MKL[SCANMK][1]}</small></span><i>▾</i></button><div class="selm">${opts}</div></div>` + SCANP[SCANMK].html();
+  },
+  after() { SCANP[SCANMK].after(); },
+  soft() { SCANP[SCANMK].soft(); }
+};
+
+/* ---- piyasa listeleri ---- */
+function listData(mk) {
+  if (mk === 'crypto') return (UNIV || []).map(x => ({sym: x.sym, name: x.name, price: x.price, chg: x.chg, vol: x.vol, live: true}));
+  const cl = (CLOUD.m && CLOUD.m.lists && CLOUD.m.lists[mk]) || [];
+  if (mk !== 'com') return cl;
+  const m = new Map(cl.map(x => [x.sym, x]));
+  return COMMOD.map(([s, n]) => { const q = COMQ[s]; const c = m.get(s); return q ? {sym: s, name: n, price: q.price, chg: q.chg, live: true} : c ? Object.assign({}, c, {name: n}) : {sym: s, name: n}; });
+}
+const fVol = v => v == null ? '' : v >= 1e9 ? nf(v / 1e9, 1) + 'B' : v >= 1e6 ? nf(v / 1e6, 1) + 'M' : v >= 1e3 ? nf(v / 1e3, 0) + 'K' : nf(v, 0);
+function sigBadge(mk, sym) { const r = SC[mk].results.filter(x => x.sym === sym); if (!r.length) return ''; const b = r.sort((a, c) => c.score - a.score)[0]; return `<span class="tag ${b.dir > 0 ? 'L' : 'S'}" style="font-size:9px;padding:1px 4px;margin-left:5px">${b.dir > 0 ? 'AL' : 'SAT'}</span>`; }
+const LPREV = {};
+function listRows(mk) {
+  const st = LST[mk]; let d = listData(mk).slice();
+  if (st.q) { const q = st.q.toUpperCase(); d = d.filter(x => x.sym.toUpperCase().includes(q) || (x.name || '').toUpperCase().includes(q)); }
+  d.sort(st.sort === 'chg' ? (a, b) => (b.chg ?? -1e9) - (a.chg ?? -1e9) : st.sort === 'drop' ? (a, b) => (a.chg ?? 1e9) - (b.chg ?? 1e9) : st.sort === 'name' ? (a, b) => dispSym(mk, a.sym).localeCompare(dispSym(mk, b.sym)) : (a, b) => (b.vol || 0) - (a.vol || 0));
+  if (!d.length) return `<div class="empty">${mk === 'crypto' ? 'YÜKLENİYOR…' : '—'}</div>`;
+  const out = `<table class="mt lt">${d.map(x => { const pv = LPREV[mk + x.sym]; LPREV[mk + x.sym] = x.price; const fl = pv && x.price !== pv ? (x.price > pv ? 'fl-up' : 'fl-dn') : ''; return `<tr class="${fl}" data-lsym="${mk}|${esc(x.sym)}"><td class="k">${esc(dispSym(mk, x.sym))}${sigBadge(mk, x.sym)}</td><td class="n">${esc(x.name && x.name !== dispSym(mk, x.sym) && mk !== 'crypto' ? x.name : '')}${x.vol ? `<span class="dl">HACİM ${fVol(x.vol)}</span>` : ''}</td><td class="p">${fp(x.price)}</td><td class="c"><span class="chg ${x.chg > 0 ? 'up' : x.chg < 0 ? 'dn' : ''} ${cls(x.chg)}">${pct(x.chg)}</span></td></tr>`; }).join('')}</table>`;
+  return out;
+}
+function listSum(mk) { const d = listData(mk); const u = d.filter(x => x.chg > 0).length, dn = d.filter(x => x.chg < 0).length; const t = mk === 'crypto' ? UNIV_T : mk === 'com' ? Date.now() : (CLOUD.m && CLOUD.m.at); return `<div><span>SEMBOL</span><b>${d.length || '—'}</b></div><div><span>YÜKSELEN</span><b class="up">${u}</b></div><div><span>DÜŞEN</span><b class="dn">${dn}</b></div><div><span>GÜNCEL</span><b>${t ? fTime(t) : '—'}</b></div>`; }
+function listPage(mk) {
+  return {
+    html() {
+      const st = LST[mk];
+      return ttl(MKL[mk][0], '') + panel('ÖZET', `<div class="sumb" style="border-top:0" id="lsum-${mk}">${listSum(mk)}</div>`) +
+        `<div class="seg" style="margin-bottom:8px">${[['vol', 'HACİM'], ['chg', 'YÜKSELEN'], ['drop', 'DÜŞEN'], ['name', 'A-Z']].map(([k, l]) => `<button class="${st.sort === k ? 'on' : ''}" data-lsrt="${mk}:${k}">${l}</button>`).join('')}</div>
+        <input class="inp" style="margin-bottom:8px" placeholder="SEMBOL ARA ›" value="${esc(st.q)}" data-lq="${mk}">` +
+        panel('LİSTE', `<div id="lrows-${mk}">${listRows(mk)}</div>`, `<a data-act="goscan:${mk}">TARA ›</a>`);
+    },
+    after() { refreshList(mk); },
+    soft() { const r = $('#lrows-' + mk); if (r) r.innerHTML = listRows(mk); const s = $('#lsum-' + mk); if (s) s.innerHTML = listSum(mk); }
+  };
+}
+async function refreshList(mk) {
+  try {
+    if (mk === 'crypto') await bnUniverse(true);
+    else if (mk === 'com') { const m = await bnTradfi(); await pool(Object.keys(m), 4, async y => { const q = await bnQuote(m[y], BN.fut); COMQ[y] = q; }); }
+    else await loadCloud();
+  } catch (e) {}
+  if (route === mk) softRender();
+}
+PAGES.crypto = listPage('crypto'); PAGES.bist = listPage('bist'); PAGES.ndx = listPage('ndx'); PAGES.com = listPage('com');
+function symSheet(mk, sym) {
+  const x = listData(mk).find(v => v.sym === sym) || {sym}; const sigs = SC[mk].results.filter(r => r.sym === sym).sort((a, b) => b.score - a.score);
+  openSheet(`<div style="display:flex;align-items:baseline;gap:10px"><h3 class="sh-t">${esc(dispSym(mk, sym))}</h3><span class="t2" style="font-size:12px">${esc(x.name && x.name !== sym ? x.name : '')}</span></div>
+    <div style="display:flex;align-items:baseline;gap:10px;margin:6px 0 12px"><span class="big">${fp(x.price)}</span><span class="chg ${x.chg > 0 ? 'up' : x.chg < 0 ? 'dn' : ''} ${cls(x.chg)}">${pct(x.chg)}</span>${x.vol ? `<span class="t3" style="font-size:11px">HACİM ${fVol(x.vol)}</span>` : ''}</div>
+    ${panel('SİNYALLER', sigs.length ? sigs.map(sigRow).join('') : '<div class="empty">AKTİF SİNYAL YOK</div>')}
+    <div class="g2"><a class="btn" href="${tvLink(mk, sym)}" target="_blank" rel="noopener">TRADINGVIEW ›</a><button class="btn go" data-act="goscan:${mk}">TARA</button></div>`);
+}
 
 /* ---- işlem ---- */
 PAGES.trade = {
   html() {
     const st = SC.crypto;
     return ttl('ALIM-SATIM', 'SİMÜLASYON · BINANCE PERP', `${POS.length}/${CFG.maxPos} POZ`) +
-      `<div class="note">Pozisyonlar yalnızca sen istediğinde açılır. Stop/hedef otomatik takip edilir; uygulama kapalıyken olanlar açılışta 1dk mumlarla kontrol edilir. Gerçek emir gönderilmez.</div>` +
       panel('HESAP', `<div id="tr-a">${this.acc()}</div>`) +
-      panel('EMİR', `<div class="pb"><div class="t2" style="font-size:11.5px;margin-bottom:8px">SKOR ≥ ${CFG.minScore} · EN GÜÇLÜDEN BAŞLA · ${CFG.lev}X · $${CFG.margin} TEMİNAT</div><button class="btn go bk" id="trscan" data-act="scantrade" ${st.running ? 'disabled' : ''}>${st.running ? 'TARANIYOR' : 'TARA VE POZİSYON AÇ'}</button>${st.at && !st.running ? `<button class="btn bk" style="margin-top:6px" data-act="fill">SON TARAMADAN AÇ · ${fTime(st.at)} (${ago(st.at)})</button>` : ''}</div><div class="prog"><i id="pg-crypto"></i></div>`) +
+      panel('EMİR', `<div class="pb"><button class="btn go bk" id="trscan" data-act="scantrade" ${st.running ? 'disabled' : ''}>${st.running ? 'TARANIYOR' : 'TARA VE POZİSYON AÇ'}</button>${st.at && !st.running ? `<button class="btn bk" style="margin-top:6px" data-act="fill">SON TARAMADAN AÇ · ${fTime(st.at)} (${ago(st.at)})</button>` : ''}</div><div class="prog"><i id="pg-crypto"></i></div>`) +
       panel('AÇIK POZİSYONLAR', `<div id="tr-p">${this.pos()}</div>`) +
       panel('SON KAPANANLAR', HIST.slice(0, 8).map(hRow).join('') || '<div class="empty">KAPANMIŞ İŞLEM YOK</div>', '<a data-go="stats">İSTATİSTİK ›</a>');
   },
@@ -1132,25 +1303,29 @@ PAGES.cal = {
 function repoInfo() { const h = location.hostname; if (!h.endsWith('github.io')) return null; return {owner: h.split('.')[0], repo: location.pathname.split('/').filter(Boolean)[0] || ''}; }
 PAGES.settings = {
   html() {
-    const f = (k, l, h, st = 'any') => `<label>${l}</label><input class="inp" type="number" step="${st}" data-cfg="${k}" value="${CFG[k]}">${h ? `<div class="h">${h}</div>` : ''}`;
+    const f = (k, l, h, st = 'any') => `<label>${l}</label><input class="inp" type="number" step="${st}" data-cfg="${k}" value="${CFG[k]}">`;
     const ri = repoInfo(); const act = ri ? `https://github.com/${ri.owner}/${ri.repo}/actions` : null;
     return ttl('AYARLAR', 'SİSTEM') +
-      panel('VERİ DURUMU', `<div class="kv" style="border-top:0"><div><span>BINANCE (CANLI)</span><b class="${NETST.bn < 0 ? 'dn' : 'up'}">${NETST.bn < 0 ? 'HATA' : 'BAĞLI'}</b></div><div><span>BULUT TARAMASI</span><b class="${CLOUD.m ? (cloudAge() > 90 * 60e3 ? 'am' : 'up') : 'dn'}">${CLOUD.m ? fTime(CLOUD.m.at) + ' · ' + ago(CLOUD.m.at) : 'YOK'}</b></div></div><div class="pb t2" style="font-size:11.5px">Bulut verisi (BIST, Nasdaq, endeksler, haberler, takvim) GitHub Actions ile ~20 dakikada bir güncellenir. Hemen yenilemek için GitHub'da <b>Actions → F sevim veri → Run workflow</b>.${act ? `<br><a class="lk" href="${act}" target="_blank" rel="noopener">GitHub Actions sayfasını aç ›</a>` : ''}${CLOUD.m && CLOUD.m.errors && CLOUD.m.errors.length ? `<br><span class="am">Son taramada ${CLOUD.m.errors.length} uyarı.</span>` : ''}</div>`) +
+      panel('VERİ DURUMU', `<div class="kv" style="border-top:0"><div><span>BINANCE (CANLI)</span><b class="${NETST.bn < 0 ? 'dn' : 'up'}">${NETST.bn < 0 ? 'HATA' : 'BAĞLI'}</b></div><div><span>TARAMA</span><b class="${CLOUD.m ? (cloudAge() > 90 * 60e3 ? 'am' : 'up') : 'dn'}">${CLOUD.m ? fTime(CLOUD.m.at) + ' · ' + ago(CLOUD.m.at) : 'YOK'}</b></div></div>`) +
       panel('SİMÜLASYON', `<div class="pb set">${f('balance0', 'BAŞLANGIÇ BAKİYESİ ($)', 'Sıfırlamadan sonra geçerli olur.')}${f('margin', 'İŞLEM BAŞI TEMİNAT ($)')}${f('maxPos', 'MAKS. POZİSYON', '', 1)}${f('lev', 'KALDIRAÇ (X)', '', 1)}${f('minScore', 'MİN. SKOR', '1–99', 1)}${f('rr', 'RİSK:ÖDÜL (HEDEF = RİSK × DEĞER)')}${f('fee', 'KOMİSYON (% HER YÖN)')}</div>`) +
-      panel('KRİPTO FİLTRESİ', `<div class="pb set">${f('minVol', 'MİN. 24S HACİM (MİLYON $)', 'Düşürdükçe daha çok coin taranır.')}<div class="h" style="margin-top:10px">Veri modu: <b class="am">${bnMode === 'spot' ? 'SPOT' : 'VADELİ (PERP)'}</b></div></div>`) +
-      panel('UYGULAMA', `<div class="pb t2" style="font-size:11.5px">Chrome menüsü → <b>Ana ekrana ekle</b> ile tam ekran kullan. BIST ve Nasdaq listeleri index.html içindeki motor bölümünde tanımlıdır.</div><div class="pb" style="padding-top:0"><button class="btn rd bk" data-act="reset">SİMÜLASYONU SIFIRLA</button></div>`);
+      panel('KRİPTO FİLTRESİ', `<div class="pb set">${f('minVol', 'MİN. 24S HACİM (MİLYON $)', 'Düşürdükçe daha çok coin taranır.')}</div>`) +
+      panel('SIFIRLA', `<div class="pb"><button class="btn rd bk" data-act="reset">SİMÜLASYONU SIFIRLA</button></div>`);
   },
   after() { $$('[data-cfg]').forEach(i => i.onchange = () => { const v = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(v)) return; CFG[i.dataset.cfg] = v; if (i.dataset.cfg === 'minVol') UNIV_T = 0; saveCfg(); toast('KAYDEDİLDİ'); }); }
 };
 
 /* ---------- olaylar ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-go],[data-act],[data-tf],[data-flt],[data-srt],[data-sig],[data-news],[data-hist],[data-per],[data-ntab],[data-au],[data-imp],[data-ccy]'); if (!t) return; const d = t.dataset;
+  if (!e.target.closest('#selw')) { const w = $('#selw'); if (w) w.classList.remove('open'); }
+  const t = e.target.closest('[data-go],[data-act],[data-lsym],[data-lsrt],[data-tf],[data-flt],[data-srt],[data-sig],[data-news],[data-hist],[data-per],[data-ntab],[data-au],[data-imp],[data-ccy]'); if (!t) return; const d = t.dataset;
   if (d.go) { e.preventDefault(); if (navOpen) { navOpen = false; document.body.classList.remove('nav'); history.replaceState(null, '', '#' + d.go); route = d.go; renderNav(); renderPage(true); } else go(d.go); return; }
   if (d.act) {
     const a = d.act.split(':')[0], arg = d.act.slice(d.act.indexOf(':') + 1);
     if (a === 'scan') runScan(arg);
     else if (a === 'scantrade') runScan('crypto', {trade: true});
+    else if (a === 'seltog') $('#selw').classList.toggle('open');
+    else if (a === 'selmk') { SCANMK = arg; LS.set('scanmk', arg); renderNav(); renderPage(); }
+    else if (a === 'goscan') { SCANMK = arg; LS.set('scanmk', arg); if (shOpen) { shOpen = false; document.body.classList.remove('sh'); history.replaceState(null, '', '#scan'); route = 'scan'; renderNav(); renderPage(true); } else go('scan'); }
     else if (a === 'fill') { if (SC.crypto.running) return; t.disabled = true; autoFill(SC.crypto.results).then(() => { renderNav(); renderPage(); }); }
     else if (a === 'cancel') { SC[arg].cancel = true; toast('DURDURULUYOR…'); }
     else if (a === 'shclose') closeSheet();
@@ -1160,6 +1335,8 @@ document.addEventListener('click', e => {
     else if (a === 'csv') exportCSV();
     return;
   }
+  if (d.lsym) { const i = d.lsym.indexOf('|'); symSheet(d.lsym.slice(0, i), d.lsym.slice(i + 1)); return; }
+  if (d.lsrt) { const [mk, v] = d.lsrt.split(':'); LST[mk].sort = v; $$(`[data-lsrt^="${mk}:"]`).forEach(b => b.classList.toggle('on', b === t)); softRender(); return; }
   if (d.tf) { const [mk, tf] = d.tf.split(':'); const arr = CFG['tf_' + mk]; const i = arr.indexOf(tf); i >= 0 ? arr.splice(i, 1) : arr.push(tf); saveCfg(); t.classList.toggle('on'); return; }
   if (d.flt) { const [mk, v] = d.flt.split(':'); SC[mk].filter = v; $$(`[data-flt^="${mk}:"]`).forEach(b => b.classList.toggle('on', b === t)); softRender(); return; }
   if (d.srt) { const [mk, v] = d.srt.split(':'); SC[mk].sort = v; $$(`[data-srt^="${mk}:"]`).forEach(b => b.classList.toggle('on', b === t)); softRender(); return; }
@@ -1172,17 +1349,17 @@ document.addEventListener('click', e => {
   if (d.imp) { const i = CALF.imp.indexOf(d.imp); i >= 0 ? CALF.imp.splice(i, 1) : CALF.imp.push(d.imp); LS.set('calimp', CALF.imp); renderPage(); return; }
   if (d.ccy) { const i = CALF.ccy.indexOf(d.ccy); i >= 0 ? CALF.ccy.splice(i, 1) : CALF.ccy.push(d.ccy); LS.set('calccy', CALF.ccy); renderPage(); return; }
 });
-document.addEventListener('input', e => { const q = e.target.dataset && e.target.dataset.q; if (q) { SC[q].q = e.target.value; softRender(); } });
+document.addEventListener('input', e => { const ds = e.target.dataset || {}; if (ds.q) { SC[ds.q].q = e.target.value; softRender(); } if (ds.lq) { LST[ds.lq].q = e.target.value; softRender(); } });
 $('#burger').onclick = () => navOpen ? closeNav() : openNav();
 $('#scrim').onclick = () => closeNav();
 $('#sbg').onclick = () => closeSheet();
 (() => { let y0 = null; const sh = $('#sheet'); sh.addEventListener('touchstart', e => { y0 = sh.scrollTop <= 0 ? e.touches[0].clientY : null; }, {passive: true}); sh.addEventListener('touchmove', e => { if (y0 == null) return; const dy = e.touches[0].clientY - y0; if (dy > 0) sh.style.transform = `translateY(${dy}px)`; }, {passive: true}); sh.addEventListener('touchend', e => { if (y0 == null) return; const dy = e.changedTouches[0].clientY - y0; sh.style.transform = ''; if (dy > 110) closeSheet(); y0 = null; }); })();
 
 /* ---------- zamanlayıcılar ---------- */
-setInterval(() => { $('#clock').textContent = dtf({hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(Date.now()); $$('[data-cd]').forEach(el => el.textContent = countdown(+el.dataset.cd)); }, 1000);
+setInterval(() => { $('#clock').textContent = fTime(Date.now()); $$('[data-cd]').forEach(el => el.textContent = countdown(+el.dataset.cd)); }, 1000);
 setInterval(() => { if (!document.hidden) refreshMarks(); }, 10e3);
 setInterval(() => { if (!document.hidden) checkPositions(); }, 45e3);
-setInterval(() => { if (document.hidden) return; loadQuotes().catch(() => {}); }, 20e3);
+setInterval(() => { if (document.hidden) return; loadQuotes().catch(() => {}); if (route === 'crypto' || route === 'com') refreshList(route); }, 20e3);
 setInterval(() => { if (!document.hidden) loadCloud(); }, 5 * 60e3);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { checkPositions(); refreshMarks(); loadCloud(); loadQuotes().catch(() => {}); } });
 
@@ -1194,7 +1371,7 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) { ch
   const lines = ['F SEVİM TERMİNAL v4.0', '> BINANCE CANLI AKIŞ ............ BAĞLANIYOR', '> BULUT TARAMASI (GITHUB) ....... YÜKLENİYOR', '> SİNYAL MOTORU ................. HAZIR'];
   const pre = $('#boot pre'); let i = 0; const tick = setInterval(() => { pre.textContent = lines.slice(0, ++i).join('\n'); if (i >= lines.length) clearInterval(tick); }, 220);
   setTimeout(() => $('#boot').classList.add('hide'), 1400);
-  loadCloud().then(() => { paintStat(); if (route !== 'crypto' && route !== 'trade') renderPage(); loadQuotes().catch(() => {}); });
+  loadCloud().then(() => { paintStat(); if (!['crypto', 'trade', 'scan'].includes(route)) renderPage(); loadQuotes().catch(() => {}); });
   loadQuotes().catch(() => {}); setTimeout(() => { checkPositions(); refreshMarks(); }, 800);
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
