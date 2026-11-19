@@ -1,0 +1,38 @@
+name: F sevim veri
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Piyasalari tara
+        run: |
+          cat > /tmp/run.cjs <<'JS'
+          const fs = require('fs');
+          const h = fs.readFileSync('index.html', 'utf8');
+          const pick = id => h.match(new RegExp('<script[^>]*id="' + id + '"[^>]*>([\\s\\S]*?)</script>'))[1];
+          new Function('require', pick('engine') + '\n' + pick('scanner'))(require);
+          JS
+          node /tmp/run.cjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
