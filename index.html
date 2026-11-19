@@ -351,6 +351,7 @@ canvas.ch{background:radial-gradient(400px 200px at 80% 0,rgba(255,166,43,.06),t
 #boot .logo{animation:glow 1.6s ease-in-out infinite alternate}
 @keyframes glow{from{filter:drop-shadow(0 0 4px rgba(255,166,43,.3))}to{filter:drop-shadow(0 0 18px rgba(255,166,43,.75))}}
 .empty{color:var(--tx3)}
+.tape i,.tape em{font-style:normal}
 
 </style>
 </head>
@@ -743,7 +744,7 @@ async function bnUniverse(fresh) {
     bnMode = 'spot';
   }
   LS.set('bnmode', bnMode);
-  const all = list.length; UNIV = list.filter(t => t.vol >= CFG.minVol * 1e6).sort((a, b) => b.vol - a.vol); UNIV.removed = all - UNIV.length; UNIV_T = Date.now();
+  const all = list.length; UNIV = list.filter(t => t.vol >= CFG.minVol * 1e6).sort((a, b) => b.vol - a.vol); UNIV.removed = all - UNIV.length; UNIV_T = Date.now(); UNIVM = new Map(UNIV.map(x => [x.sym, x]));
   return UNIV;
 }
 const TRADFI_KEYS = {'GC=F': ['XAU', 'GOLD'], 'SI=F': ['XAG', 'SILVER'], 'PL=F': ['XPT', 'PLATINUM'], 'PA=F': ['XPD', 'PALLADIUM'], 'HG=F': ['COPPER', 'XCU', 'HG'], 'CL=F': ['CL', 'WTI', 'USOIL', 'CRUDE'], 'BZ=F': ['BZ', 'BRENT', 'UKOIL'], 'NG=F': ['NATGAS', 'NG', 'NGAS']};
@@ -875,14 +876,14 @@ function openPos(sig, price, manual) {
   const notional = CFG.margin * lev, qty = notional / entry, feeOpen = notional * CFG.fee / 100;
   const p = {id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), sym: sig.sym, name: sig.name, side, tf: sig.tf, type: sig.type, score: sig.score, entry, stop: sig.stop, target: sig.target, liq, margin: CFG.margin, lev, qty, feeOpen, openT: Date.now(), lastCheck: Date.now(), mark: entry, sigId: sig.id, manual: !!manual};
   ACC.balance -= feeOpen; ACC.used.push(sig.id); if (ACC.used.length > 600) ACC.used = ACC.used.slice(-400);
-  POS.push(p); saveT(); return {ok: p};
+  POS.push(p); saveT(); wsSync(); return {ok: p};
 }
 function closePos(p, exit, reason, t) {
   if (!POS.some(x => x.id === p.id)) return;
   const gross = p.side * (exit - p.entry) * p.qty, feeClose = exit * p.qty * CFG.fee / 100; ACC.balance += gross - feeClose;
   const pnl = gross - p.feeOpen - feeClose;
   HIST.unshift(Object.assign({}, p, {exit, reason, closeT: t || Date.now(), gross, fees: p.feeOpen + feeClose, pnl, roe: pnl / p.margin * 100, r: p.side * (exit - p.entry) / Math.abs(p.entry - p.stop)}));
-  POS = POS.filter(x => x.id !== p.id); saveT();
+  POS = POS.filter(x => x.id !== p.id); saveT(); wsSync();
   toast(`<b class="am">${esc(dispSym('crypto', p.sym))}</b> kapandı · ${RESL[reason]} · <span class="${cls(pnl)}">${usd(pnl, 1)}</span>`, 4000);
 }
 let checking = false;
@@ -934,14 +935,72 @@ const ALLROWS = [...ROWS.idx, ...ROWS.fx, ...ROWS.cr];
 const Q = LS.get('q', {});
 async function loadQuotes() {
   const cq = (CLOUD.m && CLOUD.m.quotes) || {};
-  ALLROWS.forEach(([k, , o]) => { if (o.y && cq[o.y] && !(Q[k] && Q[k].live && Date.now() - Q[k].at < 120e3)) Q[k] = Object.assign({}, cq[o.y], {live: false, at: CLOUD.m.at}); });
+  ALLROWS.forEach(([k, , o]) => { if (o.y && cq[o.y] && !(Q[k] && Q[k].live && Date.now() - Q[k].at < 120e3)) { const prev = Q[k] && Q[k].price; Q[k] = Object.assign({}, cq[o.y], {live: false, at: CLOUD.m.at}); if (prev && prev !== Q[k].price) Q[k].flash = Q[k].price > prev ? 1 : -1; } });
   const m = await bnTradfi().catch(() => ({}));
   await pool(ALLROWS.filter(([, , o]) => o.bn || o.tf), 4, async ([k, , o]) => {
     try { const r = o.bn ? await bnQuote(o.bn) : (m[o.tf] ? await bnQuote(m[o.tf], BN.fut) : null); if (r) { const prev = Q[k] && Q[k].price; Q[k] = Object.assign({}, r); if (prev && prev !== r.price) Q[k].flash = r.price > prev ? 1 : -1; } } catch (e) {}
   });
-  try { const [a, b] = await Promise.all([bnQuote('EURUSDT'), bnQuote('USDTTRY')]); Q.EURTRY = {price: a.price * b.price, chg: ((1 + a.chg / 100) * (1 + b.chg / 100) - 1) * 100, spark: a.spark.map((v, i) => v * (b.spark[i] ?? b.price)), live: true, at: Date.now()}; } catch (e) {}
-  if (Q.XAU && Q.USDTRY && Q.XAU.price && Q.USDTRY.price) { const k = Q.USDTRY.price / 31.1035; Q.GRAM = {price: Q.XAU.price * k, chg: ((1 + (Q.XAU.chg || 0) / 100) * (1 + (Q.USDTRY.chg || 0) / 100) - 1) * 100, spark: (Q.XAU.spark || []).map(v => v * k), live: Q.XAU.live && Q.USDTRY.live, at: Date.now()}; }
-  LS.set('q', Q); paintQuotes(); paintTape();
+  try { const [a, b] = await Promise.all([bnQuote('EURUSDT'), bnQuote('USDTTRY')]); EURQ = {a, b}; calcEur(); } catch (e) {}
+  calcGram();
+  LS.set('q', Q); paintQuotes(); paintTape(); wsSync();
+}
+let EURQ = null;
+function calcEur() { if (!EURQ) return; const {a, b} = EURQ; const prev = Q.EURTRY && Q.EURTRY.price; Q.EURTRY = {price: a.price * b.price, chg: ((1 + a.chg / 100) * (1 + b.chg / 100) - 1) * 100, spark: a.spark.map((v, i) => v * (b.spark[i] ?? b.price)), live: true, at: Date.now()}; if (prev && prev !== Q.EURTRY.price) Q.EURTRY.flash = Q.EURTRY.price > prev ? 1 : -1; }
+function calcGram() { if (Q.XAU && Q.USDTRY && Q.XAU.price && Q.USDTRY.price) { const k = Q.USDTRY.price / 31.1035; const prev = Q.GRAM && Q.GRAM.price; Q.GRAM = {price: Q.XAU.price * k, chg: ((1 + (Q.XAU.chg || 0) / 100) * (1 + (Q.USDTRY.chg || 0) / 100) - 1) * 100, spark: (Q.XAU.spark || []).map(v => v * k), live: Q.XAU.live && Q.USDTRY.live, at: Date.now()}; if (prev && prev !== Q.GRAM.price) Q.GRAM.flash = Q.GRAM.price > prev ? 1 : -1; } }
+
+/* ---------- canlı akış (Binance WebSocket) ---------- */
+const WS = {spot: null, fut: null, keys: {spot: '', fut: ''}, retry: {spot: 0, fut: 0}};
+let UNIVM = new Map();
+function wsWanted() {
+  const spot = new Set(['EURUSDT', 'USDTTRY']), fut = new Set(), cr = bnMode === 'spot' ? spot : fut;
+  ALLROWS.forEach(([, , o]) => { if (o.bn) spot.add(o.bn); if (o.tf && COMBN[o.tf]) fut.add(COMBN[o.tf]); });
+  POS.forEach(p => cr.add(p.sym));
+  if (route === 'crypto' && UNIV) UNIV.slice(0, 90).forEach(x => cr.add(x.sym));
+  if (route === 'com') Object.values(COMBN).forEach(x => fut.add(x));
+  return {spot: [...spot], fut: [...fut]};
+}
+let wsT = 0;
+function wsSync() { clearTimeout(wsT); wsT = setTimeout(wsSync_, 300); }
+function wsSync_() {
+  if (document.hidden) { wsClose(); return; }
+  const w = wsWanted();
+  ['spot', 'fut'].forEach(k => {
+    const key = w[k].slice().sort().join(',');
+    if (key === WS.keys[k] && WS[k] && WS[k].readyState <= 1) return;
+    if (WS[k]) { WS[k].onclose = null; try { WS[k].close(); } catch (e) {} WS[k] = null; }
+    WS.keys[k] = key; if (!w[k].length) return;
+    const url = (k === 'spot' ? 'wss://stream.binance.com:9443/stream?streams=' : 'wss://fstream.binance.com/stream?streams=') + w[k].map(x => x.toLowerCase() + '@miniTicker').join('/');
+    try {
+      const ws = new WebSocket(url); WS[k] = ws;
+      ws.onopen = () => { WS.retry[k] = 0; NETST.bn = 1; paintStat(); };
+      ws.onmessage = ev => { try { const m = JSON.parse(ev.data); const d = m.data || m; if (d && d.s) onTick(d.s, +d.c, +d.o); } catch (e) {} };
+      ws.onclose = () => { if (WS[k] !== ws) return; WS[k] = null; WS.keys[k] = ''; setTimeout(wsSync, Math.min(30e3, 1000 * 2 ** (WS.retry[k]++))); };
+    } catch (e) {}
+  });
+}
+function wsClose() { ['spot', 'fut'].forEach(k => { if (WS[k]) { WS[k].onclose = null; try { WS[k].close(); } catch (e) {} WS[k] = null; } WS.keys[k] = ''; }); }
+function setQ(k, c, chg) {
+  const q = Q[k] || {}; const prev = q.price; const sp = (q.spark || []).slice(); if (sp.length) sp[sp.length - 1] = c;
+  Q[k] = Object.assign({}, q, {price: c, chg, spark: sp, live: true, at: Date.now()}); if (prev && prev !== c) Q[k].flash = c > prev ? 1 : -1;
+}
+function onTick(sym, c, o) {
+  if (!c) return; const chg = o ? (c / o - 1) * 100 : null;
+  for (const [k, , op] of ALLROWS) { if (op.bn === sym || (op.tf && COMBN[op.tf] === sym)) setQ(k, c, chg); }
+  if (EURQ && (sym === 'EURUSDT' || sym === 'USDTTRY')) { const t = sym === 'EURUSDT' ? EURQ.a : EURQ.b; t.price = c; t.chg = chg; calcEur(); }
+  if (sym === 'USDTTRY' || sym === COMBN['GC=F']) calcGram();
+  const u = UNIVM.get(sym); if (u) { u.price = c; u.chg = chg; }
+  for (const y in COMBN) if (COMBN[y] === sym) COMQ[y] = Object.assign({}, COMQ[y] || {}, {price: c, chg});
+  for (const p of POS) if (p.sym === sym) { p.mark = c; if (p.side > 0 ? (c <= p.stop || c >= p.target) : (c >= p.stop || c <= p.target)) setTimeout(checkPositions, 50); }
+  schedulePaint();
+}
+let paintT = 0, tradeT = 0;
+function schedulePaint() { if (paintT) return; paintT = setTimeout(() => { paintT = 0; livePaint(); }, 450); }
+function livePaint() {
+  if (document.hidden) return;
+  paintQuotes(); paintTape();
+  if (route === 'crypto' || route === 'com') paintListLive(route);
+  if (route === 'home') { const p = $('#pf'); if (p) p.innerHTML = PAGES.home.pf(); }
+  if (route === 'trade' && Date.now() - tradeT > 1500) { tradeT = Date.now(); softRender(); }
 }
 
 /* ---------- haber & takvim ---------- */
@@ -1026,7 +1085,7 @@ function renderNav() {
 function go(r) { if (!PAGES[r]) r = 'home'; if (location.hash !== '#' + r) { location.hash = r; return; } route = r; renderNav(); renderPage(true); }
 function renderPage(top) { const p = PAGES[route]; $('#view').innerHTML = `<section class="pg">${p.html()}</section><div class="foot"><i class="logo"></i></div>`; p.after && p.after(); if (top) window.scrollTo(0, 0); }
 function softRender() { const p = PAGES[route]; if (p && p.soft) p.soft(); }
-window.addEventListener('hashchange', () => { const r = location.hash.slice(1) || 'home'; if (navOpen) { navOpen = false; document.body.classList.remove('nav'); } if (shOpen) { shOpen = false; document.body.classList.remove('sh'); } route = PAGES[r] ? r : 'home'; renderNav(); renderPage(true); });
+window.addEventListener('hashchange', () => { setTimeout(wsSync, 0); const r = location.hash.slice(1) || 'home'; if (navOpen) { navOpen = false; document.body.classList.remove('nav'); } if (shOpen) { shOpen = false; document.body.classList.remove('sh'); } route = PAGES[r] ? r : 'home'; renderNav(); renderPage(true); });
 const panel = (t, body, r = '') => `<div class="pn"><div class="ph"><b>${t}</b>${r ? `<span class="r">${r}</span>` : ''}</div>${body}</div>`;
 const ttl = (t, s, r = '') => `<div class="ttl"><h1>${t}</h1>${s ? `<span>${s}</span>` : ''}${r ? `<div class="r">${r}</div>` : ''}</div>`;
 
@@ -1036,9 +1095,12 @@ function paintStat() {
   const age = cloudAge(); const cv_ = !CLOUD.m ? -1 : age > 90 * 60e3 ? 0 : 1;
   $('#st').innerHTML = d(NETST.bn, 'CANLI') + d(cv_, 'TARAMA');
 }
+const TAPEK = ['BTC', 'ETH', 'XAU', 'GRAM', 'USDTRY', 'EURTRY', 'XU100', 'NDX', 'BRENT', 'XAG', 'DXY', 'VIX', 'SOL', 'US10Y'];
+let tapeSig = '';
 function paintTape() {
-  const items = ['BTC', 'ETH', 'XAU', 'GRAM', 'USDTRY', 'EURTRY', 'XU100', 'NDX', 'BRENT', 'XAG', 'DXY', 'VIX', 'SOL', 'US10Y'].map(k => { const r = ALLROWS.find(x => x[0] === k); const v = Q[k]; if (!r || !v || v.price == null) return ''; return `<span><b>${k}</b>${fmtQ(r[2], v.price)} <em class="${cls(v.chg)}" style="font-style:normal">${pct(v.chg)}</em></span>`; }).join('');
-  if (items) $('#tape').innerHTML = `<div class="tr">${items}${items}</div>`;
+  const ks = TAPEK.filter(k => Q[k] && Q[k].price != null); const sig = ks.join(',');
+  if (sig !== tapeSig) { tapeSig = sig; const items = ks.map(k => `<span data-tp="${k}"><b>${k}</b><i></i> <em></em></span>`).join(''); $('#tape').innerHTML = items ? `<div class="tr">${items}${items}</div>` : ''; }
+  ks.forEach(k => { const r = ALLROWS.find(x => x[0] === k), v = Q[k]; $$(`[data-tp="${k}"]`).forEach(el => { el.children[1].textContent = fmtQ(r[2], v.price); const e = el.children[2]; e.textContent = pct(v.chg); e.className = cls(v.chg); }); });
 }
 function fmtQ(o, v) { if (v == null) return '—'; const d = o.d ?? (v >= 1000 ? 2 : v >= 10 ? 2 : 4); return (o.cur || '') + nf(v, d) + (o.suf || ''); }
 
@@ -1147,7 +1209,7 @@ PAGES.scan = {
 
 /* ---- piyasa listeleri ---- */
 function listData(mk) {
-  if (mk === 'crypto') return (UNIV || []).map(x => ({sym: x.sym, name: x.name, price: x.price, chg: x.chg, vol: x.vol, live: true}));
+  if (mk === 'crypto') return UNIV || [];
   const cl = (CLOUD.m && CLOUD.m.lists && CLOUD.m.lists[mk]) || [];
   if (mk !== 'com') return cl;
   const m = new Map(cl.map(x => [x.sym, x]));
@@ -1161,8 +1223,14 @@ function listRows(mk) {
   if (st.q) { const q = st.q.toUpperCase(); d = d.filter(x => x.sym.toUpperCase().includes(q) || (x.name || '').toUpperCase().includes(q)); }
   d.sort(st.sort === 'chg' ? (a, b) => (b.chg ?? -1e9) - (a.chg ?? -1e9) : st.sort === 'drop' ? (a, b) => (a.chg ?? 1e9) - (b.chg ?? 1e9) : st.sort === 'name' ? (a, b) => dispSym(mk, a.sym).localeCompare(dispSym(mk, b.sym)) : (a, b) => (b.vol || 0) - (a.vol || 0));
   if (!d.length) return `<div class="empty">${mk === 'crypto' ? 'YÜKLENİYOR…' : '—'}</div>`;
-  const out = `<table class="mt lt">${d.map(x => { const pv = LPREV[mk + x.sym]; LPREV[mk + x.sym] = x.price; const fl = pv && x.price !== pv ? (x.price > pv ? 'fl-up' : 'fl-dn') : ''; return `<tr class="${fl}" data-lsym="${mk}|${esc(x.sym)}"><td class="k">${esc(dispSym(mk, x.sym))}${sigBadge(mk, x.sym)}</td><td class="n">${esc(x.name && x.name !== dispSym(mk, x.sym) && mk !== 'crypto' ? x.name : '')}${x.vol ? `<span class="dl">HACİM ${fVol(x.vol)}</span>` : ''}</td><td class="p">${fp(x.price)}</td><td class="c"><span class="chg ${x.chg > 0 ? 'up' : x.chg < 0 ? 'dn' : ''} ${cls(x.chg)}">${pct(x.chg)}</span></td></tr>`; }).join('')}</table>`;
+  const out = `<table class="mt lt">${d.map(x => { const pv = LPREV[mk + x.sym]; LPREV[mk + x.sym] = x.price; const fl = pv && x.price !== pv ? (x.price > pv ? 'fl-up' : 'fl-dn') : ''; return `<tr class="${fl}" id="lr-${mk}-${esc(x.sym)}" data-lsym="${mk}|${esc(x.sym)}"><td class="k">${esc(dispSym(mk, x.sym))}${sigBadge(mk, x.sym)}</td><td class="n">${esc(x.name && x.name !== dispSym(mk, x.sym) && mk !== 'crypto' ? x.name : '')}${x.vol ? `<span class="dl">HACİM ${fVol(x.vol)}</span>` : ''}</td><td class="p">${fp(x.price)}</td><td class="c"><span class="chg ${x.chg > 0 ? 'up' : x.chg < 0 ? 'dn' : ''} ${cls(x.chg)}">${pct(x.chg)}</span></td></tr>`; }).join('')}</table>`;
   return out;
+}
+function paintListLive(mk) {
+  listData(mk).forEach(x => { const pv = LPREV[mk + x.sym]; if (pv === x.price || x.price == null) return; const el = document.getElementById('lr-' + mk + '-' + x.sym); LPREV[mk + x.sym] = x.price; if (!el) return;
+    el.cells[2].textContent = fp(x.price); el.cells[3].innerHTML = `<span class="chg ${x.chg > 0 ? 'up' : x.chg < 0 ? 'dn' : ''} ${cls(x.chg)}">${pct(x.chg)}</span>`;
+    if (pv) { el.classList.remove('fl-up', 'fl-dn'); void el.offsetWidth; el.classList.add(x.price > pv ? 'fl-up' : 'fl-dn'); } });
+  const s = $('#lsum-' + mk); if (s) s.innerHTML = listSum(mk);
 }
 function listSum(mk) { const d = listData(mk); const u = d.filter(x => x.chg > 0).length, dn = d.filter(x => x.chg < 0).length; const t = mk === 'crypto' ? UNIV_T : mk === 'com' ? Date.now() : (CLOUD.m && CLOUD.m.at); return `<div><span>SEMBOL</span><b>${d.length || '—'}</b></div><div><span>YÜKSELEN</span><b class="up">${u}</b></div><div><span>DÜŞEN</span><b class="dn">${dn}</b></div><div><span>GÜNCEL</span><b>${t ? fTime(t) : '—'}</b></div>`; }
 function listPage(mk) {
@@ -1185,6 +1253,7 @@ async function refreshList(mk) {
     else await loadCloud();
   } catch (e) {}
   if (route === mk) softRender();
+  wsSync();
 }
 PAGES.crypto = listPage('crypto'); PAGES.bist = listPage('bist'); PAGES.ndx = listPage('ndx'); PAGES.com = listPage('com');
 function symSheet(mk, sym) {
@@ -1359,9 +1428,9 @@ $('#sbg').onclick = () => closeSheet();
 setInterval(() => { $('#clock').textContent = fTime(Date.now()); $$('[data-cd]').forEach(el => el.textContent = countdown(+el.dataset.cd)); }, 1000);
 setInterval(() => { if (!document.hidden) refreshMarks(); }, 10e3);
 setInterval(() => { if (!document.hidden) checkPositions(); }, 45e3);
-setInterval(() => { if (document.hidden) return; loadQuotes().catch(() => {}); if (route === 'crypto' || route === 'com') refreshList(route); }, 20e3);
-setInterval(() => { if (!document.hidden) loadCloud(); }, 5 * 60e3);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) { checkPositions(); refreshMarks(); loadCloud(); loadQuotes().catch(() => {}); } });
+setInterval(() => { if (document.hidden) return; loadQuotes().catch(() => {}); if (route === 'crypto' || route === 'com') refreshList(route); }, 60e3);
+setInterval(() => { if (!document.hidden) loadCloud(); }, 2 * 60e3);
+document.addEventListener('visibilitychange', () => { if (document.hidden) { wsClose(); return; } if (!document.hidden) { wsSync(); checkPositions(); refreshMarks(); loadCloud(); loadQuotes().catch(() => {}); } });
 
 /* ---------- açılış ---------- */
 (async function init() {
