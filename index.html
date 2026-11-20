@@ -615,6 +615,13 @@ var AUTHORS = [
     } catch (e) { DATA.errors.push('quote ' + s + ': ' + e.message); }
   });
   log('kotasyonlar:', Object.keys(DATA.quotes).length + '/' + QUOTES.length);
+  // analiz robotu için günlük seriler
+  DATA.daily = {};
+  var DAILY = ['XU100.IS', 'XU030.IS', '^NDX', '^GSPC', 'GC=F', 'SI=F', 'BZ=F', 'CL=F', 'HG=F', 'DX-Y.NYB', '^TNX', '^VIX', 'TRY=X'];
+  await pool(DAILY, 4, async function (s) {
+    try { var d = await yChart(s, '1d', '2y'); DATA.daily[s] = d.bars.slice(-260).map(function (b) { return [Math.round(b.t / 1000), r6(b.o), r6(b.h), r6(b.l), r6(b.c)]; }); } catch (e) { DATA.errors.push('daily ' + s); }
+  });
+  log('günlük seriler:', Object.keys(DATA.daily).length + '/' + DAILY.length);
 
   var bist = BIST100.split(/\s+/).filter(Boolean).map(function (s) { return {sym: s + '.IS', name: s}; });
   var ndx = NDX100.split(/\s+/).filter(Boolean).map(function (s) { return {sym: s, name: s}; });
@@ -1010,7 +1017,7 @@ function drawChart(c, bars, s) {
   ln(e50, 'rgba(156,154,149,.55)'); ln(e21, 'rgba(255,160,40,.85)');
   B.forEach((b, i) => { const up = b.c >= b.o, xx = 3 + i * cw; x.strokeStyle = x.fillStyle = up ? '#19D27C' : '#FF4D4D'; x.beginPath(); x.moveTo(xx + cw / 2, Y(b.h)); x.lineTo(xx + cw / 2, Y(b.l)); x.stroke(); const y1 = Y(Math.max(b.o, b.c)), y2 = Y(Math.min(b.o, b.c)); x.fillRect(xx + cw * .2, y1, Math.max(1, cw * .6), Math.max(1, y2 - y1)); });
   const used = [];
-  const hl = (v, col, lab, dash) => { const yy = Y(v); x.setLineDash(dash ? [3, 3] : []); x.strokeStyle = col; x.beginPath(); x.moveTo(0, yy); x.lineTo(w - pr, yy); x.stroke(); x.setLineDash([]); let ly = yy; while (used.some(u => Math.abs(u - ly) < 15)) ly += (ly > h / 2 ? -15 : 15); used.push(ly); x.fillStyle = col; x.fillRect(w - pr + 2, ly - 7, pr - 3, 14); x.fillStyle = '#000'; x.font = '700 9.5px JetBrains Mono,monospace'; x.textBaseline = 'middle'; x.fillText(lab, w - pr + 5, ly); };
+  const hl = (v, col, lab, dash) => { const yy = Y(v); x.setLineDash(dash ? [3, 3] : []); x.strokeStyle = col; x.beginPath(); x.moveTo(0, yy); x.lineTo(w - pr, yy); x.stroke(); x.setLineDash([]); let ly = yy, dy = yy > h / 2 ? -15 : 15, g = 0; while (used.some(u => Math.abs(u - ly) < 15) && g++ < 20) ly += dy; used.push(ly); x.fillStyle = col; x.fillRect(w - pr + 2, ly - 7, pr - 3, 14); x.fillStyle = '#000'; x.font = '700 9.5px JetBrains Mono,monospace'; x.textBaseline = 'middle'; x.fillText(lab, w - pr + 5, ly); };
   hl(s.entry, '#E9E7E2', 'GİRİŞ'); hl(s.target, '#19D27C', 'HEDEF', 1); hl(s.stop, '#FF4D4D', 'STOP', 1); if (s.level != null) hl(s.level, '#FFA028', 'SEVİYE', 1);
   const bi = B.findIndex(b => b.t === s.barT); if (bi >= 0) { const xx = 3 + bi * cw + cw / 2, yy = s.dir > 0 ? Y(B[bi].l) + 9 : Y(B[bi].h) - 9; x.fillStyle = '#FFA028'; x.beginPath(); if (s.dir > 0) { x.moveTo(xx, yy - 5); x.lineTo(xx - 4, yy + 3); x.lineTo(xx + 4, yy + 3); } else { x.moveTo(xx, yy + 5); x.lineTo(xx - 4, yy - 3); x.lineTo(xx + 4, yy - 3); } x.fill(); }
 }
@@ -1034,13 +1041,13 @@ window.addEventListener('popstate', () => { if (shOpen) closeSheet(true); else i
 function confirmSheet(t, txt, ok, fn) { openSheet(`<h3 class="sh-t">${t}</h3><p class="t2" style="margin:8px 0 16px;font-size:12.5px">${txt}</p><div class="g2"><button class="btn" data-act="shclose">VAZGEÇ</button><button class="btn rd" id="cfok">${ok}</button></div>`, c => $('#cfok', c).onclick = () => { closeSheet(); fn(); }); }
 
 const NAV = [
-  ['GENEL', [['home', '', 'Piyasa Monitörü'], ['scan', '', 'Tarama']]],
+  ['GENEL', [['home', '', 'Piyasa Monitörü'], ['scan', '', 'Tarama'], ['analiz', '', 'Analiz Robotu']]],
   ['PİYASALAR', [['crypto', '', 'Kripto'], ['bist', '', 'BIST 100'], ['ndx', '', 'Nasdaq 100'], ['com', '', 'Emtia']]],
   ['GÜNDEM', [['news', '', 'Haberler & Makro'], ['cal', '', 'Ekonomik Takvim']]],
   ['SİSTEM', [['settings', '', 'Ayarlar']]],
   ['KRİPTO İŞLEM', [['trade', '', 'Alım-Satım'], ['stats', '', 'İstatistikler']]]
 ];
-const FK = {home: 'PİYASA', scan: 'TARAMA', crypto: 'KRİPTO', bist: 'BIST', ndx: 'NDX', com: 'EMTİA', news: 'HABER', cal: 'TAKVİM', settings: 'AYAR', trade: 'İŞLEM', stats: 'İSTAT'};
+const FK = {home: 'PİYASA', scan: 'TARAMA', analiz: 'ANALİZ', crypto: 'KRİPTO', bist: 'BIST', ndx: 'NDX', com: 'EMTİA', news: 'HABER', cal: 'TAKVİM', settings: 'AYAR', trade: 'İŞLEM', stats: 'İSTAT'};
 let route = 'home';
 const PAGES = {};
 function renderNav() {
@@ -1362,6 +1369,150 @@ PAGES.settings = {
   after() { $$('[data-cfg]').forEach(i => i.onchange = () => { const v = parseFloat(String(i.value).replace(',', '.')); if (!isFinite(v)) return; CFG[i.dataset.cfg] = v; if (i.dataset.cfg === 'minVol') UNIV_T = 0; saveCfg(); toast('KAYDEDİLDİ'); }); }
 };
 
+/* ============================ ANALİZ ROBOTU ============================ */
+const ANZ_ASSETS = {
+  crypto: [['BTC', 'Bitcoin', {bn: 'BTCUSDT'}, 'crypto'], ['ETH', 'Ethereum', {bn: 'ETHUSDT'}, 'crypto'], ['SOL', 'Solana', {bn: 'SOLUSDT'}, 'crypto'], ['BNB', 'BNB', {bn: 'BNBUSDT'}, 'crypto']],
+  bist: [['XU100', 'BIST 100', {y: 'XU100.IS'}, 'bist'], ['XU030', 'BIST 30', {y: 'XU030.IS'}, 'bist']],
+  ndx: [['NDX', 'Nasdaq 100', {y: '^NDX'}, 'ndx'], ['SPX', 'S&P 500', {y: '^GSPC'}, 'ndx']],
+  com: [['XAU', 'Altın (ons)', {tf: 'GC=F', y: 'GC=F', cur: '$'}, 'gold'], ['XAG', 'Gümüş', {tf: 'SI=F', y: 'SI=F', cur: '$'}, 'silver'], ['BRENT', 'Brent Petrol', {tf: 'BZ=F', y: 'BZ=F', cur: '$'}, 'oil'], ['WTI', 'WTI Petrol', {tf: 'CL=F', y: 'CL=F', cur: '$'}, 'oil'], ['HG', 'Bakır', {tf: 'HG=F', y: 'HG=F', cur: '$'}, 'copper']]
+};
+// makro faktörler: yükselişinin varlığa etkisi (+ destek, − baskı)
+const ANZ_W = {
+  gold: {DXY: -1, US10Y: -1, VIX: 0.6}, silver: {DXY: -1, US10Y: -0.8, SPX: 0.5}, oil: {DXY: -0.5, VIX: -0.8, SPX: 0.6}, copper: {DXY: -0.8, SPX: 0.8, VIX: -0.6},
+  crypto: {DXY: -1, US10Y: -0.7, VIX: -0.8, NDX: 1}, ndx: {US10Y: -1, VIX: -1, DXY: -0.5}, bist: {USDTRY: -0.6, VIX: -0.8, DXY: -0.5, SPX: 0.4}
+};
+const ANZ_F = {DXY: ['Dolar endeksi (DXY)', 'DX-Y.NYB', 2, '%'], US10Y: ['ABD 10Y faiz', '^TNX', 0.25, 'pt'], VIX: ['Korku endeksi (VIX)', '^VIX', 15, '%'], SPX: ['S&P 500', '^GSPC', 4, '%'], NDX: ['Nasdaq 100', '^NDX', 5, '%'], USDTRY: ['Dolar/TL', 'TRY=X', 3, '%']};
+const ANZ_KW = {gold: ['altın', 'gold', 'ons '], silver: ['gümüş', 'silver'], oil: ['petrol', 'brent', 'oil', 'opec'], copper: ['bakır', 'copper'], crypto: ['bitcoin', 'kripto', 'crypto', 'btc', 'ethereum'], ndx: ['nasdaq', 'wall street', 's&p', 'teknoloji', 'tech stocks', 'stocks'], bist: ['bist', 'borsa istanbul', 'borsa']};
+const POSW = ['yüksel', 'rekor', 'ralli', 'toparlan', 'güçlü', 'artış', 'kazanç', 'zirve', 'surge', 'rally', 'record', 'gain', 'jump', 'soar', 'climb', 'rebound', 'bullish'];
+const NEGW = ['düş', 'geriledi', 'gerile', 'kayıp', 'çöküş', 'sert satış', 'satış baskısı', 'endişe', 'resesyon', 'plunge', 'fall', 'slump', 'selloff', 'sell-off', 'drop', 'fear', 'recession', 'bearish', 'tumble', 'slide'];
+const HAWK = ['faiz artır', 'faizi artır', 'artırdı', 'rate hike', 'raises rates', 'raised rates', 'hawkish', 'şahin', 'sıkılaştır'];
+const DOVE = ['faiz indir', 'faizi indir', 'indirdi', 'rate cut', 'cuts rates', 'cut rates', 'dovish', 'güvercin', 'gevşe'];
+const ANZ = {cat: LS.get('anzcat', 'com'), asset: LS.get('anzasset', {}), res: {}, busy: false};
+const anzAsset = () => { const list = ANZ_ASSETS[ANZ.cat]; return list.find(a => a[0] === ANZ.asset[ANZ.cat]) || list[0]; };
+const cloudDaily = y => { const a = CLOUD.m && CLOUD.m.daily && CLOUD.m.daily[y]; return a ? a.map(x => ({t: x[0] * 1000, o: x[1], h: x[2], l: x[3], c: x[4], v: 0})) : null; };
+async function anzDaily(o) {
+  if (o.bn) { try { return (await bnKlines(o.bn, '1d', {limit: 260, base: BN.spot})); } catch (e) {} }
+  if (o.tf) { try { const m = await bnTradfi(); if (m[o.tf]) { const k = await bnKlines(m[o.tf], '1d', {limit: 260, base: BN.fut}); if (k.length >= 120) return k; } } catch (e) {} }
+  return o.y ? cloudDaily(o.y) : null;
+}
+function niceStep(p) { const t = p * 0.025, e = Math.pow(10, Math.floor(Math.log10(t))); return [1, 2, 2.5, 5, 10].map(m => m * e).reduce((a, b) => Math.abs(b - t) < Math.abs(a - t) ? b : a); }
+function anzLevels(B, a) {
+  const n = B.length, last = B[n - 1].c, H = B.map(b => b.h), L = B.map(b => b.l), k = 4, hs = [], ls = [];
+  for (let i = Math.max(k, n - 180); i < n - k; i++) { let h = true, l = true; for (let j = i - k; j <= i + k; j++) { if (j === i) continue; if (H[j] > H[i]) h = false; if (L[j] < L[i]) l = false; } if (h) hs.push(H[i]); if (l) ls.push(L[i]); }
+  const st = niceStep(last), rnd = []; if (st > 0 && isFinite(st)) { const b0 = Math.floor(last / st); for (let i = -4; i <= 5; i++) rnd.push(+((b0 + i) * st).toPrecision(10)); }
+  const mk = (arr, up) => { const c = arr.filter(x => up ? x > last * 1.002 : x < last * 0.998).map(x => ({p: x, sw: true})); rnd.filter(x => up ? x > last * 1.002 : x < last * 0.998).forEach(x => { const near = c.find(y => y.sw && Math.abs(y.p - x) <= 0.6 * a); if (near) { near.p = x; near.round = true; near.strong = true; } else c.push({p: x, round: true}); }); c.sort((x, y) => up ? x.p - y.p : y.p - x.p); const out = []; c.forEach(x => { if (!out.length || Math.abs(x.p - out[out.length - 1].p) > 0.5 * a) out.push(x); }); return out; };
+  return {res: mk(hs, true), sup: mk(ls, false), step: st};
+}
+function anzTone(texts) { let p = 0, n = 0; texts.forEach(t => { const s = t.toLowerCase(); if (POSW.some(w => s.includes(w))) p++; if (NEGW.some(w => s.includes(w))) n++; }); return {p, n, score: p + n ? (p - n) / (p + n) : 0}; }
+async function runAnalysis() {
+  const [key, name, o, cls_] = anzAsset(); const id = ANZ.cat + ':' + key; ANZ.busy = true; if (route === 'analiz') renderPage();
+  try {
+    await loadCloud();
+    const B = await anzDaily(o); if (!B || B.length < 120) throw new Error('Günlük veri yok');
+    const C = B.map(b => b.c), n = B.length, last = C[n - 1], A = atr(B, 14), a = A[n - 1];
+    const e50 = ema(C, 50), e200 = ema(C, 200), R = rsi(C, 14), M = macd(C), AX = adx(B, 14), ST = supertrend(B, 10, 3);
+    // teknik
+    let t = 0; const tw = [];
+    const add = (v, txt) => { t += v; tw.push([v, txt]); };
+    add(last > e50[n - 1] ? 20 : -20, `Fiyat 50 günlük ortalamanın ${last > e50[n - 1] ? 'üzerinde' : 'altında'} (${fp(e50[n - 1])})`);
+    add(e50[n - 1] > e200[n - 1] ? 20 : -20, e50[n - 1] > e200[n - 1] ? 'Ana trend yukarı (EMA50 > EMA200)' : 'Ana trend aşağı (EMA50 < EMA200)');
+    if (ST[n - 1]) add(ST[n - 1].dir * 20, `Supertrend ${ST[n - 1].dir > 0 ? 'AL' : 'SAT'} konumunda`);
+    add(M.h[n - 1] > 0 ? 10 : -10, `MACD momentumu ${M.h[n - 1] > 0 ? 'pozitif' : 'negatif'}`);
+    const r = R[n - 1]; add(r > 70 ? -10 : r < 30 ? 10 : r > 55 ? 10 : r < 45 ? -10 : 0, `RSI ${nf(r, 0)}${r > 70 ? ' — aşırı alım' : r < 30 ? ' — aşırı satım' : ''}`);
+    const ax = AX[n - 1]; const adxv = ax ? ax.adx : 0; if (ax) tw.push([0, `ADX ${nf(adxv, 0)} — ${adxv >= 25 ? 'güçlü trend' : adxv >= 18 ? 'orta trend' : 'zayıf trend / yatay'}`]);
+    t = Math.max(-100, Math.min(100, t * (adxv >= 25 ? 1.15 : adxv < 18 ? 0.75 : 1)));
+    // makro
+    const W = ANZ_W[cls_] || {}, facts = []; let ms = 0, mw = 0;
+    for (const f in W) {
+      const [fn, fy, scale, unit] = ANZ_F[f]; const d = cloudDaily(fy); if (!d || d.length < 22) { facts.push({fn, miss: true}); continue; }
+      const v = d[d.length - 1].c, v0 = d[d.length - 21].c, ch = unit === 'pt' ? v - v0 : (v / v0 - 1) * 100;
+      const c = Math.max(-1, Math.min(1, ch / scale)) * Math.sign(W[f]) * Math.min(1, Math.abs(W[f]));
+      ms += c * Math.abs(W[f]); mw += Math.abs(W[f]); facts.push({fn, v, ch, unit, c});
+    }
+    // para politikası tonu (haberlerden)
+    const nw = (CLOUD.m && CLOUD.m.news) || {}, allN = [...(nw.makro || []), ...(nw.borsa || []), ...(nw.kripto || [])].filter(x => Date.now() - x.ts < 10 * 864e5);
+    const pol = bank => { const hs = allN.filter(x => (bank === 'Fed' ? /fed|fomc|federal reserve|powell|warsh/i : /tcmb|merkez bankası|ppk/i).test(x.title)); let h = 0, dv = 0, hl = null; hs.forEach(x => { const s = x.title.toLowerCase(); if (HAWK.some(w => s.includes(w))) { h++; hl = hl || x; } if (DOVE.some(w => s.includes(w))) { dv++; hl = hl || x; } }); return {h, dv, tone: h > dv ? -1 : dv > h ? 1 : 0, head: hl || hs[0], n: hs.length}; };
+    const fed = pol('Fed'), tcmb = pol('TCMB'); const polW = cls_ === 'bist' ? tcmb : fed;
+    if (polW.tone) { ms += polW.tone * 0.8; mw += 0.8; }
+    const macro = mw ? Math.round(ms / mw * 100) : 0;
+    // haber tonu
+    const kw = ANZ_KW[cls_] || []; const rel = allN.filter(x => kw.some(w => x.title.toLowerCase().includes(w))); const tone = anzTone(rel.map(x => x.title));
+    // takvim riski
+    const cal = ((CLOUD.m && CLOUD.m.cal) || []).filter(e => e.impact === 'High' && e.t > Date.now() && e.t < Date.now() + 4 * 864e5 && (e.country === 'USD' || (cls_ === 'bist' && e.country === 'TRY')));
+    const nextCB = CB_EVENTS.filter(e => Date.parse(e.t) > Date.now() && (cls_ === 'bist' ? true : e.bank === 'Fed')).sort((x, y) => Date.parse(x.t) - Date.parse(y.t))[0];
+    // birleşik görüş
+    const bias = Math.round(0.5 * t + 0.35 * macro + 0.15 * tone.score * 100);
+    const agree = Math.sign(t) === Math.sign(macro) && Math.abs(macro) > 15;
+    const conf = Math.abs(bias) >= 45 && agree ? 'Yüksek' : Math.abs(bias) >= 25 ? 'Orta' : 'Düşük';
+    const lv = anzLevels(B, a); const R1 = lv.res[0], R2 = lv.res[1], S1 = lv.sup[0], S2 = lv.sup[1];
+    const cur = o.cur || (ANZ.cat === 'bist' ? '' : '$'); const P = x => x ? (o.cur === '$' || ANZ.cat === 'crypto' ? '$' : '') + nf(x.p, x.p >= 1000 ? 0 : x.p >= 10 ? 2 : 4) : '—';
+    const tag = x => x && x.round ? (x.strong ? ' (güçlü direnç + psikolojik seviye)' : ' (psikolojik seviye)') : '';
+    const tagS = x => x && x.round ? (x.strong ? ' (güçlü destek + psikolojik seviye)' : ' (psikolojik seviye)') : '';
+    const topF = facts.filter(f => !f.miss && Math.abs(f.c) >= 0.3).sort((x, y) => Math.abs(y.c) - Math.abs(x.c)).slice(0, 2).map(f => `${f.fn.split(' (')[0]} ${f.unit === 'pt' ? (f.ch > 0 ? '+' : '') + nf(f.ch, 2) + ' puan' : pct(f.ch, 1)} ${f.c > 0 ? 'destekliyor' : 'baskılıyor'}`);
+    let view, text;
+    if (bias >= 20) { view = 'YÜKSELİŞ BEKLENTİSİ'; text = `${name} için görünüm pozitif. ${R1 ? `<b>${P(R1)}</b> seviyesinin${tag(R1)} günlük kapanışla yukarı kırılmasını bekliyorum. Kırılım gelirse ilk hedef <b>${P(R2)}</b>.` : 'Fiyat zirve bölgesinde, yeni seviyeler test ediliyor.'} ${S1 ? `<b>${P(S1)}</b> altında günlük kapanış bu senaryoyu bozar.` : ''}`; }
+    else if (bias <= -20) { view = 'DÜŞÜŞ BEKLENTİSİ'; text = `${name} için görünüm negatif. ${S1 ? `<b>${P(S1)}</b> desteğinin${tagS(S1)} aşağı kırılmasını bekliyorum. Kırılırsa sıradaki durak <b>${P(S2)}</b>.` : ''} ${R1 ? `<b>${P(R1)}</b> üzerinde günlük kapanış senaryoyu bozar.` : ''}`; }
+    else { view = 'YATAY / KARARSIZ'; text = `${name} net bir yön vermiyor. ${S1 && R1 ? `<b>${P(S1)}</b> – <b>${P(R1)}</b> aralığında dalgalanma bekliyorum. Yukarıda ${P(R1)} kırılırsa ${P(R2)}, aşağıda ${P(S1)} kırılırsa ${P(S2)} gündeme gelir.` : ''}`; }
+    if (topF.length) text += ` Makro tarafta ${topF.join(', ')}.`;
+    if (polW.head && polW.tone) text += ` ${cls_ === 'bist' ? 'TCMB' : 'Fed'} haber akışı ${polW.tone < 0 ? 'şahin (sıkı para politikası)' : 'güvercin (gevşeme)'} tonda.`;
+    if (nextCB && Date.parse(nextCB.t) - Date.now() < 7 * 864e5) text += ` ${nextCB.bank} kararına ${countdown(Date.parse(nextCB.t)).split(' ')[0]} kaldı; karar öncesi oynaklık artabilir.`;
+    if (cal.length) text += ` Önümüzdeki günlerde ${cal.length} yüksek önemli veri var.`;
+    ANZ.res[id] = {at: Date.now(), name, key, cls_, B, last, a, t, tw, macro, facts, fed, tcmb, polW, tone, rel, cal, nextCB, bias, conf, view, text, lv, R1, R2, S1, S2, P, e50, e200, rsi: r, adx: adxv, st: ST[n - 1] && ST[n - 1].dir};
+  } catch (e) { ANZ.res[id] = {err: e.message || 'Analiz yapılamadı'}; }
+  ANZ.busy = false; if (route === 'analiz') renderPage();
+}
+function drawAnz(c, R) {
+  const {x, w, h} = cv(c); const B = R.B.slice(-110), off = R.B.length - B.length; if (!B.length) return;
+  const lines = [[R.R2, '#2FD08A', 'HEDEF'], [R.R1, '#E9B44C', 'DİRENÇ'], [R.S1, '#5BB6FF', 'DESTEK'], [R.S2, '#F2616E', 'DESTEK 2']].filter(l => l[0]);
+  const pr = 66, pt = 10, pb = 14, cw = (w - pr - 6) / B.length;
+  let lo = Math.min(...B.map(b => b.l), ...lines.map(l => l[0].p)), hi = Math.max(...B.map(b => b.h), ...lines.map(l => l[0].p)); const pd = (hi - lo) * .05; lo -= pd; hi += pd;
+  const Y = v => pt + (hi - v) / (hi - lo) * (h - pt - pb);
+  x.strokeStyle = 'rgba(255,255,255,.04)'; for (let i = 1; i < 6; i++) { const yy = pt + i * (h - pt - pb) / 6; x.beginPath(); x.moveTo(0, yy); x.lineTo(w - pr, yy); x.stroke(); }
+  const ln = (arr, col) => { x.strokeStyle = col; x.lineWidth = 1.3; x.beginPath(); B.forEach((b, i) => { const v = arr[off + i], xx = 3 + i * cw + cw / 2; i ? x.lineTo(xx, Y(v)) : x.moveTo(xx, Y(v)); }); x.stroke(); };
+  ln(R.e200, 'rgba(154,163,180,.5)'); ln(R.e50, 'rgba(233,180,76,.8)');
+  B.forEach((b, i) => { const up = b.c >= b.o, xx = 3 + i * cw; x.strokeStyle = x.fillStyle = up ? '#2FD08A' : '#F2616E'; x.lineWidth = 1; x.beginPath(); x.moveTo(xx + cw / 2, Y(b.h)); x.lineTo(xx + cw / 2, Y(b.l)); x.stroke(); const y1 = Y(Math.max(b.o, b.c)), y2 = Y(Math.min(b.o, b.c)); x.fillRect(xx + cw * .18, y1, Math.max(1, cw * .64), Math.max(1, y2 - y1)); });
+  const lab = lines.map(([l, col, t]) => ({yy: Y(l.p), col, t})).sort((p, q) => p.yy - q.yy);
+  lab.forEach((o, i) => { o.ly = i ? Math.max(o.yy, lab[i - 1].ly + 17) : o.yy; });
+  const over = lab.length ? lab[lab.length - 1].ly + 9 - h : 0; if (over > 0) lab.forEach(o => o.ly -= over);
+  lab.forEach(o => { x.setLineDash([5, 4]); x.strokeStyle = o.col; x.lineWidth = 1.2; x.beginPath(); x.moveTo(0, o.yy); x.lineTo(w - pr, o.yy); x.stroke(); x.setLineDash([]); x.beginPath(); x.moveTo(w - pr, o.yy); x.lineTo(w - pr + 2, o.ly); x.stroke(); x.fillStyle = o.col; x.beginPath(); x.roundRect ? x.roundRect(w - pr + 2, o.ly - 8, pr - 3, 16, 4) : x.rect(w - pr + 2, o.ly - 8, pr - 3, 16); x.fill(); x.fillStyle = '#0A0D14'; x.font = '700 9.5px Inter,sans-serif'; x.textBaseline = 'middle'; x.fillText(o.t, w - pr + 6, o.ly); });
+  const yl = Y(R.last); x.fillStyle = '#EEF1F6'; x.beginPath(); x.arc(3 + (B.length - 1) * cw + cw / 2, yl, 3, 0, 7); x.fill();
+}
+const ANZL = {crypto: ['KRİPTO', 'Bitcoin, Ethereum…'], bist: ['BIST', 'Borsa İstanbul endeksleri'], ndx: ['NASDAQ / ABD', 'Nasdaq 100, S&P 500'], com: ['EMTİA', 'Altın, gümüş, petrol, bakır']};
+PAGES.analiz = {
+  html() {
+    const opts = Object.keys(ANZL).map(k => `<a class="${k === ANZ.cat ? 'on' : ''}" data-act="anzcat:${k}"><span>${ANZL[k][0]}<small>${ANZL[k][1]}</small></span></a>`).join('');
+    const [key] = anzAsset(); const R = ANZ.res[ANZ.cat + ':' + key];
+    let body = '';
+    if (ANZ.busy) body = `<div class="pn"><div class="empty">Makro veriler ve grafik analiz ediliyor…</div></div>`;
+    else if (!R) body = `<div class="pn"><div class="empty">Analiz için bekleniyor…</div></div>`;
+    else if (R.err) body = `<div class="pn"><div class="empty">${esc(R.err)}</div></div>`;
+    else {
+      const col = R.bias >= 20 ? 'var(--up)' : R.bias <= -20 ? 'var(--dn)' : 'var(--am)'; const pos = (R.bias + 100) / 2;
+      const eff = c => c > 0.15 ? '<span class="chg up">Destekliyor</span>' : c < -0.15 ? '<span class="chg dn">Baskılıyor</span>' : '<span class="chg">Nötr</span>';
+      body = `<div class="pn"><div class="pb"><div style="font-size:12px;color:var(--tx3);font-weight:700;letter-spacing:.06em">ROBOT YORUMU · ${fTime(R.at)}</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:6px"><span style="font-size:20px;font-weight:800;color:${col}">${R.view}</span><span class="tag o" style="margin-left:auto">Güven: ${R.conf}</span></div>
+          <div style="position:relative;height:8px;border-radius:8px;margin:14px 0 4px;background:linear-gradient(90deg,var(--dn),var(--p3) 50%,var(--up))"><i style="position:absolute;top:50%;left:${pos}%;width:14px;height:14px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(255,255,255,.15)"></i></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--tx3)"><span>Düşüş</span><span>Skor ${R.bias > 0 ? '+' : ''}${R.bias}</span><span>Yükseliş</span></div>
+          <p style="font-size:14.5px;line-height:1.55;margin:12px 0 0">${R.text}</p></div></div>` +
+        panel('GRAFİK · GÜNLÜK', `<div style="padding:0 10px 10px"><canvas class="ch" id="anzcv" style="height:260px"></canvas><div class="t3" style="font-size:11px;margin-top:6px">Turuncu çizgi: 50 günlük ort. · Gri: 200 günlük ort.</div></div>`, `Son: ${R.P({p: R.last})}`) +
+        panel('KİLİT SEVİYELER', `<div class="kv" style="border-top:0">${[['Hedef / 2. direnç', R.R2, 'up'], ['Direnç', R.R1, 'am'], ['Destek', R.S1, 'bl'], ['2. destek', R.S2, 'dn']].map(([a, l, c]) => `<div><span>${a}</span><b class="${c}">${l ? R.P(l) : '—'}</b>${l && l.round ? `<span style="font-size:10.5px">${l.strong ? 'güçlü + psikolojik' : 'psikolojik'}</span>` : ''}</div>`).join('')}</div>`, `ATR ${R.P({p: R.a})}`) +
+        panel('MAKRO FAKTÖRLER', `<table class="mt">${R.facts.map(f => f.miss ? `<tr><td style="width:auto">${f.fn}</td><td class="c" colspan="2" style="width:auto"><span class="t3">veri bekleniyor</span></td></tr>` : `<tr><td style="width:auto;white-space:normal">${f.fn}<span class="dl">${f.unit === 'pt' ? nf(f.v, 2) + '%' : nf(f.v, 2)} · 20 gün: ${f.unit === 'pt' ? (f.ch > 0 ? '+' : '') + nf(f.ch, 2) + ' puan' : pct(f.ch, 1)}</span></td><td class="c" style="width:110px">${eff(f.c)}</td></tr>`).join('')}</table>`, `Skor ${R.macro > 0 ? '+' : ''}${R.macro}`) +
+        panel('PARA POLİTİKASI', `<div class="cb">${[['FED', R.fed], ['TCMB', R.tcmb]].map(([b, p]) => `<div><span>${b} HABER TONU</span><b class="${p.tone < 0 ? 'dn' : p.tone > 0 ? 'up' : ''}">${p.tone < 0 ? 'Şahin (sıkı)' : p.tone > 0 ? 'Güvercin (gevşek)' : p.n ? 'Nötr / bekle-gör' : 'Haber yok'}</b>${p.head ? `<span style="font-size:11px;line-height:1.35;display:block;margin-top:3px">${esc(p.head.title.slice(0, 90))}</span>` : ''}</div>`).join('')}</div>${R.nextCB ? `<div class="pb" style="border-top:1px solid var(--ln);font-size:13px">Sıradaki karar: <b>${R.nextCB.bank}</b> · ${fDT(Date.parse(R.nextCB.t))} · <b class="am" data-cd="${Date.parse(R.nextCB.t)}">${countdown(Date.parse(R.nextCB.t))}</b></div>` : ''}`) +
+        panel('TEKNİK GÖRÜNÜM', `<ul class="why" style="padding:0 14px 8px;margin-top:0">${R.tw.map(([v, tx]) => `<li style="${v > 0 ? 'color:var(--up)' : v < 0 ? 'color:var(--dn)' : ''}">${esc(tx)}</li>`).join('')}</ul>`, `Skor ${R.t > 0 ? '+' : ''}${Math.round(R.t)}`) +
+        panel('HABER TONU', `<div class="kv" style="border-top:0"><div><span>Olumlu başlık</span><b class="up">${R.tone.p}</b></div><div><span>Olumsuz başlık</span><b class="dn">${R.tone.n}</b></div></div>${R.rel.slice(0, 4).map((x, i) => `<div class="nw" data-news="anz:${i}"><div class="tm">${fTime(x.ts)}</div><div class="tx"><div class="so">${esc(x.src)}</div><div class="ti" style="font-size:13.5px">${esc(x.title)}</div></div></div>`).join('') || '<div class="empty">İlgili haber yok</div>'}`) +
+        (R.cal.length ? panel('YAKLAŞAN YÜKSEK ÖNEMLİ VERİLER', R.cal.slice(0, 6).map(e => `<div class="ce"><div class="tm">${fTime(e.t)}</div><div class="cc">${esc(e.country)}</div><div><div class="ti">${esc(trEv(e.title))}</div><div class="or">${dtf({weekday: 'short', day: 'numeric', month: 'short'}).format(e.t)}</div></div><div class="vl">${e.forecast ? `Bkl. <b>${esc(e.forecast)}</b>` : ''}</div></div>`).join('')) : '');
+      window._anzN = R.rel;
+    }
+    return ttl('ANALİZ', '') + `<div class="selw" id="selw"><button class="sel" data-act="seltog"><span>${ANZL[ANZ.cat][0]}<small>${ANZL[ANZ.cat][1]}</small></span><i>▾</i></button><div class="selm">${opts}</div></div>` +
+      `<div class="tg" style="margin-bottom:12px">${ANZ_ASSETS[ANZ.cat].map(a => `<button class="${a[0] === key ? 'on' : ''}" data-act="anzasset:${a[0]}">${a[1]}</button>`).join('')}<button data-act="anzrun" style="margin-left:auto">↻ Yenile</button></div>` + body;
+  },
+  after() {
+    const [key] = anzAsset(); const R = ANZ.res[ANZ.cat + ':' + key];
+    if (!R && !ANZ.busy) { runAnalysis(); return; }
+    const c = $('#anzcv'); if (c && R && R.B) drawAnz(c, R);
+  }
+};
+
 /* ---------- olaylar ---------- */
 document.addEventListener('click', e => {
   if (!e.target.closest('#selw')) { const w = $('#selw'); if (w) w.classList.remove('open'); }
@@ -1372,6 +1523,9 @@ document.addEventListener('click', e => {
     if (a === 'scan') runScan(arg);
     else if (a === 'scantrade') runScan('crypto', {trade: true});
     else if (a === 'seltog') $('#selw').classList.toggle('open');
+    else if (a === 'anzcat') { ANZ.cat = arg; LS.set('anzcat', arg); renderPage(); }
+    else if (a === 'anzasset') { ANZ.asset[ANZ.cat] = arg; LS.set('anzasset', ANZ.asset); renderPage(); }
+    else if (a === 'anzrun') { delete ANZ.res[ANZ.cat + ':' + anzAsset()[0]]; runAnalysis(); }
     else if (a === 'selmk') { SCANMK = arg; LS.set('scanmk', arg); renderNav(); renderPage(); }
     else if (a === 'goscan') { SCANMK = arg; LS.set('scanmk', arg); if (shOpen) { shOpen = false; document.body.classList.remove('sh'); history.replaceState(null, '', '#scan'); route = 'scan'; renderNav(); renderPage(true); } else go('scan'); }
     else if (a === 'fill') { if (SC.crypto.running) return; t.disabled = true; autoFill(SC.crypto.results).then(() => { renderNav(); renderPage(); }); }
@@ -1389,7 +1543,7 @@ document.addEventListener('click', e => {
   if (d.flt) { const [mk, v] = d.flt.split(':'); SC[mk].filter = v; $$(`[data-flt^="${mk}:"]`).forEach(b => b.classList.toggle('on', b === t)); softRender(); return; }
   if (d.srt) { const [mk, v] = d.srt.split(':'); SC[mk].sort = v; $$(`[data-srt^="${mk}:"]`).forEach(b => b.classList.toggle('on', b === t)); softRender(); return; }
   if (d.sig) { const s = findSig(d.sig); if (s) sigSheet(s); return; }
-  if (d.news) { const x = (window._nl || [])[+d.news.split(':')[1]]; if (x) newsSheet(x); return; }
+  if (d.news) { const [src, i] = d.news.split(':'); const x = (src === 'anz' ? window._anzN : window._nl || [])[+i]; if (x) newsSheet(x); return; }
   if (d.hist) { const h = HIST.find(x => x.id === d.hist); if (h) histSheet(h); return; }
   if (d.per) { statPer = d.per; renderPage(); return; }
   if (d.ntab) { nTab = d.ntab; renderPage(); return; }
