@@ -1268,7 +1268,7 @@ PAGES.trade = {
       return `<div class="po"><div class="l1"><span class="am" style="font-weight:800;font-size:14px">${esc(dispSym('crypto', p.sym))}</span><span class="tag ${L ? 'L' : 'S'}">${L ? 'LONG' : 'SHORT'} ${p.lev}X</span><span class="tag o">${TFL[p.tf] || ''}</span><div class="pnl"><b class="${cls(u)}">${usd(u, 1)}</b><span class="${cls(u)}">${pct(u / p.margin * 100, 1)} ROE</span></div></div>
         <div class="t3" style="font-size:10.5px;margin-top:3px">SKOR ${p.score} · ${dur(Date.now() - p.openT)}${p.manual ? ' · MANUEL' : ''}</div>
         <div class="rng"><div class="e" style="left:${pe * 100}%"></div><div class="m" style="left:${pm * 100}%"></div></div>
-        <div class="rngl"><span class="${L ? 'dn' : 'up'}">${L ? 'STP' : 'HDF'} ${fp(L ? p.stop : p.target)}</span><span class="am">${fp(p.mark)}</span><span class="${L ? 'up' : 'dn'}">${L ? 'HDF' : 'STP'} ${fp(L ? p.target : p.stop)}</span></div>
+        <div class="rngl"><span class="dn">STP ${fp(p.stop)}</span><span class="am">${fp(p.mark)}</span><span class="up">HDF ${fp(p.target)}</span></div>
         <div class="lv4"><div><span>GİRİŞ</span><b>${fp(p.entry)}</b></div><div><span>TEMİNAT</span><b>$${nf(p.margin, 0)}</b></div><div><span>BÜYÜKLÜK</span><b>$${nf(p.margin * p.lev, 0)}</b></div><div><span>LİKİT</span><b>${fp(p.liq)}</b></div></div>
         <div class="g2" style="margin-top:8px"><a class="btn" href="${tvLink('crypto', p.sym)}" target="_blank" rel="noopener">GRAFİK</a><button class="btn rd" data-act="close:${p.id}">KAPAT</button></div></div>`; }).join('');
   },
