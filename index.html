@@ -1457,13 +1457,17 @@ async function runAnalysis() {
     if (polW.head && polW.tone) text += ` ${cls_ === 'bist' ? 'TCMB' : 'Fed'} haber akışı ${polW.tone < 0 ? 'şahin (sıkı para politikası)' : 'güvercin (gevşeme)'} tonda.`;
     if (nextCB && Date.parse(nextCB.t) - Date.now() < 7 * 864e5) text += ` ${nextCB.bank} kararına ${countdown(Date.parse(nextCB.t)).split(' ')[0]} kaldı; karar öncesi oynaklık artabilir.`;
     if (cal.length) text += ` Önümüzdeki günlerde ${cal.length} yüksek önemli veri var.`;
-    ANZ.res[id] = {at: Date.now(), name, key, cls_, B, last, a, t, tw, macro, facts, fed, tcmb, polW, tone, rel, cal, nextCB, bias, conf, view, text, lv, R1, R2, S1, S2, P, e50, e200, rsi: r, adx: adxv, st: ST[n - 1] && ST[n - 1].dir};
+    const G = '#2FD08A', AM = '#E9B44C', RD = '#F2616E', GR = '#7C8699', BL = '#5BB6FF';
+    const roles = bias >= 20 ? [[R2, 'HEDEF', 'Hedef', G], [R1, 'KIRILIM', 'Kırılım seviyesi (direnç)', AM], [S1, 'İPTAL', 'İptal / stop (destek)', RD], [S2, 'DESTEK 2', '2. destek', GR]]
+      : bias <= -20 ? [[R2, 'DİRENÇ 2', '2. direnç', GR], [R1, 'İPTAL', 'İptal / stop (direnç)', RD], [S1, 'KIRILIM', 'Kırılım seviyesi (destek)', AM], [S2, 'HEDEF', 'Hedef', G]]
+      : [[R2, 'ÜST HEDEF', 'Yukarı kırılırsa hedef', G], [R1, 'DİRENÇ', 'Direnç (aralık üstü)', AM], [S1, 'DESTEK', 'Destek (aralık altı)', BL], [S2, 'ALT HEDEF', 'Aşağı kırılırsa hedef', RD]];
+    ANZ.res[id] = {roles: roles.filter(r => r[0]), at: Date.now(), name, key, cls_, B, last, a, t, tw, macro, facts, fed, tcmb, polW, tone, rel, cal, nextCB, bias, conf, view, text, lv, R1, R2, S1, S2, P, e50, e200, rsi: r, adx: adxv, st: ST[n - 1] && ST[n - 1].dir};
   } catch (e) { ANZ.res[id] = {err: e.message || 'Analiz yapılamadı'}; }
   ANZ.busy = false; if (route === 'analiz') renderPage();
 }
 function drawAnz(c, R) {
   const {x, w, h} = cv(c); const B = R.B.slice(-110), off = R.B.length - B.length; if (!B.length) return;
-  const lines = [[R.R2, '#2FD08A', 'HEDEF'], [R.R1, '#E9B44C', 'DİRENÇ'], [R.S1, '#5BB6FF', 'DESTEK'], [R.S2, '#F2616E', 'DESTEK 2']].filter(l => l[0]);
+  const lines = (R.roles || []).map(([l, t, , col]) => [l, col, t]);
   const pr = 66, pt = 10, pb = 14, cw = (w - pr - 6) / B.length;
   let lo = Math.min(...B.map(b => b.l), ...lines.map(l => l[0].p)), hi = Math.max(...B.map(b => b.h), ...lines.map(l => l[0].p)); const pd = (hi - lo) * .05; lo -= pd; hi += pd;
   const Y = v => pt + (hi - v) / (hi - lo) * (h - pt - pb);
@@ -1495,7 +1499,7 @@ PAGES.analiz = {
           <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--tx3)"><span>Düşüş</span><span>Skor ${R.bias > 0 ? '+' : ''}${R.bias}</span><span>Yükseliş</span></div>
           <p style="font-size:14.5px;line-height:1.55;margin:12px 0 0">${R.text}</p></div></div>` +
         panel('GRAFİK · GÜNLÜK', `<div style="padding:0 10px 10px"><canvas class="ch" id="anzcv" style="height:260px"></canvas><div class="t3" style="font-size:11px;margin-top:6px">Turuncu çizgi: 50 günlük ort. · Gri: 200 günlük ort.</div></div>`, `Son: ${R.P({p: R.last})}`) +
-        panel('KİLİT SEVİYELER', `<div class="kv" style="border-top:0">${[['Hedef / 2. direnç', R.R2, 'up'], ['Direnç', R.R1, 'am'], ['Destek', R.S1, 'bl'], ['2. destek', R.S2, 'dn']].map(([a, l, c]) => `<div><span>${a}</span><b class="${c}">${l ? R.P(l) : '—'}</b>${l && l.round ? `<span style="font-size:10.5px">${l.strong ? 'güçlü + psikolojik' : 'psikolojik'}</span>` : ''}</div>`).join('')}</div>`, `ATR ${R.P({p: R.a})}`) +
+        panel('KİLİT SEVİYELER', `<div class="kv" style="border-top:0">${(R.roles || []).map(([l, , a, col]) => `<div><span>${a}</span><b style="color:${col}">${R.P(l)}</b>${l.round ? `<span style="font-size:10.5px">${l.strong ? 'güçlü + psikolojik' : 'psikolojik'}</span>` : ''}</div>`).join('')}</div>`, `ATR ${R.P({p: R.a})}`) +
         panel('MAKRO FAKTÖRLER', `<table class="mt">${R.facts.map(f => f.miss ? `<tr><td style="width:auto">${f.fn}</td><td class="c" colspan="2" style="width:auto"><span class="t3">veri bekleniyor</span></td></tr>` : `<tr><td style="width:auto;white-space:normal">${f.fn}<span class="dl">${f.unit === 'pt' ? nf(f.v, 2) + '%' : nf(f.v, 2)} · 20 gün: ${f.unit === 'pt' ? (f.ch > 0 ? '+' : '') + nf(f.ch, 2) + ' puan' : pct(f.ch, 1)}</span></td><td class="c" style="width:110px">${eff(f.c)}</td></tr>`).join('')}</table>`, `Skor ${R.macro > 0 ? '+' : ''}${R.macro}`) +
         panel('PARA POLİTİKASI', `<div class="cb">${[['FED', R.fed], ['TCMB', R.tcmb]].map(([b, p]) => `<div><span>${b} HABER TONU</span><b class="${p.tone < 0 ? 'dn' : p.tone > 0 ? 'up' : ''}">${p.tone < 0 ? 'Şahin (sıkı)' : p.tone > 0 ? 'Güvercin (gevşek)' : p.n ? 'Nötr / bekle-gör' : 'Haber yok'}</b>${p.head ? `<span style="font-size:11px;line-height:1.35;display:block;margin-top:3px">${esc(p.head.title.slice(0, 90))}</span>` : ''}</div>`).join('')}</div>${R.nextCB ? `<div class="pb" style="border-top:1px solid var(--ln);font-size:13px">Sıradaki karar: <b>${R.nextCB.bank}</b> · ${fDT(Date.parse(R.nextCB.t))} · <b class="am" data-cd="${Date.parse(R.nextCB.t)}">${countdown(Date.parse(R.nextCB.t))}</b></div>` : ''}`) +
         panel('TEKNİK GÖRÜNÜM', `<ul class="why" style="padding:0 14px 8px;margin-top:0">${R.tw.map(([v, tx]) => `<li style="${v > 0 ? 'color:var(--up)' : v < 0 ? 'color:var(--dn)' : ''}">${esc(tx)}</li>`).join('')}</ul>`, `Skor ${R.t > 0 ? '+' : ''}${Math.round(R.t)}`) +
