@@ -919,8 +919,8 @@ async function loadQuotes() {
   LS.set('q', Q); paintQuotes(); paintTape(); wsSync();
 }
 let EURQ = null;
-function calcEur() { if (!EURQ) return; const {a, b} = EURQ; const prev = Q.EURTRY && Q.EURTRY.price; Q.EURTRY = {price: a.price * b.price, chg: ((1 + a.chg / 100) * (1 + b.chg / 100) - 1) * 100, spark: a.spark.map((v, i) => v * (b.spark[i] ?? b.price)), live: true, at: Date.now()}; if (prev && prev !== Q.EURTRY.price) Q.EURTRY.flash = Q.EURTRY.price > prev ? 1 : -1; }
-function calcGram() { if (Q.XAU && Q.USDTRY && Q.XAU.price && Q.USDTRY.price) { const k = Q.USDTRY.price / 31.1035; const prev = Q.GRAM && Q.GRAM.price; Q.GRAM = {price: Q.XAU.price * k, chg: ((1 + (Q.XAU.chg || 0) / 100) * (1 + (Q.USDTRY.chg || 0) / 100) - 1) * 100, spark: (Q.XAU.spark || []).map(v => v * k), live: Q.XAU.live && Q.USDTRY.live, at: Date.now()}; if (prev && prev !== Q.GRAM.price) Q.GRAM.flash = Q.GRAM.price > prev ? 1 : -1; } }
+function calcEur() { if (!EURQ) return; const {a, b} = EURQ; const prev = Q.EURTRY && Q.EURTRY.price; Q.EURTRY = {price: a.price * b.price, chg: ((1 + a.chg / 100) * (1 + b.chg / 100) - 1) * 100, spark: a.spark.map((v, i) => v * (b.spark[i + b.spark.length - a.spark.length] ?? b.price)), live: true, at: Date.now()}; if (prev && prev !== Q.EURTRY.price) Q.EURTRY.flash = Q.EURTRY.price > prev ? 1 : -1; }
+function calcGram() { if (Q.XAU && Q.USDTRY && Q.XAU.price && Q.USDTRY.price) { const k = Q.USDTRY.price / 31.1035; const prev = Q.GRAM && Q.GRAM.price; Q.GRAM = {price: Q.XAU.price * k, chg: ((1 + (Q.XAU.chg || 0) / 100) * (1 + (Q.USDTRY.chg || 0) / 100) - 1) * 100, spark: (Q.XAU.spark || []).map((v, i, xs) => { const us = Q.USDTRY.spark || []; return v * ((us[i + us.length - xs.length] ?? Q.USDTRY.price) / 31.1035); }), live: Q.XAU.live && Q.USDTRY.live, at: Date.now()}; if (prev && prev !== Q.GRAM.price) Q.GRAM.flash = Q.GRAM.price > prev ? 1 : -1; } }
 
 /* ---------- canlı akış (Binance WebSocket) ---------- */
 const WS = {spot: null, fut: null, keys: {spot: '', fut: ''}, retry: {spot: 0, fut: 0}};
@@ -999,11 +999,19 @@ const CATL = {borsa: 'BORSA', makro: 'MAKRO', kripto: 'KRİPTO', yorum: 'YORUM'}
 function newsAll() { const n = (CLOUD.m && CLOUD.m.news) || {}; const a = [...(n.borsa || []), ...(n.makro || [])].sort((x, y) => y.ts - x.ts); const s = new Set(); return a.filter(x => { const k = x.title.slice(0, 60); if (s.has(k)) return false; s.add(k); return true; }).slice(0, 50); }
 
 /* ---------- grafik ---------- */
-function spark(arr) {
-  const w = 54, h = 18; if (!arr || arr.length < 2) return `<svg class="spk" viewBox="0 0 ${w} ${h}"></svg>`;
-  const a = arr.filter(v => v != null); const mn = Math.min(...a), mx = Math.max(...a), rg = mx - mn || 1;
-  const d = a.map((v, i) => (i ? 'L' : 'M') + (i / (a.length - 1) * w).toFixed(1) + ' ' + (h - 1 - (v - mn) / rg * (h - 2)).toFixed(1)).join('');
-  return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${a[a.length - 1] >= a[0] ? '#19D27C' : '#FF4D4D'}" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>`;
+// Mini grafik: rengi ekrandaki % değişimle aynı yönü gösterir; kesikli çizgi = değişimin referans seviyesi (önceki kapanış / 24s önceki fiyat)
+function spark(arr, price, chg) {
+  const w = 54, h = 18; const a = (arr || []).filter(v => v != null && isFinite(v));
+  if (a.length < 2) return `<svg class="spk" viewBox="0 0 ${w} ${h}"></svg>`;
+  if (price != null && isFinite(price)) a[a.length - 1] = price;
+  const hasChg = chg != null && isFinite(chg) && chg > -100;
+  const ref = hasChg ? a[a.length - 1] / (1 + chg / 100) : a[0];
+  const dir = hasChg ? chg : a[a.length - 1] - ref;
+  const col = dir > 0 ? 'var(--up)' : dir < 0 ? 'var(--dn)' : 'var(--tx3)';
+  const mn = Math.min(...a, ref), mx = Math.max(...a, ref), rg = mx - mn || 1;
+  const y = v => (h - 1 - (v - mn) / rg * (h - 2)).toFixed(1);
+  const d = a.map((v, i) => (i ? 'L' : 'M') + (i / (a.length - 1) * w).toFixed(1) + ' ' + y(v)).join('');
+  return `<svg class="spk" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><line x1="0" x2="${w}" y1="${y(ref)}" y2="${y(ref)}" style="stroke:var(--tx3)" stroke-width="1" stroke-dasharray="2 3" opacity=".55" vector-effect="non-scaling-stroke"/><path d="${d}" fill="none" style="stroke:${col}" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>`;
 }
 function cv(c) { const dpr = window.devicePixelRatio || 1; const w = c.clientWidth, h = c.clientHeight; c.width = w * dpr; c.height = h * dpr; const x = c.getContext('2d'); x.scale(dpr, dpr); return {x, w, h}; }
 function drawChart(c, bars, s) {
@@ -1081,14 +1089,14 @@ function fmtQ(o, v) { if (v == null) return '—'; const d = o.d ?? (v >= 1000 ?
 /* ============================ SAYFALAR ============================ */
 function qRow([k, n, o]) {
   const v = Q[k] || {}; const dl = v.price != null && !v.live ? `<span class="dl">GECİK · ${v.at ? fTime(v.at) : ''}</span>` : '';
-  return `<tr id="r-${k}"><td class="k">${k}</td><td class="n">${n}${dl}</td><td class="p ${v.price == null ? 'skel' : ''}">${fmtQ(o, v.price)}</td><td class="c"><span class="chg ${v.chg > 0 ? 'up' : v.chg < 0 ? 'dn' : ''} ${cls(v.chg)}">${pct(v.chg)}</span></td><td class="s">${spark(v.spark)}</td></tr>`;
+  return `<tr id="r-${k}"><td class="k">${k}</td><td class="n">${n}${dl}</td><td class="p ${v.price == null ? 'skel' : ''}">${fmtQ(o, v.price)}</td><td class="c"><span class="chg ${v.chg > 0 ? 'up' : v.chg < 0 ? 'dn' : ''} ${cls(v.chg)}">${pct(v.chg)}</span></td><td class="s">${spark(v.spark, v.price, v.chg)}</td></tr>`;
 }
 const HOMEC = [['USDTRY', 'Dolar', 'USD / TRY'], ['EURTRY', 'Euro', 'EUR / TRY'], ['GRAM', 'Gram Altın', 'XAU · TL'], ['XU100', 'BIST 100', 'XU100'], ['BTC', 'Bitcoin', 'BTC / USDT'], ['US10Y', 'ABD 10 Yıllık', 'Tahvil faizi']];
 function hCard([k, n, sub]) {
   const r = ALLROWS.find(x => x[0] === k), v = Q[k] || {};
   const st = v.price == null ? '' : v.live ? '<span class="lvb">● Canlı</span>' : `<span class="lvb g">${v.at ? fTime(v.at) : 'Gecikmeli'}</span>`;
   return `<div class="hc" id="hc-${k}"><div class="hn"><span>${n}</span><span class="chg ${v.chg > 0 ? 'up' : v.chg < 0 ? 'dn' : ''} ${cls(v.chg)}">${pct(v.chg)}</span></div><div class="hs">${sub} ${st ? '· ' + st : ''}</div>
-    <div class="hp ${v.price == null ? 'skel' : ''}">${fmtQ(r[2], v.price)}</div>${k === 'GRAM' && Q.XAU && Q.XAU.price ? `<div class="hx">Ons $${nf(Q.XAU.price, 2)}</div>` : ''}${spark(v.spark)}</div>`;
+    <div class="hp ${v.price == null ? 'skel' : ''}">${fmtQ(r[2], v.price)}</div>${k === 'GRAM' && Q.XAU && Q.XAU.price ? `<div class="hx">Ons $${nf(Q.XAU.price, 2)}</div>` : ''}${spark(v.spark, v.price, v.chg)}</div>`;
 }
 function paintQuotes() {
   ALLROWS.forEach(r => {
