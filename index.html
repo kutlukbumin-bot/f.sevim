@@ -277,9 +277,9 @@ body.sh .sbg{opacity:1;visibility:visible}body.sh .sheet{transform:none;visibili
 
 
 /* ================= BÖLÜMLER (v5) ================= */
-body[data-sec="kul"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(226,109,138,.13),transparent 65%)}
-body[data-sec="spo"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(47,208,138,.10),transparent 65%)}
-body[data-sec="muz"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(255,64,96,.13),transparent 65%)}
+body[data-zone="kul"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(226,109,138,.13),transparent 65%)}
+body[data-zone="spo"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(47,208,138,.10),transparent 65%)}
+body[data-zone="muz"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(255,64,96,.13),transparent 65%)}
 main{padding-bottom:calc(96px + var(--safe-b))}
 body.plon main{padding-bottom:calc(176px + var(--safe-b))}
 body.plon.plbig main{padding-bottom:calc(150px + 56vw + var(--safe-b))}
@@ -2051,7 +2051,7 @@ Object.assign(CATL, {kultur: 'KÜLTÜR', sinema: 'SİNEMA', tiyatro: 'TİYATRO',
 function renderNav() {
   const sec = secOf(route);
   if (SECLAST[sec] !== route) { SECLAST[sec] = route; LS.set('seclast', SECLAST); }
-  document.body.dataset.sec = sec;
+  document.body.dataset.zone = sec;
   if (typeof PL !== 'undefined' && PL.big && !/^m-/.test(route)) setBig(false);
   const sx = `<div class="dr-sx">${SECS.map(([k, n]) => `<a class="${sec === k ? 'on' : ''}" data-sec="${k}">${IC[k]}<span>${n}</span></a>`).join('')}</div>`;
   let items;
