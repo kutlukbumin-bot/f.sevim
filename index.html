@@ -514,7 +514,7 @@ body.plon.plbig main{padding-bottom:calc(220px + 56vw + var(--safe-b))}
   <nav class="fkeys" id="fk"></nav>
 </header>
 <div class="scrim" id="scrim"></div>
-<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v5.6</div></div><div class="dr-n" id="drn"></div></nav>
+<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v5.7</div></div><div class="dr-n" id="drn"></div></nav>
 <main id="view"></main>
 <div class="sbg" id="sbg"></div>
 <div class="sheet" id="sheet"><div class="grab"></div><div id="shc"></div></div>
@@ -1039,33 +1039,41 @@ function espnTable(j) {
     var SS = Date.UTC(sY, 6, 1), SE = Date.UTC(sY + 1, 5, 30), full = stale('footfull', 60), fullOk = true;
     for (var lg in LG) {
       var F = C.foot[lg] || {}; if (F.season !== sY) F = {season: sY};
-      var map = {}; (F.m || []).forEach(function (m) { map[m.id] = m; });
-      var ranges = [];
-      if (full || !(F.m || []).length) for (var s0 = SS; s0 <= SE; s0 += 30 * 864e5) ranges.push([s0, Math.min(s0 + 29 * 864e5, SE)]);
-      else ranges.push([Date.now() - 4 * 864e5, Date.now() + 14 * 864e5]);
+      var map = {}; (F.m || []).forEach(function (m) { if (/^sdb/.test(m.id)) map[m.id] = m; });
+      var em = F.em || {}, days = F.days || {};
+      // ESPN tarih aralığını reddediyor (HTTP 400) → gün gün sorgu; geçmiş günler bir kez, yakın günler her çalışmada
+      var todayT = Date.now(), want = [];
+      for (var dd = -2; dd <= 7; dd++) want.push(ymd(todayT + dd * 864e5));
+      var back = [];
+      for (var s0 = SS; s0 <= SE; s0 += 864e5) { var dkey = ymd(s0), fa = days[dkey]; if (want.indexOf(dkey) >= 0) continue; if (!fa || (s0 > todayT && todayT - fa > 12 * 36e5)) back.push(dkey); }
+      var pd = function (k) { return Math.abs(Date.UTC(+k.slice(0, 4), +k.slice(4, 6) - 1, +k.slice(6, 8)) - todayT); };
+      back.sort(function (x, y2) { return pd(x) - pd(y2); });
+      want = want.concat(back.slice(0, 45));
       var espnOk = 0, espnErr = '';
-      await pool(ranges, 3, async function (r) {
-        try { var sb = await get(ESPN + LG[lg] + '/scoreboard?limit=500&dates=' + ymd(r[0]) + '-' + ymd(r[1]), 'json', 2); (sb.events || []).forEach(function (e) { var m = espnEv(e); map[m.id] = m; }); espnOk++; if (sb.leagues && sb.leagues[0]) F.name = sb.leagues[0].name; }
-        catch (e) { espnErr = e.message; }
+      if ((ymd.espnFail || 0) < 8) await pool(want, 6, async function (dkey) {
+        try { var sb = await get(ESPN + LG[lg] + '/scoreboard?dates=' + dkey, 'json', 1); Object.keys(em).forEach(function (k) { if (em[k].d === dkey) delete em[k]; }); (sb.events || []).forEach(function (e) { var m = espnEv(e); m.d = dkey; em[m.id] = m; }); days[dkey] = Date.now(); espnOk++; if (sb.leagues && sb.leagues[0]) F.name = sb.leagues[0].name; }
+        catch (e) { espnErr = e.message; ymd.espnFail = (ymd.espnFail || 0) + 1; }
       });
-      if (!espnOk) {
-        try { var tod = await get(ESPN + LG[lg] + '/scoreboard', 'json', 1); (tod.events || []).forEach(function (e) { var m = espnEv(e); map[m.id] = m; }); DIAG['espn_' + lg] = 'aralık: ' + espnErr + ' · tek: OK ' + (tod.events || []).length; }
-        catch (e) { DIAG['espn_' + lg] = 'aralık: ' + espnErr + ' · tek: ' + e.message; }
-        Object.keys(map).forEach(function (k) { if (!/^sdb/.test(k) && !map[k].h) delete map[k]; });
-        var hasSdb = Object.keys(map).some(function (k) { return /^sdb/.test(k); });
-        try { var n0 = Object.keys(map).length; await sdbFetch(lg, map, full || !hasSdb, sY); DIAG['sdb_' + lg] = 'OK ' + (Object.keys(map).length - n0) + ' yeni / ' + Object.keys(map).length; }
+      F.em = em; F.days = days;
+      var seasonDays = Math.round((SE - SS) / 864e5) + 1, doneDays = Object.keys(days).length, complete = doneDays >= seasonDays - 2;
+      DIAG['espn_' + lg] = espnOk ? 'OK ' + espnOk + '/' + want.length + ' gün · sezon ' + doneDays + '/' + seasonDays + (espnErr ? ' · hata: ' + espnErr : '') : 'gün sorgusu: ' + (espnErr || 'atlandı');
+      if (!complete) {
+        var hasSdb = Object.keys(map).length > 0;
+        try { var n0 = Object.keys(map).length; await sdbFetch(lg, map, full || !hasSdb, sY); DIAG['sdb_' + lg] = 'OK ' + Object.keys(map).length + ' maç'; }
         catch (e) { DIAG['sdb_' + lg] = e.message; fullOk = false; }
-        // ESPN ve TheSportsDB aynı maçı iki kez getirmesin
-        var hasE = Object.keys(map).some(function (k) { return !/^sdb/.test(k); }), hasS = Object.keys(map).some(function (k) { return /^sdb/.test(k); });
-        if (hasE && hasS) Object.keys(map).forEach(function (k) { if (!/^sdb/.test(k)) delete map[k]; });
-      } else DIAG['espn_' + lg] = 'OK ' + espnOk + '/' + ranges.length;
+      }
+      // gösterim: ESPN sezonu tamamlandıysa ESPN; değilse daha dolu olan kaynak
+      var eArr = Object.keys(em).map(function (k) { return em[k]; }), sArr = Object.keys(map).map(function (k) { return map[k]; });
+      var useE = complete || eArr.length >= sArr.length;
+      map = {}; (useE ? eArr : sArr).forEach(function (m) { map[m.id] = m; });
+      F.src = useE ? 'espn' : 'sdb';
       F.m = Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return a.t - b.t; });
       try { F.tb = espnTable(await get(ESPN2 + LG[lg] + '/standings', 'json', 2)); } catch (e) { C.errors.push('puan ' + lg); }
       F.at = Date.now(); C.foot[lg] = F;
     }
     if (full && fullOk) done('footfull');
     log('futbol:', Object.keys(C.foot).map(function (k) { return k + ' ' + ((C.foot[k].m || []).length) + 'm/' + (((C.foot[k].tb || [])[0] || {rows: []}).rows.length) + 't'; }).join(', '));
-    try { var nb = await get(ESPN + 'basketball/nba/scoreboard?dates=' + ymd(Date.now() - 2 * 864e5) + '-' + ymd(Date.now() + 2 * 864e5), 'json', 2); C.nba = (nb.events || []).map(espnEv); } catch (e) { C.errors.push('nba ' + e.message); }
+    try { var nb = await get(ESPN + 'basketball/nba/scoreboard', 'json', 1); C.nba = (nb.events || []).map(espnEv); } catch (e) { C.errors.push('nba ' + e.message); }
 
     /* --- Formula 1 (Jolpica, 20 dk) --- */
     if (stale('f1', 4) || !C.f1) {
@@ -1109,6 +1117,10 @@ function espnTable(j) {
         var list = [];
         var dk2 = j[0] + '/' + j[2];
         try { if ((getHTML.fail || 0) >= 2) throw new Error('atlandı (Bubilet yanıt vermiyor)'); var html = await getHTML('https://www.bubilet.com.tr/' + j[0] + '/etiket/' + j[2]); getHTML.fail = 0; list = extractEvents(html, 'https://www.bubilet.com.tr', j[1]); DIAG['bubilet ' + dk2] = 'OK ' + list.length + ' (' + Math.round(html.length / 1024) + 'KB, ld:' + (html.match(/application\/ld\+json/g) || []).length + ', next:' + (/__NEXT_DATA__/.test(html) ? 1 : 0) + ', a:' + (html.match(/\/etkinlik\//g) || []).length + ')'; } catch (e) { DIAG['bubilet ' + dk2] = e.message; if (!/atlandı/.test(e.message)) getHTML.fail = (getHTML.fail || 0) + 1; }
+        if (list.length < 4) {
+          var bnu = ['https://biletinial.com/tr-tr/' + (j[2] === 'tiyatro' ? 'tiyatro' : 'muzik') + '/' + j[0], 'https://biletinial.com/tr-tr/sehrineozel/' + j[0]];
+          for (var bu of bnu) { if (list.length >= 4 || (getHTML.bfail || 0) >= 2) break; try { var bh = await getHTML(bu); var bl = extractEvents(bh, 'https://biletinial.com', j[1]); DIAG['biletinial ' + dk2] = 'OK ' + bl.length + ' (' + Math.round(bh.length / 1024) + 'KB)'; list = list.concat(bl); getHTML.bfail = 0; } catch (e) { DIAG['biletinial ' + dk2] = e.message; getHTML.bfail = (getHTML.bfail || 0) + 1; } }
+        }
         if (list.length < 4) { try { var bx = await biletix(j[1], j[2]); list = list.concat(bx); DIAG['biletix ' + dk2] = 'OK ' + bx.length + ' (toplam ' + ((biletix.n || {})[j[2]] || 0) + ')'; } catch (e) { DIAG['biletix ' + dk2] = e.message; } }
         var seenE = {};
         list = list.filter(function (x) { var k = normT(x.n) + '|' + (x.t ? new Date(x.t + 3 * 36e5).toISOString().slice(0, 10) : ''); if (!x.n || seenE[k]) return false; seenE[k] = 1; return !x.t || x.t > Date.now() - 864e5; })
@@ -1130,19 +1142,21 @@ function espnTable(j) {
     var yr = new Date().getFullYear();
     var MZQ = [['yeni', 'Yeni Çıkanlar', 'yeni çıkan türkçe şarkılar ' + yr, 900], ['hit', 'Türkiye Hitleri', 'en çok dinlenen türkçe şarkılar ' + yr, 900], ['pop', 'Türkçe Pop', 'türkçe pop şarkılar', 900], ['rock', 'Türkçe Rock', 'türkçe rock şarkılar', 900], ['anadolu', 'Anadolu Rock', 'anadolu rock', 900], ['tsm', 'Türk Sanat Müziği', 'türk sanat müziği şarkılar', 1200], ['thm', 'Türk Halk Müziği', 'türk halk müziği türküler', 1200], ['arabesk', 'Arabesk', 'arabesk şarkılar', 900], ['rap', 'Türkçe Rap', 'türkçe rap şarkılar', 900], ['caz', 'Caz', 'jazz classics', 3600], ['klasik', 'Klasik Müzik', 'classical music masterpieces', 4 * 3600], ['lofi', 'Lo-fi · Odaklan', 'lofi hip hop focus', 4 * 3600], ['nostalji', "80'ler 90'lar", '90lar türkçe pop şarkılar', 900], ['akustik', 'Akustik', 'türkçe akustik şarkılar', 900],
       ['v_gundem', 'Gündem', 'gündem son dakika haber', 7200, 'EgQIAxAB'], ['v_ekonomi', 'Ekonomi', 'ekonomi borsa piyasa yorum', 7200, 'EgQIAxAB'], ['v_spor', 'Spor', 'maç özeti geniş özet', 1800, 'EgQIAxAB'], ['v_belgesel', 'Belgesel', 'belgesel türkçe', 10800], ['v_tarih', 'Tarih', 'tarih belgeseli', 10800], ['v_bilim', 'Bilim', 'bilim teknoloji belgesel türkçe', 7200], ['v_gezi', 'Gezi', 'gezi belgeseli türkiye', 7200], ['v_yemek', 'Yemek', 'yemek tarifi', 2400]];
-    if ((stale('yt', 90) || !C.yt) && !over(4.5)) {
+    if ((stale('yt', 15) || !C.yt) && !over(4.5)) {
       var Y = C.yt || {}, OK = C.ytok || {}, yN = 0;
-      await pool(MZQ, 2, async function (g) {
+      var YT_T = C.ytt || {}; var MZQ2 = MZQ.slice().sort(function (a, b) { return (YT_T[a[0]] || 0) - (YT_T[b[0]] || 0); }).slice(0, 6);
+      await pool(MZQ2, 1, async function (g) {
         try {
           if ((ytParse.fail || 0) >= 3) throw new Error('atlandı'); var r = await fetchT('https://www.youtube.com/results?search_query=' + encodeURIComponent(g[2]) + '&sp=' + (g[4] || 'EgIQAQ%253D%253D') + '&hl=tr&gl=TR', {headers: Object.assign({}, UA, {'Accept-Language': 'tr-TR,tr;q=0.9', Cookie: 'CONSENT=YES+cb; SOCS=CAI'})}, 15000);
           if (!r.ok) throw new Error('HTTP ' + r.status); var vids = ytParse(r.text, g[3]).slice(0, 30); ytParse.fail = 0;
           await pool(vids, 5, async function (v) { if (OK[v.v] != null) return; if (over(5)) return; try { var o = await fetchT('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + v.v), {}, 8000); OK[v.v] = o.ok ? 1 : 0; } catch (e) {} });
           var good = vids.filter(function (v) { return OK[v.v] !== 0; }).slice(0, 25);
-          if (good.length) { Y[g[0]] = {n: g[1], items: good}; yN++; }
+          if (good.length) { Y[g[0]] = {n: g[1], items: good}; yN++; YT_T[g[0]] = Date.now(); }
+          await sleep(1500);
         } catch (e) { C.errors.push('yt ' + g[0] + ' ' + e.message); if (!/atlandı/.test(e.message)) ytParse.fail = (ytParse.fail || 0) + 1; }
       });
       var okk = Object.keys(OK); if (okk.length > 3000) okk.slice(0, okk.length - 3000).forEach(function (k) { delete OK[k]; });
-      C.yt = Y; C.ytok = OK; if (yN) done('yt'); log('müzik listeleri:', yN + '/' + MZQ.length);
+      C.yt = Y; C.ytok = OK; C.ytt = YT_T; if (yN) done('yt'); log('müzik/video listeleri:', yN + '/' + MZQ2.length + ' (toplam ' + Object.keys(Y).length + ')');
     }
     clearTimeout(wd1); clearTimeout(wd2); DIAG.sure = ((Date.now() - T0) / 1000).toFixed(0) + ' sn';
     C.at = Date.now();
@@ -1157,7 +1171,7 @@ function espnTable(j) {
     B.fail++; throw last || new Error('boş');
   }
   async function sdbFetch(lg, map, full, sY) {
-    sdbFetch.t0 = sdbFetch.t0 || Date.now();
+    var tStart = Date.now();
     var id = SDB_ID[lg];
     if (sdbGet.ids && sdbGet.ids[lg]) id = sdbGet.ids[lg]; else try { var al = sdbGet.al || (sdbGet.al = await sdbGet('all_leagues.php')); var hit = (al.leagues || []).filter(function (l) { return l.strSport === 'Soccer' && SDB_RE[lg].test(l.strLeague) && !/women|youth|u19|u21|afc|caf|concacaf|asian/i.test(l.strLeague); })[0]; if (hit) { id = hit.idLeague; (sdbGet.ids = sdbGet.ids || {})[lg] = id; } } catch (e) {}
     if ((sdbGet.b || {}).fail >= 2) throw new Error('TheSportsDB yanıt vermiyor');
@@ -1168,7 +1182,7 @@ function espnTable(j) {
     var empty = 0, got = 0;
     for (var i = 0; i < rounds.length; i++) {
       var n = 0; try { n = add(await sdbGet('eventsround.php?id=' + id + '&r=' + rounds[i] + '&s=' + season)); } catch (e) { if ((sdbGet.b || {}).fail >= 2) break; }
-      got += n; empty = n ? 0 : empty + 1; if (full && rounds[i] > 30 && empty >= 2) break; if (Date.now() - sdbFetch.t0 > 150e3) break;
+      got += n; empty = n ? 0 : empty + 1; if (full && rounds[i] > 30 && empty >= 2) break; if (Date.now() - tStart > 70e3) break;
       await sleep(+(process.env.SDBW || 2100));
     }
     if (lg !== 'lig' || !got) { try { got += add(await sdbGet('eventsseason.php?id=' + id + '&s=' + season)); } catch (e) {} }
@@ -1218,7 +1232,7 @@ function espnTable(j) {
       if (nd) { try { walkJ(JSON.parse(nd[1]), function (o) { if ((typeof o.name === 'string' || typeof o.title === 'string') && (o.startDate || o.start_date || o.eventDate || o.date || o.sessionDate || o.firstSessionDate) && (o.slug || o.url || o.image || o.poster || o.imageUrl)) add(o); }); } catch (e) {} }
     }
     if (out.length < 4) {
-      var ar = /<a[^>]+href=["']([^"'#?]*\/etkinlik\/[^"'#?]+)["'][^>]*>([\s\S]*?)<\/a>/gi, a2, seenU = {};
+      var ar = /<a[^>]+href=["']([^"'#?]*\/(?:etkinlik|tr-tr\/(?:tiyatro|muzik|konser|stand-up|gosteri))\/[a-z0-9-]{3,}[^"'#?]*)["'][^>]*>([\s\S]*?)<\/a>/gi, a2, seenU = {};
       while ((a2 = ar.exec(html))) {
         var u = abs(a2[1]); if (!u || seenU[u]) continue; seenU[u] = 1;
         var inner = a2[2], im2 = (inner.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i) || [])[1] || (inner.match(/srcset=["']([^"' ]+)/i) || [])[1] || '';
@@ -2833,9 +2847,9 @@ async function seasonFetch(lg) {
   if (seasonBusy[lg]) return; seasonBusy[lg] = true;
   const P = {lig: 'soccer/tur.1', ucl: 'soccer/uefa.champions', uel: 'soccer/uefa.europa', uecl: 'soccer/uefa.europa.conf'};
   const now = new Date(), y = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1, ranges = [];
-  for (let s = Date.UTC(y, 6, 1); s <= Date.UTC(y + 1, 5, 30); s += 30 * 864e5) ranges.push([s, s + 29 * 864e5]);
   const map = {};
-  await Promise.all(ranges.map(async r => { try { const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?limit=500&dates=${ymdT(r[0])}-${ymdT(r[1])}`, 20000)).json(); (j.events || []).forEach(e => { const m = espnEv(e); map[m.id] = m; }); } catch (e) {} }));
+  for (let t = Date.now() - 21 * 864e5; t <= Date.now() + 21 * 864e5; t += 864e5) ranges.push(t);
+  for (let i = 0; i < ranges.length; i += 8) await Promise.all(ranges.slice(i, i + 8).map(async t => { try { const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?dates=${ymdT(t)}`, 15000)).json(); (j.events || []).forEach(e => { const m = espnEv(e); map[m.id] = m; }); } catch (e) {} }));
   CNT.m = CNT.m || {}; CNT.m.foot = CNT.m.foot || {}; const F = CNT.m.foot[lg] = CNT.m.foot[lg] || {};
   if (!Object.keys(map).length) {
     const sg = async p => { for (const k of ['3', '123']) { try { const r = await tfetch('https://www.thesportsdb.com/api/v1/json/' + k + '/' + p, 15000); return await r.json(); } catch (e) {} } return null; };
@@ -2922,7 +2936,7 @@ async function sporLive(force) {
     const ms = F.m || []; if (ms.some(m => /^sdb/.test(m.id))) return; const near = ms.some(m => m.st === 'in' || (m.st === 'pre' && Math.abs(m.t - Date.now()) < 3 * 36e5) || (m.st === 'post' && Date.now() - m.t < 4 * 36e5));
     if (!near && !force) return;
     try {
-      const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?dates=${ymdT(Date.now() - 864e5)}-${ymdT(Date.now() + 864e5)}`, 12000)).json();
+      const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?dates=${ymdT(Date.now())}`, 12000)).json();
       (j.events || []).map(espnEv).forEach(m => { const i = ms.findIndex(x => x.id === m.id); const sig = x => [x.st, x.h.s, x.a.s, x.clk].join('|'); if (i < 0) { ms.push(m); changed = true; } else if (sig(ms[i]) !== sig(m)) { ms[i] = m; changed = true; } });
       F.m = ms; SPL.fail = 0;
     } catch (e) { SPL.fail++; }
