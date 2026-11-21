@@ -275,6 +275,185 @@ body.sh .sbg{opacity:1;visibility:visible}body.sh .sheet{transform:none;visibili
 .selm a.on{background:var(--am-s)}
 @media (min-width:720px){.hg{grid-template-columns:repeat(3,1fr)}.nl{height:520px}}
 
+
+/* ================= BÖLÜMLER (v5) ================= */
+body[data-sec="kul"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(226,109,138,.13),transparent 65%)}
+body[data-sec="spo"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(47,208,138,.10),transparent 65%)}
+body[data-sec="muz"]:before{background:radial-gradient(900px 420px at 50% -160px,rgba(255,64,96,.13),transparent 65%)}
+main{padding-bottom:calc(96px + var(--safe-b))}
+body.plon main{padding-bottom:calc(176px + var(--safe-b))}
+body.plon.plbig main{padding-bottom:calc(150px + 56vw + var(--safe-b))}
+#toasts{bottom:calc(84px + var(--safe-b))}
+body.plon #toasts{bottom:calc(164px + var(--safe-b))}
+
+/* alt bölüm menüsü */
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;justify-content:space-around;padding:6px 6px calc(6px + var(--safe-b));background:rgba(10,13,20,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--ln)}
+.bnav a{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px 4px;font-size:10.5px;font-weight:700;color:var(--tx3);cursor:pointer;border-radius:14px;letter-spacing:.02em;position:relative;transition:color .2s}
+.bnav a svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.bnav a.on{color:var(--am)}
+.bnav a.on svg{transform:translateY(-1px)}
+.bnav a.on:before{content:"";position:absolute;top:-7px;left:30%;right:30%;height:2px;border-radius:2px;background:var(--gold)}
+.bnav a:active{background:rgba(255,255,255,.04)}
+.dr-sx{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px 10px 4px}
+.dr-sx a{display:flex;align-items:center;gap:8px;padding:11px 10px;border-radius:12px;border:1px solid var(--ln);font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer}
+.dr-sx a svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.dr-sx a.on{border-color:rgba(233,180,76,.45);color:var(--am);background:var(--am-s)}
+
+/* ortak */
+.sub{font-size:12px;color:var(--tx3);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:20px;background:rgba(255,255,255,.06);font-size:11.5px;font-weight:700;color:var(--tx2)}
+.chip.g{background:var(--am-s);color:var(--am)}.chip.r{background:var(--dn-s);color:var(--dn)}.chip.u{background:var(--up-s);color:var(--up)}
+.qk{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px}
+.qk::-webkit-scrollbar{display:none}
+.qk a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:12px;border:1px solid var(--ln2);background:var(--p);font-size:12.5px;font-weight:700;color:var(--tx);cursor:pointer;white-space:nowrap}
+.qk a:after{content:"↗";color:var(--am);font-size:11px}
+.segx{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px}
+.segx::-webkit-scrollbar{display:none}
+.segx button{flex:none;border:1px solid var(--ln2);background:transparent;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--tx2);cursor:pointer;border-radius:20px;white-space:nowrap}
+.segx button.on{background:var(--gold);border-color:transparent;color:#1B1305}
+.hsc{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:2px 14px 14px;scroll-snap-type:x mandatory;scroll-padding:0 14px}
+.hsc::-webkit-scrollbar{display:none}
+.lnk{color:var(--am);font-weight:700;cursor:pointer}
+img.ph{background:var(--p3)}
+.sec-h{display:flex;align-items:baseline;gap:10px;margin:18px 2px 10px}
+.sec-h b{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.sec-h a{margin-left:auto;font-size:12.5px;color:var(--am);font-weight:700;cursor:pointer}
+
+/* kahraman kart */
+.hero{position:relative;border-radius:18px;overflow:hidden;margin-bottom:12px;min-height:200px;background:var(--p2);border:1px solid var(--ln);cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,13,20,.1),rgba(10,13,20,.92) 75%)}
+.hero .in{position:relative;z-index:1;padding:16px}
+.hero .k{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--am)}
+.hero .y{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1;margin:6px 0 6px;background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .t{font-size:15px;font-weight:600;line-height:1.4}
+.hero.noimg{background:linear-gradient(150deg,rgba(233,180,76,.18),rgba(233,180,76,.02) 60%),var(--p)}
+
+/* afiş / kapak kartları */
+.pc{flex:none;width:118px;scroll-snap-align:start;cursor:pointer}
+.pc .im{position:relative;width:118px;aspect-ratio:2/3;border-radius:12px;overflow:hidden;background:var(--p3);border:1px solid var(--ln)}
+.pc .im img{width:100%;height:100%;object-fit:cover;display:block}
+.pc .im .rt{position:absolute;left:6px;bottom:6px;background:rgba(10,13,20,.82);backdrop-filter:blur(6px);padding:2px 7px;border-radius:8px;font-size:11px;font-weight:800;color:var(--am)}
+.pc .im .nw2{position:absolute;right:6px;top:6px;background:var(--gold);color:#1B1305;padding:2px 6px;border-radius:6px;font-size:9.5px;font-weight:800;letter-spacing:.04em}
+.pc .tt{font-size:12.5px;font-weight:700;margin-top:7px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc .st{font-size:11px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;padding:4px 14px 16px}
+.fg .pc,.fg .pc .im{width:auto}
+@media (min-width:600px){.fg{grid-template-columns:repeat(4,1fr)}}
+.noimg-t{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:12px;font-weight:700;color:var(--tx2)}
+
+/* film detayı */
+.fd{display:flex;gap:14px}
+.fd .po2{width:112px;flex:none;aspect-ratio:2/3;border-radius:12px;overflow:hidden;background:var(--p3)}
+.fd .po2 img{width:100%;height:100%;object-fit:cover}
+.fd .m{flex:1;min-width:0;font-size:12.5px;color:var(--tx2)}
+.fd .m div{margin-bottom:5px}
+.fd .m b{color:var(--tx)}
+.rts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.rts div{background:var(--p2);border-radius:12px;padding:10px;text-align:center}
+.rts span{display:block;font-size:10.5px;color:var(--tx3);font-weight:700;letter-spacing:.04em}
+.rts b{font-size:20px;font-weight:800;color:var(--am)}
+.rts i{display:block;height:4px;border-radius:4px;background:var(--p3);margin-top:6px;overflow:hidden}
+.rts i:after{content:"";display:block;height:100%;width:var(--w);background:var(--gold)}
+.syn{font-size:14px;line-height:1.55;color:var(--tx2)}
+
+/* liste satırları (kitap / tarih) */
+.br{display:flex;gap:12px;padding:12px 14px;border-top:1px solid var(--ln);cursor:pointer}
+.br:active{background:var(--p2)}
+.br .cv{width:54px;flex:none;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:var(--p3)}
+.br .cv img{width:100%;height:100%;object-fit:cover;display:block}
+.br .tx{flex:1;min-width:0}
+.br .t1{font-size:14.5px;font-weight:700;line-height:1.35}
+.br .t2x{font-size:12px;color:var(--tx2);margin-top:2px}
+.br .t3x{font-size:12px;color:var(--tx3);margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tlr{display:flex;gap:12px;padding:13px 14px;border-top:1px solid var(--ln);cursor:pointer;position:relative}
+.tlr:active{background:var(--p2)}
+.tlr .yr{flex:none;width:52px;font-size:15px;font-weight:800;color:var(--am);padding-top:1px}
+.tlr .yr small{display:block;font-size:10px;color:var(--tx3);font-weight:600}
+.tlr .tx{flex:1;min-width:0;font-size:14px;line-height:1.45}
+.tlr .th{width:52px;height:52px;flex:none;border-radius:10px;overflow:hidden;background:var(--p3)}
+.tlr .th img{width:100%;height:100%;object-fit:cover}
+
+/* maç */
+.mr{display:grid;grid-template-columns:46px 1fr auto 1fr;gap:7px;align-items:center;padding:11px 14px;border-top:1px solid var(--ln);font-size:13.5px}
+.mr.fav{background:linear-gradient(90deg,var(--am-s),transparent 70%)}
+.mr .tm{font-size:12px;font-weight:700;color:var(--tx2);line-height:1.2}
+.mr .tm small{display:block;font-size:10px;color:var(--tx3);font-weight:600}
+.mr .tm.lv{color:var(--dn)}
+.mr .tm.lv:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--dn);margin-right:4px;vertical-align:1px;animation:beatr 1.4s infinite}
+@keyframes beatr{0%,100%{opacity:1}50%{opacity:.25}}
+.mr .tn{display:flex;align-items:center;gap:6px;min-width:0;font-weight:600;font-size:13px}
+.mr .tn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mr .tn.h{justify-content:flex-end;text-align:right}
+.mr .tn img{width:20px;height:20px;object-fit:contain;flex:none}
+.mr .tn.w{font-weight:800}
+.mr .sc2{min-width:50px;text-align:center;font-weight:800;font-size:15px;padding:4px 6px;border-radius:8px;background:var(--p2)}
+.mr .sc2.pre{font-size:12px;color:var(--tx3);font-weight:700;background:none}
+.mr .sc2.lv{color:var(--dn);background:var(--dn-s)}
+.trf{font-style:normal;font-size:9px;font-weight:800;color:#1B1305;background:var(--gold);border-radius:4px;padding:0 4px;margin-left:4px}
+.md{padding:8px 14px;background:var(--p2);font-size:11.5px;font-weight:800;color:var(--am);letter-spacing:.04em;border-top:1px solid var(--ln);display:flex;justify-content:space-between}
+.stt{width:100%;border-collapse:collapse;font-size:13px}
+.stt th{font-size:10.5px;color:var(--tx3);font-weight:700;padding:8px 4px;text-align:center;border-top:1px solid var(--ln)}
+.stt td{padding:9px 4px;text-align:center;border-top:1px solid var(--ln)}
+.stt td.n{text-align:left;font-weight:700;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stt td.n img{width:18px;height:18px;object-fit:contain;vertical-align:-4px;margin-right:7px}
+.stt td.r{width:30px;font-weight:800;color:var(--tx2);position:relative}
+.stt td.r:before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:var(--zc,transparent)}
+.stt td.p{font-weight:800;color:var(--tx)}
+.stt tr.fav td{background:var(--am-s)}
+.stt th:first-child,.stt td:first-child{padding-left:12px}.stt th:last-child,.stt td:last-child{padding-right:12px}
+.cdc{background:linear-gradient(150deg,rgba(242,97,110,.16),rgba(242,97,110,.02) 60%),var(--p);border:1px solid rgba(242,97,110,.25);border-radius:16px;padding:16px;margin-bottom:12px}
+.cdc .k{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--dn)}
+.cdc .t{font-size:19px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
+.cdc .d{font-size:12.5px;color:var(--tx2);margin-top:2px}
+.cdc .cd2{font-size:26px;font-weight:800;margin-top:10px;letter-spacing:-.01em}
+.cdc.g{background:linear-gradient(150deg,rgba(233,180,76,.16),rgba(233,180,76,.02) 60%),var(--p);border-color:rgba(233,180,76,.25)}.cdc.g .k{color:var(--am)}
+.ses{display:grid;grid-template-columns:1fr auto;gap:6px 10px;margin-top:12px;font-size:12.5px}
+.ses span{color:var(--tx2)}.ses b{font-weight:700}.ses .ps{opacity:.45}
+
+/* müzik */
+.ymh{position:relative;border-radius:20px;overflow:hidden;padding:20px 18px;margin-bottom:12px;background:radial-gradient(420px 220px at 100% 0,rgba(255,40,70,.38),transparent 70%),radial-gradient(380px 200px at 0 100%,rgba(233,180,76,.18),transparent 70%),var(--p);border:1px solid rgba(255,64,96,.25)}
+.ymh .k{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ymh .k svg{width:34px;height:34px;flex:none}
+.ymh .d{font-size:12.5px;color:var(--tx2);margin:6px 0 16px}
+.ymh .g2 .btn{padding:13px 10px}
+.btn.yt{background:linear-gradient(135deg,#FF4D67,#E0213F);color:#fff;border:0;box-shadow:0 8px 22px -10px rgba(255,40,70,.8)}
+.qt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.qt a{display:flex;align-items:center;gap:10px;padding:13px;border-radius:14px;background:var(--p);border:1px solid var(--ln);font-weight:700;font-size:13.5px;cursor:pointer}
+.qt a svg{width:20px;height:20px;stroke:var(--am);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+@media (min-width:600px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{position:relative;height:78px;border-radius:14px;overflow:hidden;padding:12px;font-weight:800;font-size:14.5px;cursor:pointer;color:#fff;background:var(--bgc);display:flex;align-items:flex-end;letter-spacing:-.01em}
+.tile:after{content:"";position:absolute;right:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.14)}
+.tile:active{transform:scale(.98)}
+.srch{display:flex;gap:8px;margin-bottom:12px}
+.srch .inp{flex:1}
+.srch .btn{flex:none}
+.vr{display:flex;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid var(--ln)}
+.vr .th{width:96px;flex:none;aspect-ratio:16/9;border-radius:9px;overflow:hidden;background:var(--p3);position:relative;cursor:pointer}
+.vr .th img{width:100%;height:100%;object-fit:cover;display:block}
+.vr .th:after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.vr .tx{flex:1;min-width:0;cursor:pointer}
+.vr .t1{font-size:13.5px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vr .t2x{font-size:11.5px;color:var(--tx3);margin-top:2px}
+.vr .ac{display:flex;gap:4px;flex:none}
+.ib{width:36px;height:36px;border-radius:10px;border:1px solid var(--ln2);background:var(--p2);display:grid;place-items:center;cursor:pointer;color:var(--tx2);font-size:14px;font-weight:800}
+.ib svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ib.am{color:var(--am)}
+
+/* oynatıcı */
+#ply{position:fixed;left:0;right:0;bottom:calc(62px + var(--safe-b));z-index:34;display:none;padding:0 8px 6px;max-width:860px;margin:0 auto}
+body.plon #ply{display:block}
+#ply .box{background:rgba(20,26,38,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--ln2);border-radius:16px;overflow:hidden;box-shadow:0 -10px 30px rgba(0,0,0,.45)}
+#ply .row{display:flex;align-items:center;gap:10px;padding:8px}
+#ply .pf{width:112px;height:63px;flex:none;border-radius:10px;overflow:hidden;background:#000;transition:width .3s,height .3s}
+#ply .pf iframe{width:100%;height:100%;border:0;display:block}
+#ply .nm{flex:1;min-width:0}
+#ply .nm b{display:block;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ply .nm span{font-size:11px;color:var(--tx3);font-weight:600}
+#ply.big .row{flex-wrap:wrap}
+.mini2{margin-bottom:12px}.mini2 .cdc{margin:0}.mini2 .cdc .t{font-size:16px}.mini2 .cdc .cd2{font-size:18px}
+#ply.big .pf{width:100%;height:auto;aspect-ratio:16/9;order:-1}
 </style>
 </head>
 <body>
@@ -291,11 +470,13 @@ body.sh .sbg{opacity:1;visibility:visible}body.sh .sheet{transform:none;visibili
   <nav class="fkeys" id="fk"></nav>
 </header>
 <div class="scrim" id="scrim"></div>
-<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v4.0</div></div><div class="dr-n" id="drn"></div></nav>
+<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v5.0</div></div><div class="dr-n" id="drn"></div></nav>
 <main id="view"></main>
 <div class="sbg" id="sbg"></div>
 <div class="sheet" id="sheet"><div class="grab"></div><div id="shc"></div></div>
 <div id="toasts"></div>
+<div id="ply"></div>
+<nav class="bnav" id="bnav"></nav>
 <script id="engine">
 /* ===== F sevim · ortak motor (tarayıcı + GitHub tarayıcısı) ===== */
 var ENGINE_V = '4.0';
@@ -491,6 +672,52 @@ var AUTHORS = [
   {n: 'Haluk Bürümcekçi', o: 'Ekonomist', q: '"Haluk Bürümcekçi"', l: 'tr'},
   {n: 'Atilla Yeşilada', o: 'GlobalSource Partners', q: '"Atilla Yeşilada"', l: 'tr'}
 ];
+/* ---- içerik: tarihte bugün (bulut + tarayıcı ortak) ---- */
+var TR_HIST = /Türk|Osmanlı|Atatürk|Mustafa Kemal|İstanbul|Ankara|İzmir|Selçuklu|Anadolu|TBMM|Meclis|Cumhuriyet|Kurtuluş|Çanakkale|İnönü|Kıbrıs|Kayseri|Bursa|Edirne|Trabzon|Erzurum|Konya|Sakarya|Malazgirt|Fatih|Kanuni|Yavuz|sultan|padişah|Sadrazam|Lozan|Sevr|Mudanya|Mondros|Dumlupınar|Göktürk|Hun|Uygur|Timur|Babür|Akkoyunlu|Karakoyunlu|Memlük/i;
+function procOTD(j, key) {
+  if (!j) return null;
+  var simp = function (e, kind) {
+    var p = (e.pages || [])[0] || {};
+    return {y: e.year, t: String(e.text || '').trim(), k: kind, ttl: (p.titles && p.titles.normalized) || p.title || '', img: p.thumbnail ? p.thumbnail.source : '', ex: String(p.extract || '').slice(0, 700), url: (p.content_urls && p.content_urls.mobile && p.content_urls.mobile.page) || ''};
+  };
+  var isTR = function (x) { return TR_HIST.test(x.t) || TR_HIST.test(x.ttl) || TR_HIST.test(x.ex.slice(0, 200)); };
+  var sel = (j.selected || []).map(function (e) { return simp(e, 'sel'); });
+  var evs = (j.events || []).map(function (e) { return simp(e, 'ev'); });
+  var seen = {}, all = [];
+  sel.concat(evs).forEach(function (x) { var k = x.y + '|' + x.t.slice(0, 40); if (x.t && !seen[k]) { seen[k] = 1; all.push(x); } });
+  all.sort(function (a, b) { return b.y - a.y; });
+  return {
+    key: key,
+    tr: all.filter(isTR).slice(0, 40),
+    dunya: all.filter(function (x) { return !isTR(x); }).slice(0, 50),
+    dogum: (j.births || []).map(function (e) { return simp(e, 'b'); }).filter(function (x) { return x.img; }).slice(0, 20).concat((j.births || []).map(function (e) { return simp(e, 'b'); }).filter(function (x) { return !x.img; }).slice(0, 10)).sort(function (a, b) { return b.y - a.y; }),
+    olum: (j.deaths || []).map(function (e) { return simp(e, 'd'); }).slice(0, 25).sort(function (a, b) { return b.y - a.y; }),
+    gun: (j.holidays || []).map(function (e) { return simp(e, 'h'); }).slice(0, 8)
+  };
+}
+var OTD_URL = function (mm, dd, lang) { return 'https://api.wikimedia.org/feed/v1/wikipedia/' + (lang || 'tr') + '/onthisday/all/' + mm + '/' + dd; };
+var OTD_URL2 = function (mm, dd, lang) { return 'https://' + (lang || 'tr') + '.wikipedia.org/api/rest_v1/feed/onthisday/all/' + mm + '/' + dd; };
+/* ---- ESPN dönüştürücüleri (bulut + tarayıcı ortak) ---- */
+function espnEv(e) {
+  var c = (e.competitions || [])[0] || {}, st = c.status || e.status || {}, ty = st.type || {}, cs = c.competitors || [];
+  var h = cs.filter(function (x) { return x.homeAway === 'home'; })[0] || cs[0] || {}, a = cs.filter(function (x) { return x.homeAway === 'away'; })[0] || cs[1] || {};
+  var tm = function (x) { var t = x.team || {}; return {id: t.id, n: t.shortDisplayName || t.displayName || '', f: t.displayName || '', ab: t.abbreviation || '', lg: t.logo || (t.logos && t.logos[0] && t.logos[0].href) || '', s: x.score == null ? null : (typeof x.score === 'object' ? x.score.displayValue : x.score), w: !!x.winner}; };
+  return {id: e.id, t: Date.parse(e.date), st: ty.state || 'pre', dt: ty.shortDetail || ty.detail || '', clk: st.displayClock || '', done: !!ty.completed, h: tm(h), a: tm(a), v: (c.venue && c.venue.fullName) || '', nt: (c.notes && c.notes[0] && c.notes[0].headline) || ''};
+}
+function espnTable(j) {
+  var groups = j.children && j.children.length ? j.children : [j];
+  return groups.map(function (g) {
+    var en = (g.standings && g.standings.entries) || [];
+    var rows = en.map(function (e) {
+      var s = {}; (e.stats || []).forEach(function (x) { s[x.name || x.type || x.abbreviation] = x.value != null ? x.value : x.displayValue; });
+      var t = e.team || {};
+      return {id: t.id, n: t.shortDisplayName || t.displayName || '', f: t.displayName || '', ab: t.abbreviation || '', lg: (t.logos && t.logos[0] && t.logos[0].href) || '', p: s.points, o: s.gamesPlayed, g: s.wins, b: s.ties, m: s.losses, ag: s.pointsFor, yg: s.pointsAgainst, av: s.pointDifferential, r: s.rank, nt: (e.note && e.note.description) || '', nc: (e.note && e.note.color) || ''};
+    });
+    rows.sort(function (a, b) { return (a.r || 99) - (b.r || 99) || (b.p || 0) - (a.p || 0) || (b.av || 0) - (a.av || 0); });
+    return {n: g.name || g.abbreviation || '', rows: rows};
+  });
+}
+
 
 </script>
 <script id="scanner" type="text/plain">
@@ -608,6 +835,8 @@ var AUTHORS = [
   }
 
   /* ---- çalıştır ---- */
+  try { fs.mkdirSync('data', {recursive: true}); } catch (e) {}
+  var CONTENT_P = contentRun().catch(function (e) { console.error('içerik hatası', e); });
   var DATA = {v: ENGINE_V, at: Date.now(), quotes: {}, scans: {}, lists: {}, news: {}, authors: {}, cal: [], errors: []};
   var QUOTES = ['XU100.IS', 'XU030.IS', '^NDX', '^GSPC', 'DX-Y.NYB', '^TNX', '^VIX', 'TRY=X', 'EURTRY=X', 'GC=F', 'SI=F', 'BZ=F', 'CL=F'];
   await pool(QUOTES, 4, async function (s) {
@@ -648,6 +877,167 @@ var AUTHORS = [
   fs.writeFileSync('data/market.json', JSON.stringify(DATA));
   fs.writeFileSync('data/candles.json', JSON.stringify(CANDLES));
   log('yazıldı: market.json', (fs.statSync('data/market.json').size / 1024).toFixed(0) + 'KB, candles.json', (fs.statSync('data/candles.json').size / 1024).toFixed(0) + 'KB', DATA.errors.length ? 'hatalar: ' + DATA.errors.join('; ') : '');
+
+  /* ================= İÇERİK: kültür-sanat · spor · müzik → data/content.json ================= */
+  await CONTENT_P;
+
+  async function contentRun() {
+    var REPO = process.env.GITHUB_REPOSITORY || '';
+    var SITE = REPO ? 'https://' + REPO.split('/')[0].toLowerCase() + '.github.io/' + REPO.split('/')[1] + '/' : '';
+    var P = {};
+    if (SITE) { try { P = (await get(SITE + 'data/content.json?t=' + Date.now(), 'json', 1)) || {}; } catch (e) { log('önceki içerik yok'); } }
+    var C = {v: 1, at: Date.now(), t: Object.assign({}, P.t || {}), news: P.news || {}, films: P.films || [], reviews: P.reviews || {}, tarih: P.tarih || null, foot: P.foot || {}, nba: P.nba || [], f1: P.f1 || null, mgp: P.mgp || null, errors: []};
+    var stale = function (k, min) { return !C.t[k] || Date.now() - C.t[k] > min * 60e3; };
+    var done = function (k) { C.t[k] = Date.now(); };
+    var trim = function (arr, n) { return (arr || []).slice(0, n).map(function (x) { return {title: x.title, link: x.link, src: x.src, desc: (x.desc || '').slice(0, 220), ts: x.ts, cat: x.cat}; }); };
+
+    /* --- haber akışları (30 dk) --- */
+    var CF = {
+      kultur: [GN('kültür sanat when:3d'), GN('sergi müze bienal festival when:7d')],
+      sinema: [GN('sinema vizyon film when:7d'), GN('vizyona giren filmler when:10d'), GN('box office movie when:3d', 'en')],
+      tiyatro: [GN('tiyatro oyunu prömiyer when:14d'), GN('Devlet Tiyatroları OR Şehir Tiyatroları OR tiyatro sahne when:14d')],
+      konser: [GN('konser when:7d'), GN('konser bilet sahne turne when:14d')],
+      kitap: [GN('yeni çıkan kitaplar when:30d'), GN('ekonomi kitabı OR yeni kitap ekonomi when:45d'), GN('tarih OR felsefe OR psikoloji OR sosyoloji yeni kitap when:30d')],
+      yerel: [GN('Kayseri konser OR tiyatro OR sergi OR festival OR etkinlik when:30d')],
+      tarih: [GN('arkeoloji kazı keşif when:14d'), GN('tarih araştırma Osmanlı arşiv when:14d')],
+      muzik: [GN('yeni şarkı albüm müzik when:7d'), GN('new album single release when:3d', 'en')],
+      futbol: [GN('Süper Lig when:1d'), GN('Süper Lig maç when:2d')],
+      transfer: [GN('transfer futbol Süper Lig when:3d')],
+      avrupa: [GN('Şampiyonlar Ligi OR Avrupa Ligi OR Konferans Ligi when:3d')],
+      basket: [GN('Basketbol Süper Ligi when:4d'), GN('EuroLeague OR EuroCup basketbol when:3d'), GN('NBA Alperen Şengün OR NBA when:2d')],
+      voley: [GN('voleybol Sultanlar Ligi OR Efeler Ligi when:7d'), GN('voleybol Şampiyonlar Ligi OR milli takım voleybol when:14d')],
+      f1: [GN('Formula 1 when:3d'), GN('Formula 1 Grand Prix when:2d', 'en')],
+      motogp: [GN('MotoGP when:7d'), GN('Toprak Razgatlıoğlu when:10d')],
+      gs: [GN('Galatasaray when:2d')], fb: [GN('Fenerbahçe when:2d')], bjk: [GN('Beşiktaş when:2d')], ts: [GN('Trabzonspor when:3d')], kay: [GN('Kayserispor when:5d')]
+    };
+    {
+      var nOk = 0;
+      await pool(Object.keys(CF), 4, async function (cat) { try { var it = await feeds(cat, CF[cat], 40); if (it.length) { C.news[cat] = trim(it, 40); nOk++; } } catch (e) { C.errors.push('news ' + cat); } });
+      if (nOk) done('news');
+      log('içerik haberleri:', nOk + '/' + Object.keys(CF).length);
+    }
+
+    /* --- vizyondaki filmler (Beyazperde, 3 sa) --- */
+    if (stale('films', 60) || !C.films.length) {
+      try {
+        var films = [], seenF = {};
+        for (var pg = 1; pg <= 2; pg++) {
+          var html = await get('https://www.beyazperde.com/filmler/vizyondakiler/' + (pg > 1 ? '?page=' + pg : ''), 'text', 2);
+          parseFilms(html).forEach(function (f) { if (!seenF[f.id]) { seenF[f.id] = 1; films.push(f); } });
+          if (films.length < 12) break;
+        }
+        if (films.length) { C.films = films.slice(0, 40); done('films'); }
+        log('filmler:', films.length);
+      } catch (e) { C.errors.push('films ' + e.message); }
+    }
+    /* --- film eleştirileri / yorumlar (6 sa) --- */
+    if (C.films.length && stale('reviews', 120)) {
+      var rv = {};
+      await pool(C.films.slice(0, 14), 2, async function (f) {
+        try { var q = '"' + f.title + '" film (eleştiri OR yorum OR inceleme) when:120d'; var it = await feeds('elestiri', [GN(q)], 6); rv[f.id] = trim(it, 6); } catch (e) {}
+      });
+      C.reviews = rv; done('reviews');
+    }
+
+    /* --- tarihte bugün (Wikipedia) --- */
+    var nowTR = new Date(Date.now() + 3 * 36e5); var MM = String(nowTR.getUTCMonth() + 1).padStart(2, '0'), DD = String(nowTR.getUTCDate()).padStart(2, '0');
+    if (!C.tarih || C.tarih.key !== MM + '-' + DD) {
+      try { var oj; try { oj = await get(OTD_URL(MM, DD, 'tr'), 'json', 2); } catch (e) { oj = await get(OTD_URL2(MM, DD, 'tr'), 'json', 2); } C.tarih = procOTD(oj, MM + '-' + DD); log('tarih:', C.tarih.tr.length, 'Türk,', C.tarih.dunya.length, 'dünya'); }
+      catch (e) { C.errors.push('tarih ' + e.message); }
+    }
+
+    /* --- futbol (ESPN, her çalışmada) --- */
+    var ESPN = 'https://site.api.espn.com/apis/site/v2/sports/', ESPN2 = 'https://site.api.espn.com/apis/v2/sports/';
+    var LG = {lig: 'soccer/tur.1', ucl: 'soccer/uefa.champions', uel: 'soccer/uefa.europa', uecl: 'soccer/uefa.europa.conf'};
+    var ymd = function (t) { var d = new Date(t + 3 * 36e5); return d.getUTCFullYear() + String(d.getUTCMonth() + 1).padStart(2, '0') + String(d.getUTCDate()).padStart(2, '0'); };
+    for (var lg in LG) {
+      var F = C.foot[lg] || {};
+      try { var sb = await get(ESPN + LG[lg] + '/scoreboard?limit=400&dates=' + ymd(Date.now() - 24 * 864e5) + '-' + ymd(Date.now() + 40 * 864e5), 'json', 2); F.m = (sb.events || []).map(espnEv); F.name = sb.leagues && sb.leagues[0] && sb.leagues[0].name; }
+      catch (e) { C.errors.push('maç ' + lg); }
+      try { F.tb = espnTable(await get(ESPN2 + LG[lg] + '/standings', 'json', 2)); } catch (e) { C.errors.push('puan ' + lg); }
+      F.at = Date.now(); C.foot[lg] = F;
+    }
+    log('futbol:', Object.keys(C.foot).map(function (k) { return k + ' ' + ((C.foot[k].m || []).length) + 'm/' + (((C.foot[k].tb || [])[0] || {rows: []}).rows.length) + 't'; }).join(', '));
+    try { var nb = await get(ESPN + 'basketball/nba/scoreboard?dates=' + ymd(Date.now() - 2 * 864e5) + '-' + ymd(Date.now() + 2 * 864e5), 'json', 2); C.nba = (nb.events || []).map(espnEv); } catch (e) { C.errors.push('nba'); }
+
+    /* --- Formula 1 (Jolpica, 20 dk) --- */
+    if (stale('f1', 4) || !C.f1) {
+      try {
+        var J = 'https://api.jolpi.ca/ergast/f1/current';
+        var ses = function (r) { return [['1. Antrenman', r.FirstPractice], ['2. Antrenman', r.SecondPractice], ['3. Antrenman', r.ThirdPractice], ['Sprint Sıralama', r.SprintQualifying || r.SprintShootout], ['Sprint', r.Sprint], ['Sıralama', r.Qualifying]].filter(function (x) { return x[1]; }).map(function (x) { return [x[0], Date.parse(x[1].date + 'T' + (x[1].time || '12:00:00Z'))]; }).sort(function (a, b) { return a[1] - b[1]; }); };
+        var sch = await get(J + '.json', 'json', 2);
+        var races = sch.MRData.RaceTable.Races.map(function (r) { return {rd: +r.round, n: r.raceName, c: r.Circuit.circuitName, loc: r.Circuit.Location.locality + ', ' + r.Circuit.Location.country, t: Date.parse(r.date + 'T' + (r.time || '12:00:00Z')), ses: ses(r)}; });
+        var f1 = {season: sch.MRData.RaceTable.season, races: races, ds: [], cs: [], last: null};
+        try { var dj = await get(J + '/driverStandings.json', 'json', 2); f1.ds = dj.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(function (d) { return {p: +(d.position || d.positionText), n: d.Driver.givenName + ' ' + d.Driver.familyName, c: d.Driver.code, nat: d.Driver.nationality, tm: (d.Constructors[0] || {}).name, pt: +d.points, w: +d.wins}; }); } catch (e) {}
+        try { var cj = await get(J + '/constructorStandings.json', 'json', 2); f1.cs = cj.MRData.StandingsTable.StandingsLists[0].ConstructorStandings.map(function (d) { return {p: +(d.position || d.positionText), n: d.Constructor.name, pt: +d.points, w: +d.wins}; }); } catch (e) {}
+        try { var lj = await get(J + '/last/results.json', 'json', 2); var lr = lj.MRData.RaceTable.Races[0]; if (lr) f1.last = {rd: +lr.round, n: lr.raceName, t: Date.parse(lr.date + 'T' + (lr.time || '12:00:00Z')), res: lr.Results.map(function (x) { return {p: +x.position, n: x.Driver.givenName + ' ' + x.Driver.familyName, c: x.Driver.code, tm: x.Constructor.name, tx: x.Time ? x.Time.time : x.status, pt: +x.points}; })}; } catch (e) {}
+        C.f1 = f1; done('f1'); log('F1:', races.length, 'yarış,', f1.ds.length, 'pilot');
+      } catch (e) { C.errors.push('f1 ' + e.message); }
+    }
+
+    /* --- MotoGP (Pulselive, 3 sa) --- */
+    if (stale('mgp', 30) || !C.mgp) {
+      try {
+        var MG = 'https://api.motogp.pulselive.com/motogp/v1/results/';
+        var seasons = await get(MG + 'seasons', 'json', 2);
+        var cur = seasons.filter(function (s) { return s.current; })[0] || seasons.slice().sort(function (a, b) { return b.year - a.year; })[0];
+        var cats = await get(MG + 'categories?seasonUuid=' + cur.id, 'json', 2);
+        var cat = cats.filter(function (c) { return /^motogp/i.test(String(c.name || '').replace(/[^a-z0-9]/gi, '')); })[0] || cats[0];
+        var evs = [];
+        for (var fin of ['true', 'false']) { try { (await get(MG + 'events?seasonUuid=' + cur.id + '&isFinished=' + fin, 'json', 2)).forEach(function (e) { if (!e.test) evs.push({id: e.id, n: e.sponsored_name || e.name, sn: e.short_name || '', c: (e.circuit && e.circuit.name) || '', ctry: (e.country && e.country.name) || '', iso: (e.country && e.country.iso) || '', s: Date.parse(e.date_start), e: Date.parse(e.date_end) + 864e5 - 1, fin: fin === 'true'}); }); } catch (e) {} }
+        evs.sort(function (a, b) { return a.s - b.s; });
+        var st = await get(MG + 'standings?seasonUuid=' + cur.id + '&categoryUuid=' + cat.id, 'json', 2);
+        var cl = (st.classification || []).map(function (x) { return {p: x.position, n: (x.rider && x.rider.full_name) || '', iso: x.rider && x.rider.country && x.rider.country.iso, tm: (x.team && x.team.name) || (x.constructor && x.constructor.name) || '', pt: x.points, w: x.race_wins}; });
+        C.mgp = {season: cur.year, events: evs, ds: cl}; done('mgp'); log('MotoGP:', evs.length, 'etap,', cl.length, 'pilot');
+      } catch (e) { C.errors.push('motogp ' + e.message); }
+    }
+
+    C.at = Date.now();
+    fs.writeFileSync('data/content.json', JSON.stringify(C));
+    log('yazıldı: content.json', (fs.statSync('data/content.json').size / 1024).toFixed(0) + 'KB', C.errors.length ? 'hatalar: ' + C.errors.join('; ') : '');
+  }
+
+  function parseFilms(html) {
+    var out = [];
+    var TRM = {ocak: 0, şubat: 1, mart: 2, nisan: 3, mayıs: 4, haziran: 5, temmuz: 6, ağustos: 7, eylül: 8, ekim: 9, kasım: 10, aralık: 11};
+    var txt = function (s) { return dec(String(s || '').replace(/<(script|style)[\s\S]*?<\/\1>/gi, '').replace(/<br\s*\/?>|<\/(div|li|p|h\d|ul|section|figure)>/gi, '\n').replace(/<[^>]+>/g, ' ')).replace(/&nbsp;/g, ' ').split('\n').map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).filter(Boolean); };
+    // kart sınırları
+    var chunks = [];
+    var parts = html.split(/<li[^>]+class="[^"]*\bmdl\b[^"]*"/i);
+    if (parts.length > 3) chunks = parts.slice(1);
+    else { parts = html.split(/class="[^"]*\bentity-card\b/i); if (parts.length > 3) chunks = parts.slice(1); }
+    if (!chunks.length) { // genel yedek: film bağlantılarına göre
+      var re = /href="\/filmler\/film-(\d+)\/"/g, m, idx = [], seen = {};
+      while ((m = re.exec(html))) if (!seen[m[1]]) { seen[m[1]] = 1; idx.push(m.index); }
+      for (var i = 0; i < idx.length; i++) chunks.push(html.slice(Math.max(0, idx[i] - 2500), idx[i + 1] || idx[i] + 6000));
+    }
+    var seenId = {};
+    chunks.forEach(function (ch) {
+      var lm = ch.match(/href="(\/filmler\/film-(\d+)\/)"[^>]*>\s*([^<]{2,120}?)\s*</) || ch.match(/<a[^>]+class="[^"]*meta-title-link[^"]*"[^>]+href="([^"]*?(\d+)[^"]*)"[^>]*>\s*([^<]+?)\s*</);
+      if (!lm || seenId[lm[2]]) return; seenId[lm[2]] = 1;
+      var title = dec(lm[3]).trim(); if (/posteri$/i.test(title)) return;
+      var img = ''; var ims = ch.match(/<img[^>]*>/gi) || [];
+      for (var k = 0; k < ims.length && !img; k++) { var mm2 = ims[k].match(/data-src="(https?:[^"]+)"/i) || ims[k].match(/\ssrc="(https?:[^"]+)"/i); if (mm2 && !/\.(svg|gif)(\?|$)/i.test(mm2[1])) img = mm2[1]; }
+      var L = txt(ch), flat = L.join(' | ');
+      var info = L.filter(function (l) { return /\b\d{1,2}\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\s+\d{4}/i.test(l); })[0] || '';
+      var im = info.match(/(\d{1,2})\s+(\S+)\s+(\d{4})/); var date = im && TRM[im[2].toLocaleLowerCase('tr')] != null ? Date.UTC(+im[3], TRM[im[2].toLocaleLowerCase('tr')], +im[1]) : null;
+      var ip = info.split('|').map(function (x) { return x.trim(); });
+      var dur = (info.match(/\d+s\s*\d+dk|\d+\s*dk/) || [''])[0];
+      var genre = ip.length >= 3 ? ip.slice(2).join(', ') : (ip[ip.length - 1] !== ip[0] ? ip[ip.length - 1] : '');
+      var after = function (re2) { var mm3 = flat.match(re2); return mm3 ? mm3[1].replace(/\s*\|\s*$/, '').trim() : ''; };
+      var dir = after(/Yönetmen(?:ler)?\s*:?\s*\|?\s*([^|]+)/i);
+      var cast = after(/Oyuncular\s*:?\s*\|?\s*([^|]+)/i);
+      var orig = after(/Orijinal ad[ıi]\s*:?\s*\|?\s*([^|]+)/i);
+      var rt = {}; var rr = /(Basın|Üyeler|Seyirci|Beyazperde)\s*\|?\s*(\d[,.]\d)/gi, m4;
+      while ((m4 = rr.exec(flat))) if (rt[m4[1]] == null) rt[m4[1]] = +m4[2].replace(',', '.');
+      var syn = '', sm = ch.match(/class="[^"]*content-txt[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+      if (sm) syn = txt(sm[1]).join(' ');
+      if (!syn) L.forEach(function (l) { if (l.length > syn.length && l.length > 70 && !/Yönetmen|Oyuncular|Orijinal ad/.test(l)) syn = l; });
+      var cl = function (v) { return String(v || '').replace(/\s+,/g, ',').replace(/\s{2,}/g, ' ').trim(); }; dir = cl(dir); cast = cl(cast); orig = cl(orig);
+      out.push({id: lm[2], title: title, url: 'https://www.beyazperde.com' + (lm[1].charAt(0) === '/' ? lm[1] : '/filmler/film-' + lm[2] + '/'), img: img, date: date, dur: dur, genre: genre, dir: dir, cast: cast, orig: orig, rt: rt, syn: syn.slice(0, 700)});
+    });
+    return out;
+  }
 })().catch(function (e) { console.error(e); process.exit(1); });
 
 </script>
@@ -1059,11 +1449,6 @@ const NAV = [
 const FK = {home: 'PİYASA', scan: 'TARAMA', analiz: 'ANALİZ', crypto: 'KRİPTO', bist: 'BIST', ndx: 'NDX', com: 'EMTİA', news: 'HABER', cal: 'TAKVİM', settings: 'AYAR', trade: 'İŞLEM', stats: 'İSTAT'};
 let route = 'home';
 const PAGES = {};
-function renderNav() {
-  $('#drn').innerHTML = NAV.map(([g, it]) => `<div class="dr-g">${g}</div>` + it.map(([k, f, l]) => { let c = ''; if (k === 'trade' && POS.length) c = POS.length + ' AÇIK'; else if (k === 'scan') { const n = Object.values(SC).reduce((a, x) => a + x.results.length, 0); if (n) c = n; } return `<a class="dr-i ${route === k ? 'on' : ''}" data-go="${k}">${l}${c ? `<span class="c">${c}</span>` : ''}</a>`; }).join('')).join('');
-  $('#fk').innerHTML = NAV.flatMap(([, it]) => it).map(([k, f]) => `<a class="${route === k ? 'on' : ''}" data-go="${k}">${FK[k]}</a>`).join('');
-  const a = $('#fk .on'); if (a) a.scrollIntoView({inline: 'center', block: 'nearest'});
-}
 function go(r) { if (!PAGES[r]) r = 'home'; if (location.hash !== '#' + r) { location.hash = r; return; } route = r; renderNav(); renderPage(true); }
 function renderPage(top) { const p = PAGES[route]; $('#view').innerHTML = `<section class="pg">${p.html()}</section><div class="foot"><i class="logo"></i></div>`; p.after && p.after(); if (top) window.scrollTo(0, 0); }
 function softRender() { const p = PAGES[route]; if (p && p.soft) p.soft(); }
@@ -1632,6 +2017,554 @@ $('#scrim').onclick = () => closeNav();
 $('#sbg').onclick = () => closeSheet();
 (() => { let y0 = null; const sh = $('#sheet'); sh.addEventListener('touchstart', e => { y0 = sh.scrollTop <= 0 ? e.touches[0].clientY : null; }, {passive: true}); sh.addEventListener('touchmove', e => { if (y0 == null) return; const dy = e.touches[0].clientY - y0; if (dy > 0) sh.style.transform = `translateY(${dy}px)`; }, {passive: true}); sh.addEventListener('touchend', e => { if (y0 == null) return; const dy = e.changedTouches[0].clientY - y0; sh.style.transform = ''; if (dy > 110) closeSheet(); y0 = null; }); })();
 
+
+/* =====================================================================
+   BÖLÜMLER: KÜLTÜR SANAT · SPOR · MÜZİK   (v5)
+   ===================================================================== */
+const IC = {
+  fin: '<svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg>',
+  kul: '<svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v10a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7V5a1 1 0 0 1 1-1z"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15c1.7 1.4 4.3 1.4 6 0"/></svg>',
+  spo: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5l3.8 2.8-1.4 4.5H9.6l-1.4-4.5z"/><path d="M12 3v4.5M15.8 10.3l4.6-1.6M14.4 14.8l2.8 4M9.6 14.8l-2.8 4M8.2 10.3L3.6 8.7"/></svg>',
+  muz: '<svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>'
+};
+const IC2 = {
+  exp: '<svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>',
+  out: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>',
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  home: '<svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  disc: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M16.5 7.5a6 6 0 0 1 1.5 4"/></svg>',
+  lib: '<svg viewBox="0 0 24 24"><path d="M4 4v16M9 4v16M14 4l5 16"/></svg>',
+  heart: '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/></svg>',
+  note: '<svg viewBox="0 0 48 48"><defs><linearGradient id="ymg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF5A72"/><stop offset="1" stop-color="#D81E3C"/></linearGradient></defs><circle cx="24" cy="24" r="23" fill="url(#ymg)"/><path d="M20 31.5V17l12-2.5v13" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="31.5" r="3.2" fill="#fff"/><circle cx="29.5" cy="27.5" r="3.2" fill="#fff"/></svg>'
+};
+const SECS = [['fin', 'Finans', 'home'], ['kul', 'Kültür Sanat', 'k-vitrin'], ['spo', 'Spor', 's-gundem'], ['muz', 'Müzik', 'm-kesfet']];
+const SNAV = {
+  kul: [['k-vitrin', 'VİTRİN', 'Vitrin'], ['k-sinema', 'SİNEMA', 'Sinema'], ['k-tiyatro', 'TİYATRO', 'Tiyatro'], ['k-konser', 'KONSER', 'Konserler'], ['k-kitap', 'KİTAP', 'Yeni Kitaplar'], ['k-tarih', 'TARİH', 'Tarihte Bugün']],
+  spo: [['s-gundem', 'GÜNDEM', 'Gündem & Canlı'], ['s-lig', 'SÜPER LİG', 'Süper Lig'], ['s-avrupa', 'AVRUPA', 'Avrupa Kupaları'], ['s-basket', 'BASKETBOL', 'Basketbol'], ['s-voley', 'VOLEYBOL', 'Voleybol'], ['s-motor', 'F1 · MOTOGP', 'F1 & MotoGP']],
+  muz: [['m-kesfet', 'KEŞFET', 'Keşfet'], ['m-liste', 'LİSTELERİM', 'Listelerim'], ['m-haber', 'HABERLER', 'Müzik Haberleri']]
+};
+const secOf = r => /^k-/.test(r) ? 'kul' : /^s-/.test(r) ? 'spo' : /^m-/.test(r) ? 'muz' : 'fin';
+const SECLAST = LS.get('seclast', {});
+const KX = Object.assign({sin: 'vizyon', ksort: 'yeni', kbc: 'ekonomi', kbl: 'tr', ktar: 'tr', slig: 'puan', lign: 'all', sav: 'ucl', savt: 'mac', sbas: 'gundem', smot: 'f1', smott: 'pilot', mmt: 'all'}, LS.get('kx', {}));
+Object.assign(CATL, {kultur: 'KÜLTÜR', sinema: 'SİNEMA', tiyatro: 'TİYATRO', konser: 'KONSER', kitap: 'KİTAP', yerel: 'KAYSERİ', tarih: 'TARİH', muzik: 'MÜZİK', futbol: 'FUTBOL', transfer: 'TRANSFER', avrupa: 'AVRUPA', basket: 'BASKETBOL', voley: 'VOLEYBOL', f1: 'FORMULA 1', motogp: 'MOTOGP', elestiri: 'ELEŞTİRİ', gs: 'GALATASARAY', fb: 'FENERBAHÇE', bjk: 'BEŞİKTAŞ', ts: 'TRABZONSPOR', kay: 'KAYSERİSPOR'});
+
+function renderNav() {
+  const sec = secOf(route);
+  if (SECLAST[sec] !== route) { SECLAST[sec] = route; LS.set('seclast', SECLAST); }
+  document.body.dataset.sec = sec;
+  if (typeof PL !== 'undefined' && PL.big && !/^m-/.test(route)) setBig(false);
+  const sx = `<div class="dr-sx">${SECS.map(([k, n]) => `<a class="${sec === k ? 'on' : ''}" data-sec="${k}">${IC[k]}<span>${n}</span></a>`).join('')}</div>`;
+  let items;
+  if (sec === 'fin') items = NAV.map(([g, it]) => `<div class="dr-g">${g}</div>` + it.map(([k, f, l]) => { let c = ''; if (k === 'trade' && POS.length) c = POS.length + ' AÇIK'; else if (k === 'scan') { const n = Object.values(SC).reduce((a, x) => a + x.results.length, 0); if (n) c = n; } return `<a class="dr-i ${route === k ? 'on' : ''}" data-go="${k}">${l}${c ? `<span class="c">${c}</span>` : ''}</a>`; }).join('')).join('');
+  else items = `<div class="dr-g">${SECS.find(x => x[0] === sec)[1].toLocaleUpperCase('tr')}</div>` + SNAV[sec].map(([k, , l]) => `<a class="dr-i ${route === k ? 'on' : ''}" data-go="${k}">${l}</a>`).join('');
+  $('#drn').innerHTML = sx + items;
+  const tabs = sec === 'fin' ? NAV.flatMap(([, it]) => it).map(([k]) => [k, FK[k]]) : SNAV[sec].map(([k, f]) => [k, f]);
+  $('#fk').innerHTML = tabs.map(([k, f]) => `<a class="${route === k ? 'on' : ''}" data-go="${k}">${f}</a>`).join('');
+  const a = $('#fk .on'); if (a) a.scrollIntoView({inline: 'center', block: 'nearest'});
+  $('#bnav').innerHTML = SECS.map(([k, n]) => `<a class="${sec === k ? 'on' : ''}" data-sec="${k}">${IC[k]}<span>${n}</span></a>`).join('');
+}
+function goSec(k) {
+  const s = SECS.find(x => x[0] === k); if (!s) return; const cur = secOf(route);
+  const r = cur === k ? s[2] : (SECLAST[k] && PAGES[SECLAST[k]] ? SECLAST[k] : s[2]);
+  if (cur === k && route === r) { if (navOpen) closeNav(); window.scrollTo({top: 0, behavior: 'smooth'}); return; }
+  if (navOpen) { navOpen = false; document.body.classList.remove('nav'); history.replaceState(null, '', '#' + r); route = r; renderNav(); renderPage(true); }
+  else go(r);
+}
+
+/* ---------- içerik verisi (bulut) ---------- */
+const CNT = {m: LS.get('cnt', null), at: 0, loading: null};
+async function loadContent(force) {
+  if (CNT.loading) return CNT.loading;
+  if (!force && CNT.at && Date.now() - CNT.at < 25e3) return CNT.m;
+  CNT.loading = (async () => {
+    try { const j = await (await tfetch('data/content.json?t=' + Date.now(), 25000, {cache: 'no-store'})).json(); CNT.m = j; CNT.at = Date.now(); LS.set('cnt', j); }
+    catch (e) {} finally { CNT.loading = null; }
+    return CNT.m;
+  })();
+  return CNT.loading;
+}
+const cm = () => CNT.m || {};
+
+/* ---------- ortak yardımcılar ---------- */
+const XR = [], NLS = [];
+const xr = (type, o) => { XR.push([type, o]); return `data-x="${XR.length - 1}"`; };
+const nlReg = items => { NLS.push(items); return NLS.length - 1; };
+const fi = v => v == null || v === '' || !isFinite(v) ? '–' : Math.round(v);
+const im = (u, alt = '') => u ? `<img src="${esc(u)}" alt="${esc(alt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : '';
+const isAnd = /Android/i.test(navigator.userAgent);
+function appHref(host, path, pkg) { const full = 'https://' + host + path; return isAnd ? `intent://${host}${path}#Intent;scheme=https;package=${pkg};S.browser_fallback_url=${encodeURIComponent(full)};end` : full; }
+const ytmHref = p => appHref('music.youtube.com', p, 'com.google.android.apps.youtube.music');
+const ytHref = p => appHref('www.youtube.com', p, 'com.google.android.youtube');
+const aAttr = h => `href="${esc(h)}"${/^intent:/.test(h) ? '' : ' target="_blank" rel="noopener"'}`;
+const ext = (u, l, c = '') => `<a class="${c}" ${aAttr(u)}>${l}</a>`;
+const dk = t => dtf({year: 'numeric', month: '2-digit', day: '2-digit'}).format(t);
+const longDay = t => dtf({weekday: 'long', day: 'numeric', month: 'long'}).format(t);
+const segx = (key, opts) => `<div class="segx">${opts.map(([v, l]) => `<button class="${KX[key] === v ? 'on' : ''}" data-kx="${key}:${v}">${l}</button>`).join('')}</div>`;
+const emptyB = t => `<div class="empty">${t || (CNT.m ? 'Kayıt bulunamadı' : 'Veri bekleniyor…')}</div>`;
+function mergeNews(keys, n = 50) {
+  const N = cm().news || {}, s = new Set();
+  return keys.flatMap(k => N[k] || []).sort((a, b) => b.ts - a.ts).filter(x => { const k = x.title.slice(0, 60).toLowerCase(); if (s.has(k)) return false; s.add(k); return true; }).slice(0, n);
+}
+function cnRows(items, max = 40) {
+  if (!items || !items.length) return emptyB(CNT.m ? 'Haber bulunamadı' : null);
+  const L = nlReg(items);
+  return items.slice(0, max).map((x, i) => `<div class="nw" data-cn="${L}:${i}"><div class="tm">${fTime(x.ts)}<div class="t3" style="font-size:9.5px;font-weight:500">${dtf({day: '2-digit', month: '2-digit'}).format(x.ts)}</div></div><div class="tx"><div class="so">${esc(x.src)}</div><div class="ti">${esc(x.title)}</div>${x.desc ? `<div class="ds">${esc(x.desc)}</div>` : ''}</div></div>`).join('');
+}
+function cnFlow(items) {
+  if (items.length < 8) return cnRows(items, 8);
+  const L = nlReg(items);
+  const row = (x, i) => `<div class="nw" data-cn="${L}:${i}"><div class="tm">${fTime(x.ts)}</div><div class="tx"><div class="so">${esc(CATL[x.cat] || '')}${CATL[x.cat] ? ' · ' : ''}${esc(x.src)}</div><div class="ti">${esc(x.title)}</div></div></div>`;
+  const h = items.map(row).join('');
+  return `<div class="nl" data-flow><div class="trk" style="--d:${Math.max(60, items.length * 6)}s">${h}${h}</div></div>`;
+}
+function flowWire() { $$('[data-flow]').forEach(n => { let to; n.addEventListener('touchstart', () => { n.classList.add('ps'); clearTimeout(to); }, {passive: true}); n.addEventListener('touchend', () => { to = setTimeout(() => n.classList.remove('ps'), 2500); }); }); }
+
+/* ============================ KÜLTÜR SANAT ============================ */
+const CITY = 'Kayseri';
+const KLINKS = {
+  tiyatro: [['Devlet Tiyatroları', 'https://www.devtiyatro.gov.tr'], ['İBB Şehir Tiyatroları', 'https://sehirtiyatrolari.ibb.istanbul'], ['Biletix', 'https://www.biletix.com'], ['Bubilet ' + CITY, 'https://www.bubilet.com.tr/kayseri']],
+  konser: [['Biletix', 'https://www.biletix.com'], ['Passo', 'https://www.passo.com.tr'], ['Bubilet ' + CITY, 'https://www.bubilet.com.tr/kayseri'], ['Biletinial', 'https://biletinial.com']]
+};
+// tarihte bugün
+let TL = LS.get('otd', null), tarihBusy = false;
+function todayKey() { const p = {}; dtf({month: '2-digit', day: '2-digit'}).formatToParts(Date.now()).forEach(x => p[x.type] = x.value); return p.month + '-' + p.day; }
+function tarihData() { const k = todayKey(), c = cm().tarih; if (c && c.key === k) return c; if (TL && TL.key === k) return TL; return null; }
+async function ensureTarih() {
+  if (tarihData() || tarihBusy) return; tarihBusy = true;
+  const [mm, dd] = todayKey().split('-');
+  try {
+    let j; try { j = await (await tfetch(OTD_URL(mm, dd, 'tr'), 15000)).json(); } catch (e) { j = await (await tfetch(OTD_URL2(mm, dd, 'tr'), 15000)).json(); }
+    TL = procOTD(j, mm + '-' + dd); LS.set('otd', TL);
+    if (/^k-(tarih|vitrin)$/.test(route) && !shOpen) renderPage();
+  } catch (e) {} finally { tarihBusy = false; }
+}
+function pickKesit(T, which) {
+  const day = Math.floor((Date.now() + 3 * 36e5) / 864e5);
+  const src = which === 'dunya' ? T.dunya : T.tr;
+  const pool = src.filter(x => x.img && x.t.length > 30); const p = pool.length ? pool : src;
+  return p.length ? p[(day + (which === 'dunya' ? 3 : 0)) % p.length] : null;
+}
+const bigImg = u => u ? u.replace(/\/(\d+)px-/, (m, w) => +w < 640 ? '/640px-' : m) : '';
+function heroKesit(x, k, small) {
+  const ago = x.y ? new Date().getFullYear() - x.y : null;
+  return `<div class="hero ${x.img ? '' : 'noimg'}" ${xr('otd', x)} ${small ? 'style="min-height:170px"' : ''}>${x.img ? `<img src="${esc(bigImg(x.img))}" data-o="${esc(x.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.dataset.o){this.src=this.dataset.o;this.dataset.o=''}else this.remove()">` : ''}<div class="in"><div class="k">${k}${ago ? ' · ' + ago + ' YIL ÖNCE' : ''}</div><div class="y" ${small ? 'style="font-size:30px"' : ''}>${x.y || ''}</div><div class="t">${esc(x.t)}</div></div></div>`;
+}
+function otdRow(x) {
+  const ago = x.y ? new Date().getFullYear() - x.y : null;
+  return `<div class="tlr" ${xr('otd', x)}><div class="yr">${x.y || '•'}${ago ? `<small>${ago} yıl önce</small>` : ''}</div><div class="tx">${esc(x.t)}</div>${x.img ? `<div class="th">${im(x.img)}</div>` : ''}</div>`;
+}
+function otdSheet(x) {
+  openSheet(`${x.img ? `<div style="border-radius:14px;overflow:hidden;margin-bottom:14px;max-height:260px;background:var(--p3)"><img src="${esc(bigImg(x.img))}" data-o="${esc(x.img)}" referrerpolicy="no-referrer" style="width:100%;display:block;object-fit:cover;max-height:260px" onerror="if(this.dataset.o){this.src=this.dataset.o;this.dataset.o=''}else this.parentNode.remove()"></div>` : ''}
+    <div class="t3" style="font-size:11px;font-weight:700;letter-spacing:.1em">${x.y ? x.y + ' · ' + (new Date().getFullYear() - x.y) + ' YIL ÖNCE' : 'TARİHTE BUGÜN'}</div>
+    <h3 style="font-size:19px;line-height:1.4;margin:8px 0 10px">${esc(x.t)}</h3>
+    ${x.ttl ? `<div class="sub" style="margin-bottom:6px">${esc(x.ttl)}</div>` : ''}${x.ex ? `<p class="syn">${esc(x.ex)}</p>` : ''}
+    ${x.url ? `<a class="btn go bk" style="margin-top:14px" ${aAttr(x.url)}>VİKİPEDİ'DE OKU ↗</a>` : ''}`);
+}
+// filmler
+const rtVal = f => f.rt ? (f.rt['Üyeler'] ?? f.rt['Seyirci'] ?? f.rt['Beyazperde'] ?? f.rt['Basın'] ?? 0) : 0;
+const isNewF = f => f.date && Date.now() - f.date < 8 * 864e5 && f.date <= Date.now() + 864e5;
+function filmCard(f) {
+  const r = rtVal(f);
+  return `<div class="pc" ${xr('film', f)}><div class="im">${f.img ? im(f.img, f.title) : `<div class="noimg-t">${esc(f.title)}</div>`}${r ? `<span class="rt">★ ${nf(r, 1)}</span>` : ''}${isNewF(f) ? '<span class="nw2">YENİ</span>' : ''}</div><div class="tt">${esc(f.title)}</div><div class="st">${esc(f.genre || f.dur || '')}</div></div>`;
+}
+function filmSheet(f) {
+  const rv = (cm().reviews || {})[f.id] || []; const R = f.rt || {}; const rk = Object.keys(R).slice(0, 3); const L = nlReg(rv);
+  const tq = f.title + ' fragman';
+  openSheet(`<div class="fd"><div class="po2">${im(f.img, f.title)}</div><div class="m"><h3 class="sh-t" style="font-size:21px;margin-bottom:8px;color:var(--tx)">${esc(f.title)}</h3>
+      ${f.orig && f.orig !== f.title ? `<div>Orijinal adı <b>${esc(f.orig)}</b></div>` : ''}${f.date ? `<div>Vizyon <b>${dtf({day: 'numeric', month: 'long', year: 'numeric'}).format(f.date)}</b></div>` : ''}${f.dur ? `<div>Süre <b>${esc(f.dur)}</b></div>` : ''}${f.genre ? `<div>Tür <b>${esc(f.genre)}</b></div>` : ''}${f.dir ? `<div>Yönetmen <b>${esc(f.dir)}</b></div>` : ''}</div></div>
+    ${f.cast ? `<div class="sub" style="margin-top:12px">Oyuncular · <span class="t2">${esc(f.cast)}</span></div>` : ''}
+    ${rk.length ? `<div class="rts" style="grid-template-columns:repeat(${rk.length},1fr)">${rk.map(k => `<div><span>${esc(k.toLocaleUpperCase('tr'))}</span><b>${nf(R[k], 1)}</b><i style="--w:${Math.min(100, R[k] / 5 * 100)}%"></i></div>`).join('')}</div>` : '<div style="height:12px"></div>'}
+    ${f.syn ? `<p class="syn">${esc(f.syn)}</p>` : ''}
+    <div class="g2" style="margin:14px 0 8px">${YTK() ? `<button class="btn yt" data-mz="yplay:${esc(tq)}">▶ FRAGMAN</button>` : `<a class="btn yt" ${aAttr(ytHref('/results?search_query=' + encodeURIComponent(tq)))}>▶ FRAGMAN</a>`}<a class="btn" ${aAttr('https://www.google.com/search?q=' + encodeURIComponent(f.title + ' sinema seansları ' + CITY))}>SEANSLAR</a></div>
+    ${f.url ? `<a class="btn bk" ${aAttr(f.url)}>BEYAZPERDE · TÜM YORUMLAR ↗</a>` : ''}
+    ${rv.length ? `<div class="sec-h"><b>Eleştiriler & yorumlar</b></div><div class="pn">${rv.map((x, i) => `<div class="nw" data-cn="${L}:${i}"><div class="tm">${dtf({day: '2-digit', month: '2-digit'}).format(x.ts)}</div><div class="tx"><div class="so">${esc(x.src)}</div><div class="ti">${esc(x.title)}</div></div></div>`).join('')}</div>` : ''}`);
+}
+// kitaplar (Google Books)
+const BKC = [['ekonomi', 'EKONOMİ', 'ekonomi', 'subject:"Business & Economics"'], ['tarih', 'TARİH', 'tarih', 'subject:History'], ['felsefe', 'FELSEFE', 'felsefe', 'subject:Philosophy'], ['psikoloji', 'PSİKOLOJİ', 'psikoloji', 'subject:Psychology'], ['sosyoloji', 'SOSYOLOJİ', 'sosyoloji', 'subject:"Social Science"']];
+const BOOKS = LS.get('books', {}), BKBUSY = {};
+function booksCached(c, l) { const b = BOOKS[c + '|' + l]; return b && Date.now() - b.at < 12 * 36e5 ? b.items : null; }
+async function loadBooks(c, l) {
+  const key = c + '|' + l; if (BKBUSY[key]) return BKBUSY[key];
+  const cat = BKC.find(x => x[0] === c) || BKC[0];
+  const qs = l === 'tr' ? [cat[2], cat[3]] : [cat[3]];
+  BKBUSY[key] = (async () => {
+    const yr = new Date().getFullYear(); let all = [];
+    for (const q of qs) {
+      try {
+        const j = await (await tfetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&orderBy=newest&printType=books&maxResults=40&langRestrict=${l === 'tr' ? 'tr' : 'en'}`, 15000)).json();
+        all = all.concat((j.items || []).map(v => { const i = v.volumeInfo || {}; const il = i.imageLinks || {}; return {id: v.id, t: (i.title || '') + (i.subtitle ? ': ' + i.subtitle : ''), a: (i.authors || []).join(', '), p: i.publisher || '', d: i.publishedDate || '', pg: i.pageCount, img: (il.thumbnail || il.smallThumbnail || '').replace(/^http:/, 'https:').replace('&edge=curl', ''), ds: String(i.description || '').replace(/<[^>]+>/g, ' ').slice(0, 1200), url: i.infoLink || i.previewLink || '', cat: (i.categories || []).join(', ')}; }));
+      } catch (e) {}
+    }
+    const seen = new Set();
+    const items = all.filter(b => { const k = b.t.toLocaleLowerCase('tr').slice(0, 40); if (!b.t || seen.has(k)) return false; seen.add(k); return parseInt(b.d) >= yr - 2; }).sort((a, b) => String(b.d).localeCompare(String(a.d)));
+    BOOKS[key] = {at: items.length ? Date.now() : Date.now() - 11.5 * 36e5, items}; LS.set('books', BOOKS);
+    delete BKBUSY[key]; return items;
+  })();
+  return BKBUSY[key];
+}
+const bkDate = d => { if (!d) return ''; const [y, m] = d.split('-'); return m ? dtf({month: 'short', year: 'numeric'}).format(Date.UTC(+y, +m - 1, 15)) : y; };
+const bookCard = b => `<div class="pc" ${xr('book', b)}><div class="im">${b.img ? im(b.img, b.t) : `<div class="noimg-t">${esc(b.t)}</div>`}</div><div class="tt">${esc(b.t)}</div><div class="st">${esc(b.a)}</div></div>`;
+const bookRow = b => `<div class="br" ${xr('book', b)}><div class="cv">${b.img ? im(b.img) : ''}</div><div class="tx"><div class="t1">${esc(b.t)}</div><div class="t2x">${esc(b.a)}${b.p ? ' · ' + esc(b.p) : ''}</div><div class="t2x t3">${bkDate(b.d)}${b.pg ? ' · ' + b.pg + ' sayfa' : ''}</div>${b.ds ? `<div class="t3x">${esc(b.ds)}</div>` : ''}</div></div>`;
+function bookSheet(b) {
+  const q = encodeURIComponent(b.t.split(':')[0] + ' ' + (b.a || '').split(',')[0]);
+  openSheet(`<div class="fd"><div class="po2">${im(b.img, b.t)}</div><div class="m"><h3 class="sh-t" style="font-size:19px;margin-bottom:8px;color:var(--tx);line-height:1.3">${esc(b.t)}</h3>${b.a ? `<div>Yazar <b>${esc(b.a)}</b></div>` : ''}${b.p ? `<div>Yayınevi <b>${esc(b.p)}</b></div>` : ''}${b.d ? `<div>Yayın <b>${bkDate(b.d)}</b></div>` : ''}${b.pg ? `<div>Sayfa <b>${b.pg}</b></div>` : ''}</div></div>
+    ${b.ds ? `<p class="syn" style="margin-top:14px">${esc(b.ds)}</p>` : ''}
+    <div class="g2" style="margin-top:14px">${KX.kbl === 'tr' ? `<a class="btn go" ${aAttr('https://www.kitapyurdu.com/index.php?route=product/search&filter_name=' + q)}>KİTAPYURDU</a><a class="btn" ${aAttr('https://www.dr.com.tr/search?q=' + q)}>D&amp;R</a>` : `<a class="btn go" ${aAttr('https://www.amazon.com.tr/s?k=' + q)}>AMAZON</a><a class="btn" ${aAttr('https://www.goodreads.com/search?q=' + q)}>GOODREADS</a>`}</div>
+    ${b.url ? `<a class="btn bk" style="margin-top:8px" ${aAttr(b.url)}>GOOGLE KİTAPLAR ↗</a>` : ''}`);
+}
+
+PAGES['k-vitrin'] = {
+  html() {
+    const T = tarihData(), C = cm(), films = (C.films || []).slice().sort((a, b) => (b.date || 0) - (a.date || 0));
+    let h = ttl('Kültür Sanat', longDay(Date.now()));
+    const p1 = T && pickKesit(T, 'tr'), p2 = T && pickKesit(T, 'dunya');
+    if (p1) h += heroKesit(p1, 'GÜNÜN KESİTİ · TÜRK TARİHİ');
+    if (films.length) h += `<div class="sec-h"><b>Vizyonda</b><a data-go="k-sinema">Tümü ›</a></div><div class="hsc" style="margin:0 -14px">${films.slice(0, 14).map(filmCard).join('')}</div>`;
+    const bk = booksCached('ekonomi', 'tr');
+    h += `<div class="sec-h"><b>Yeni Kitaplar · Ekonomi</b><a data-go="k-kitap">Tümü ›</a></div><div class="hsc" id="vbk" style="margin:0 -14px">${bk ? (bk.length ? bk.slice(0, 12).map(bookCard).join('') : emptyB('Kitap bulunamadı')) : '<div class="empty" style="width:100%">Yükleniyor…</div>'}</div>`;
+    if (p2) h += heroKesit(p2, 'DÜNYA TARİHİ', true);
+    h += panel('KÜLTÜR SANAT AKIŞI', cnFlow(mergeNews(['kultur', 'sinema', 'tiyatro', 'konser', 'kitap', 'muzik'], 50)));
+    const yer = mergeNews(['yerel'], 8); if (yer.length) h += panel(CITY.toLocaleUpperCase('tr') + "'DE", cnRows(yer, 8));
+    return h;
+  },
+  after() {
+    flowWire(); loadContent().then(ensureTarih);
+    if (!booksCached('ekonomi', 'tr')) loadBooks('ekonomi', 'tr').then(it => { const e = $('#vbk'); if (e && route === 'k-vitrin') e.innerHTML = it.length ? it.slice(0, 12).map(bookCard).join('') : emptyB('Kitap bulunamadı'); });
+  }
+};
+PAGES['k-sinema'] = {
+  html() {
+    const films = (cm().films || []).slice();
+    if (KX.ksort === 'puan') films.sort((a, b) => rtVal(b) - rtVal(a)); else films.sort((a, b) => (b.date || 0) - (a.date || 0));
+    let h = ttl('Sinema', films.length ? films.length + ' film vizyonda' : 'Türkiye vizyonu') + segx('sin', [['vizyon', 'VİZYONDA'], ['haber', 'HABERLER']]);
+    if (KX.sin === 'vizyon') {
+      h += films.length ? segx('ksort', [['yeni', 'EN YENİ'], ['puan', 'EN BEĞENİLEN']]) + panel('VİZYONDAKİ FİLMLER', `<div class="fg">${films.map(filmCard).join('')}</div>`) : panel('VİZYONDAKİ FİLMLER', emptyB());
+      h += panel('SİNEMA GÜNDEMİ', cnRows(mergeNews(['sinema'], 8), 8), '<a data-kx="sin:haber">Tümü ›</a>');
+    } else h += panel('SİNEMA HABERLERİ', cnRows(mergeNews(['sinema'], 60), 60));
+    return h;
+  }
+};
+function stagePage(kind, title, re) {
+  return {
+    html() {
+      const yer = mergeNews(['yerel'], 30).filter(x => re.test(x.title + ' ' + (x.desc || '')));
+      return ttl(title, kind === 'tiyatro' ? 'Sahne gündemi' : 'Konser ve sahne') + `<div class="qk">${KLINKS[kind].map(([n, u]) => ext(u, n)).join('')}</div>` +
+        (yer.length ? panel(CITY.toLocaleUpperCase('tr') + "'DE", cnRows(yer, 8)) : '') +
+        panel(title.toLocaleUpperCase('tr') + ' HABERLERİ', cnRows(mergeNews([kind], 50), 50)) +
+        (kind === 'konser' ? `<a class="btn bk" style="margin-bottom:12px" data-go="m-kesfet">♫ MÜZİK · YOUTUBE MUSIC</a>` : '');
+    }
+  };
+}
+PAGES['k-tiyatro'] = stagePage('tiyatro', 'Tiyatro', /tiyatro|oyun|sahne|perde|gösteri/i);
+PAGES['k-konser'] = stagePage('konser', 'Konserler', /konser|müzik|şarkı|festival|sahne|orkestra|resital/i);
+PAGES['k-kitap'] = {
+  html() {
+    const it = booksCached(KX.kbc, KX.kbl), cat = BKC.find(x => x[0] === KX.kbc) || BKC[0];
+    return ttl('Yeni Kitaplar', 'Son yayınlar') + segx('kbc', BKC.map(x => [x[0], x[1]])) +
+      `<div class="seg" style="margin-bottom:10px">${[['tr', 'TÜRKÇE'], ['en', 'DÜNYA']].map(([v, l]) => `<button class="${KX.kbl === v ? 'on' : ''}" data-kx="kbl:${v}">${l}</button>`).join('')}</div>` +
+      panel('YENİ ÇIKANLAR · ' + cat[1], it ? (it.length ? it.slice(0, 30).map(bookRow).join('') : emptyB('Kitap bulunamadı')) : '<div class="empty">Yükleniyor…</div>') +
+      panel('KİTAP DÜNYASINDAN', cnRows(mergeNews(['kitap'], 30), 30));
+  },
+  after() { if (!booksCached(KX.kbc, KX.kbl)) { const k = KX.kbc + KX.kbl; loadBooks(KX.kbc, KX.kbl).then(() => { if (route === 'k-kitap' && KX.kbc + KX.kbl === k && !shOpen) renderPage(); }); } }
+};
+PAGES['k-tarih'] = {
+  html() {
+    const T = tarihData(); const tabs = [['tr', 'TÜRK TARİHİ'], ['dunya', 'DÜNYA TARİHİ'], ['dogum', 'DOĞUMLAR'], ['olum', 'ÖLÜMLER']];
+    const p = T && pickKesit(T, KX.ktar === 'dunya' ? 'dunya' : 'tr');
+    let h = ttl('Tarihte Bugün', dtf({day: 'numeric', month: 'long', weekday: 'long'}).format(Date.now()));
+    if (p) h += heroKesit(p, KX.ktar === 'dunya' ? 'GÜNÜN KESİTİ · DÜNYA' : 'GÜNÜN KESİTİ · TÜRK TARİHİ');
+    h += segx('ktar', tabs);
+    const L = T ? (T[KX.ktar] || []) : null;
+    h += panel((tabs.find(x => x[0] === KX.ktar) || tabs[0])[1], L ? (L.length ? L.map(otdRow).join('') : emptyB('Kayıt yok')) : '<div class="empty">Yükleniyor…</div>');
+    if (T && T.gun && T.gun.length) h += panel('BUGÜN', T.gun.map(otdRow).join(''));
+    h += panel('TARİH & ARKEOLOJİ', cnRows(mergeNews(['tarih'], 20), 20));
+    return h;
+  },
+  after() { loadContent().then(ensureTarih); }
+};
+
+/* ============================ SPOR ============================ */
+const LGN = {lig: 'Süper Lig', ucl: 'Şampiyonlar Ligi', uel: 'UEFA Avrupa Ligi', uecl: 'Konferans Ligi'};
+const foot = lg => (cm().foot || {})[lg] || {};
+let FAV = LS.get('fav', null);
+const TRT = () => new Set((((foot('lig').tb || [])[0] || {}).rows || []).map(r => r.id));
+const TRNAME = /Galatasaray|Fenerbah|Beşiktaş|Besiktas|Trabzon|Başakşehir|Basaksehir|Samsunspor|Göztepe|Goztepe|Kayserispor|Konyaspor|Sivasspor|Antalyaspor|Alanyaspor|Kasımpaşa|Rizespor|Eyüp/i;
+const isTR = (t, tr) => tr.has(t.id) || TRNAME.test(t.f || t.n);
+function allMatches() { const out = []; for (const lg in LGN) (foot(lg).m || []).forEach(m => out.push(Object.assign({lg}, m))); return out; }
+function mState(m) { return m.st === 'in' ? 'lv' : m.st === 'post' ? 'post' : 'pre'; }
+function matchRow(m, tr) {
+  const s = mState(m), fav = FAV && (m.h.id === FAV.id || m.a.id === FAV.id);
+  const tf = t => tr && m.lg !== 'lig' && isTR(t, tr) ? '<i class="trf">TR</i>' : '';
+  const dd = `<small>${dtf({day: '2-digit', month: '2-digit'}).format(m.t)}</small>`;
+  const tm = s === 'lv' ? `<div class="tm lv">${esc(m.clk || 'CANLI')}</div>` : s === 'post' ? `<div class="tm">${m.done ? 'MS' : 'ERT'}${dd}</div>` : `<div class="tm">${fTime(m.t)}${dd}</div>`;
+  const sc = s === 'pre' ? '<div class="sc2 pre">–</div>' : `<div class="sc2 ${s === 'lv' ? 'lv' : ''}">${esc(m.h.s ?? '')} - ${esc(m.a.s ?? '')}</div>`;
+  return `<div class="mr ${fav ? 'fav' : ''}">${tm}<div class="tn h ${m.h.w ? 'w' : ''}"><span>${esc(m.h.n)}</span>${tf(m.h)}${im(m.h.lg)}</div>${sc}<div class="tn ${m.a.w ? 'w' : ''}">${im(m.a.lg)}${tf(m.a)}<span>${esc(m.a.n)}</span></div></div>`;
+}
+function matchList(ms, tr, emp) {
+  let h = '', day = ''; const today = dk(Date.now());
+  ms.forEach(m => { const d = dk(m.t); if (d !== day) { day = d; h += `<div class="md"><span>${longDay(m.t).toLocaleUpperCase('tr')}</span><span>${d === today ? 'BUGÜN' : ''}</span></div>`; } h += matchRow(m, tr); });
+  return h || emptyB(emp || 'Maç yok');
+}
+function byLeague(ms, tr) { let h = ''; for (const lg in LGN) { const x = ms.filter(m => m.lg === lg); if (x.length) h += `<div class="md"><span>${LGN[lg].toLocaleUpperCase('tr')}</span><span></span></div>` + x.map(m => matchRow(m, tr)).join(''); } return h; }
+const NOTE_TR = [[/champions league/i, 'Şampiyonlar Ligi'], [/europa league/i, 'Avrupa Ligi'], [/conference league/i, 'Konferans Ligi'], [/relegation/i, 'Küme düşme'], [/round of 16/i, 'Son 16'], [/knockout|play-?off/i, 'Play-off'], [/promotion/i, 'Üst lig']];
+const noteTR = s => { for (const [re, t] of NOTE_TR) if (re.test(s)) return t + (/qualif/i.test(s) ? ' elemesi' : ''); return s; };
+function tableHtml(rows, tr) {
+  if (!rows || !rows.length) return emptyB();
+  const zc = c => c ? '#' + String(c).replace('#', '') : 'transparent';
+  const notes = {}; rows.forEach(r => { if (r.nt && r.nc) notes[r.nc] = noteTR(r.nt); });
+  return `<table class="stt"><tr><th>#</th><th style="text-align:left">TAKIM</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th></tr>${rows.map((r, i) => `<tr class="${FAV && FAV.id === r.id ? 'fav' : ''}" ${xr('team', r)}><td class="r" style="--zc:${zc(r.nc)}">${r.r || i + 1}</td><td class="n">${im(r.lg)}${esc(r.n)}${tr && isTR(r, tr) ? '<i class="trf">TR</i>' : ''}</td><td>${fi(r.o)}</td><td>${fi(r.g)}</td><td>${fi(r.b)}</td><td>${fi(r.m)}</td><td>${r.av > 0 ? '+' : ''}${fi(r.av)}</td><td class="p">${fi(r.p)}</td></tr>`).join('')}</table>` +
+    (Object.keys(notes).length ? `<div class="pb" style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--tx3)">${Object.entries(notes).map(([c, t]) => `<span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${zc(c)};margin-right:5px"></i>${esc(t)}</span>`).join('')}</div>` : '');
+}
+function teamSheet(r) {
+  const ms = allMatches().filter(m => m.h.id === r.id || m.a.id === r.id).sort((a, b) => a.t - b.t);
+  const nx = ms.filter(m => m.st !== 'post'), ls = ms.filter(m => m.st === 'post').reverse().slice(0, 6);
+  const isFav = FAV && FAV.id === r.id;
+  openSheet(`<div style="display:flex;align-items:center;gap:12px">${r.lg ? `<img src="${esc(r.lg)}" style="width:44px;height:44px;object-fit:contain" referrerpolicy="no-referrer">` : ''}<div><h3 class="sh-t" style="font-size:22px">${esc(r.f || r.n)}</h3>${r.p != null ? `<div class="sub">${r.r || ''}. sıra · ${fi(r.p)} puan · ${fi(r.g)}G ${fi(r.b)}B ${fi(r.m)}M</div>` : ''}</div></div>
+    <button class="btn ${isFav ? '' : 'go'} bk" style="margin:14px 0" data-mz="${isFav ? 'unfav' : 'fav'}:${esc(r.id)}|${esc(r.n)}">${isFav ? '★ TAKIMIM · KALDIR' : '☆ TAKIMIM OLARAK SEÇ'}</button>
+    ${nx.length ? `<div class="pn">${matchList(nx.slice(0, 6), TRT())}</div>` : ''}${ls.length ? `<div class="sec-h"><b>Son maçlar</b></div><div class="pn">${ls.map(m => matchRow(m, TRT())).join('')}</div>` : ''}`);
+}
+function favCard() {
+  if (!FAV) return `<div class="pn"><div class="ph"><b>TAKIMINI SEÇ</b></div><div class="pb tg">${[['Galatasaray'], ['Fenerbahçe'], ['Beşiktaş'], ['Trabzonspor'], ['Kayserispor']].map(([n]) => `<button data-mz="pickfav:${n}">${n}</button>`).join('')}<button data-kx="slig:puan" data-go="s-lig">Tümü ›</button></div></div>`;
+  const ms = allMatches().filter(m => m.h.id === FAV.id || m.a.id === FAV.id);
+  const nx = ms.filter(m => m.st !== 'post').sort((a, b) => a.t - b.t)[0], ls = ms.filter(m => m.st === 'post').sort((a, b) => b.t - a.t)[0];
+  const row = (((foot('lig').tb || [])[0] || {}).rows || []).find(r => r.id === FAV.id);
+  return `<div class="cdc g" ${row ? xr('team', row) : ''}><div class="k">TAKIMIM · ${esc(FAV.n).toLocaleUpperCase('tr')}${row ? ` · ${row.r}. SIRA · ${fi(row.p)} P` : ''}</div>` +
+    (nx ? `<div class="t">${esc(nx.h.n)} – ${esc(nx.a.n)}</div><div class="d">${LGN[nx.lg]} · ${fDT(nx.t)}</div>${nx.st === 'in' ? `<div class="cd2 dn">${esc(nx.h.s)} - ${esc(nx.a.s)} <small>${esc(nx.clk)}</small></div>` : `<div class="cd2" data-cd="${nx.t}">${countdown(nx.t)}</div>`}` : '<div class="d">Yaklaşan maç yok</div>') +
+    (ls ? `<div class="d" style="margin-top:10px">Son maç · <b style="color:var(--tx)">${esc(ls.h.n)} ${esc(ls.h.s)} - ${esc(ls.a.s)} ${esc(ls.a.n)}</b></div>` : '') + '</div>';
+}
+// motor sporları
+const nextF1 = () => { const f = cm().f1; if (!f || !f.races) return null; return f.races.find(r => r.t > Date.now() - 3 * 36e5) || null; };
+const nextMGP = () => { const g = cm().mgp; if (!g || !g.events) return null; return g.events.find(e => e.e > Date.now()) || null; };
+function f1Hero(r, mini) {
+  if (!r) return '';
+  const nxs = r.ses.concat([['Yarış', r.t]]).find(s => s[1] > Date.now() - 2 * 36e5) || ['Yarış', r.t];
+  return `<div class="cdc" ${mini ? 'data-go="s-motor" data-kx="smot:f1"' : ''}><div class="k">FORMULA 1 · ${r.rd}. YARIŞ</div><div class="t">${esc(r.n)}</div><div class="d">${esc(r.c)} · ${esc(r.loc)}</div>
+    <div class="d" style="margin-top:8px">${esc(nxs[0])} · ${fDT(nxs[1])}</div><div class="cd2" data-cd="${nxs[1]}">${countdown(nxs[1])}</div>
+    ${mini ? '' : `<div class="ses">${r.ses.concat([['Yarış', r.t]]).map(([n, t]) => `<span class="${t < Date.now() - 2 * 36e5 ? 'ps' : ''}">${esc(n)}</span><b class="${t < Date.now() - 2 * 36e5 ? 'ps' : ''}">${dtf({weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(t)}</b>`).join('')}</div>`}</div>`;
+}
+function mgpHero(e, mini) {
+  if (!e) return '';
+  const live = e.s <= Date.now() && e.e >= Date.now();
+  return `<div class="cdc g" ${mini ? 'data-go="s-motor" data-kx="smot:mgp"' : ''}><div class="k">MOTOGP${live ? ' · YARIŞ HAFTASI' : ''}</div><div class="t">${esc(e.n)}</div><div class="d">${esc(e.c)}${e.ctry ? ' · ' + esc(e.ctry) : ''}</div><div class="d" style="margin-top:8px">${dtf({day: 'numeric', month: 'long'}).format(e.s)} – ${dtf({day: 'numeric', month: 'long'}).format(e.e)}</div>${live ? '' : `<div class="cd2" data-cd="${e.s}">${countdown(e.s)}</div>`}</div>`;
+}
+const motorTable = (rows, hl) => rows && rows.length ? `<table class="stt"><tr><th>#</th><th style="text-align:left">PİLOT</th><th style="text-align:left">TAKIM</th><th>G</th><th>P</th></tr>${rows.map(r => `<tr class="${hl && hl(r) ? 'fav' : ''}"><td class="r">${fi(r.p)}</td><td class="n">${esc(r.n)}</td><td class="n t3" style="font-weight:500;max-width:110px">${esc(r.tm || '')}</td><td>${fi(r.w)}</td><td class="p">${fi(r.pt)}</td></tr>`).join('')}</table>` : emptyB();
+
+PAGES['s-gundem'] = {
+  html() {
+    const all = allMatches(), tr = TRT();
+    const live = all.filter(m => m.st === 'in').sort((a, b) => a.t - b.t);
+    const today = all.filter(m => m.st !== 'in' && dk(m.t) === dk(Date.now())).sort((a, b) => a.t - b.t);
+    const nxt = all.filter(m => m.st === 'pre' && m.t > Date.now() && dk(m.t) !== dk(Date.now())).sort((a, b) => a.t - b.t).slice(0, 8);
+    let h = ttl('Spor', longDay(Date.now()), cm().at ? fTime(cm().at) : '') + favCard();
+    if (live.length) h += panel('<span class="dn">● CANLI</span>', byLeague(live, tr));
+    if (today.length) h += panel('BUGÜN', byLeague(today, tr));
+    if (nxt.length) h += panel('SIRADAKİ MAÇLAR', matchList(nxt, tr));
+    const f = nextF1(), g = nextMGP();
+    if (f && g) h += `<div class="g2 mini2">${f1Hero(f, true)}${mgpHero(g, true)}</div>`; else if (f || g) h += f ? f1Hero(f, true) : mgpHero(g, true);
+    h += panel('SPOR AKIŞI', cnFlow(mergeNews(['futbol', 'transfer', 'avrupa', 'basket', 'voley', 'f1', 'motogp'], 60)));
+    return h;
+  },
+  after() { flowWire(); sporLive(); }
+};
+const TEAMN = [['all', 'TÜMÜ', ['futbol', 'transfer']], ['gs', 'GALATASARAY'], ['fb', 'FENERBAHÇE'], ['bjk', 'BEŞİKTAŞ'], ['ts', 'TRABZONSPOR'], ['kay', 'KAYSERİSPOR']];
+PAGES['s-lig'] = {
+  html() {
+    const F = foot('lig'), tb = (F.tb || [])[0], ms = F.m || [], tr = TRT(), live = ms.filter(m => m.st === 'in');
+    let h = ttl('Süper Lig', F.name && F.name !== 'Turkish Super Lig' ? F.name : 'Trendyol Süper Lig', F.at ? fTime(F.at) : '') + segx('slig', [['puan', 'PUAN DURUMU'], ['fikstur', 'FİKSTÜR'], ['sonuc', 'SONUÇLAR'], ['haber', 'HABERLER']]);
+    if (live.length) h += panel('<span class="dn">● CANLI</span>', live.map(m => matchRow(m)).join(''));
+    if (KX.slig === 'puan') h += panel('PUAN DURUMU', tb ? tableHtml(tb.rows) : emptyB());
+    else if (KX.slig === 'fikstur') h += panel('FİKSTÜR', matchList(ms.filter(m => m.st === 'pre').sort((a, b) => a.t - b.t), null, 'Planlanmış maç yok'));
+    else if (KX.slig === 'sonuc') h += panel('SONUÇLAR', matchList(ms.filter(m => m.st === 'post').sort((a, b) => b.t - a.t), null, 'Sonuç yok'));
+    else { const t = TEAMN.find(x => x[0] === KX.lign) || TEAMN[0]; h += segx('lign', TEAMN.map(x => [x[0], x[1]])) + panel(t[0] === 'all' ? 'SÜPER LİG HABERLERİ' : t[1], cnRows(mergeNews(t[2] || [t[0]], 60), 60)); }
+    return h;
+  },
+  after() { sporLive(); }
+};
+PAGES['s-avrupa'] = {
+  html() {
+    const lg = KX.sav, F = foot(lg), tr = TRT(), ms = (F.m || []);
+    const trm = ms.filter(m => isTR(m.h, tr) || isTR(m.a, tr));
+    const up = ms.filter(m => m.st !== 'post' && m.t < Date.now() + 21 * 864e5).sort((a, b) => a.t - b.t), past = ms.filter(m => m.st === 'post').sort((a, b) => b.t - a.t).slice(0, 40);
+    let h = ttl('Avrupa Kupaları', LGN[lg], F.at ? fTime(F.at) : '') + segx('sav', [['ucl', 'ŞAMPİYONLAR LİGİ'], ['uel', 'AVRUPA LİGİ'], ['uecl', 'KONFERANS LİGİ']]) +
+      `<div class="seg" style="margin-bottom:10px">${[['mac', 'MAÇLAR'], ['puan', 'PUAN DURUMU'], ['haber', 'HABERLER']].map(([v, l]) => `<button class="${KX.savt === v ? 'on' : ''}" data-kx="savt:${v}">${l}</button>`).join('')}</div>`;
+    if (KX.savt === 'mac') {
+      if (trm.length) { const tu = trm.filter(m => m.st !== 'post').sort((a, b) => a.t - b.t), tp = trm.filter(m => m.st === 'post').sort((a, b) => b.t - a.t).slice(0, 4); h += panel('TÜRK TAKIMLARI', tu.concat(tp).map(m => matchRow(m, tr)).join('')); }
+      h += panel('SIRADAKİ MAÇLAR', matchList(up, tr, 'Planlanmış maç yok')) + panel('SONUÇLAR', matchList(past, tr, 'Sonuç yok'));
+    } else if (KX.savt === 'puan') h += (F.tb || []).length ? F.tb.map(g => panel(esc(String(g.n || 'PUAN DURUMU').replace(/league phase/i, 'Lig aşaması').replace(/^group/i, 'Grup')).toLocaleUpperCase('tr'), tableHtml(g.rows, tr))).join('') : panel('PUAN DURUMU', emptyB());
+    else h += panel('AVRUPA HABERLERİ', cnRows(mergeNews(['avrupa'], 60), 60));
+    return h;
+  },
+  after() { sporLive(); }
+};
+PAGES['s-basket'] = {
+  html() {
+    const nba = (cm().nba || []).slice().sort((a, b) => a.t - b.t);
+    return ttl('Basketbol', 'BSL · EuroLeague · NBA') + `<div class="qk">${[['TBF · BSL', 'https://www.tbf.org.tr'], ['EuroLeague', 'https://www.euroleaguebasketball.net'], ['NBA', 'https://www.nba.com']].map(([n, u]) => ext(u, n)).join('')}</div>` + segx('sbas', [['gundem', 'GÜNDEM'], ['nba', 'NBA SKORLARI']]) +
+      (KX.sbas === 'nba' ? panel('NBA', matchList(nba, null, 'Maç yok')) : panel('BASKETBOL HABERLERİ', cnRows(mergeNews(['basket'], 60), 60)));
+  }
+};
+PAGES['s-voley'] = {
+  html() { return ttl('Voleybol', 'Sultanlar Ligi · Efeler Ligi · Milli Takımlar') + `<div class="qk">${[['TVF', 'https://www.tvf.org.tr'], ['CEV', 'https://www.cev.eu'], ['Volleyball World', 'https://en.volleyballworld.com']].map(([n, u]) => ext(u, n)).join('')}</div>` + panel('VOLEYBOL HABERLERİ', cnRows(mergeNews(['voley'], 60), 60)); }
+};
+PAGES['s-motor'] = {
+  html() {
+    let h = ttl('Motor Sporları', KX.smot === 'f1' ? 'Formula 1' + (cm().f1 ? ' · ' + cm().f1.season : '') : 'MotoGP' + (cm().mgp ? ' · ' + cm().mgp.season : '')) + segx('smot', [['f1', 'FORMULA 1'], ['mgp', 'MOTOGP']]);
+    if (KX.smot === 'f1') {
+      const F = cm().f1 || {}, nx = nextF1();
+      h += nx ? f1Hero(nx) : (F.races ? `<div class="cdc"><div class="k">FORMULA 1</div><div class="t">Sezon tamamlandı</div></div>` : '');
+      h += `<div class="seg" style="margin-bottom:10px">${[['pilot', 'PİLOTLAR'], ['takim', 'TAKIMLAR'], ['son', 'SON YARIŞ'], ['takvim', 'TAKVİM']].map(([v, l]) => `<button class="${KX.smott === v ? 'on' : ''}" data-kx="smott:${v}">${l}</button>`).join('')}</div>`;
+      if (KX.smott === 'pilot') h += panel('PİLOTLAR ŞAMPİYONASI', motorTable(F.ds));
+      else if (KX.smott === 'takim') h += panel('TAKIMLAR ŞAMPİYONASI', F.cs && F.cs.length ? `<table class="stt"><tr><th>#</th><th style="text-align:left">TAKIM</th><th>G</th><th>P</th></tr>${F.cs.map(r => `<tr><td class="r">${fi(r.p)}</td><td class="n">${esc(r.n)}</td><td>${fi(r.w)}</td><td class="p">${fi(r.pt)}</td></tr>`).join('')}</table>` : emptyB());
+      else if (KX.smott === 'son') h += panel(F.last ? esc(F.last.n).toLocaleUpperCase('tr') : 'SON YARIŞ', F.last ? `<table class="stt"><tr><th>#</th><th style="text-align:left">PİLOT</th><th style="text-align:left">TAKIM</th><th>SÜRE</th><th>P</th></tr>${F.last.res.map(r => `<tr><td class="r">${fi(r.p)}</td><td class="n">${esc(r.n)}</td><td class="n t3" style="font-weight:500;max-width:100px">${esc(r.tm)}</td><td style="font-size:11.5px">${esc(r.tx || '')}</td><td class="p">${fi(r.pt)}</td></tr>`).join('')}</table>` : emptyB());
+      else h += panel('YARIŞ TAKVİMİ', (F.races || []).map(r => `<div class="hrow" style="cursor:default;${r.t < Date.now() - 3 * 36e5 ? 'opacity:.45' : ''}"><b style="width:26px;color:var(--am)">${r.rd}</b><div><b>${esc(r.n)}</b><div class="sub">${esc(r.loc)}</div></div><div class="r"><b>${dtf({day: 'numeric', month: 'short'}).format(r.t)}</b><div class="sub">${fTime(r.t)}</div></div></div>`).join('') || emptyB());
+      h += panel('F1 HABERLERİ', cnRows(mergeNews(['f1'], 20), 20));
+    } else {
+      const G = cm().mgp || {}, nx = nextMGP();
+      h += nx ? mgpHero(nx) : (G.events ? `<div class="cdc g"><div class="k">MOTOGP</div><div class="t">Sezon tamamlandı</div></div>` : '');
+      h += `<div class="seg" style="margin-bottom:10px">${[['pilot', 'PİLOTLAR'], ['takvim', 'TAKVİM']].map(([v, l]) => `<button class="${(KX.smott === 'takvim' ? 'takvim' : 'pilot') === v ? 'on' : ''}" data-kx="smott:${v}">${l}</button>`).join('')}</div>`;
+      if (KX.smott !== 'takvim') h += panel('PİLOTLAR ŞAMPİYONASI', motorTable(G.ds, r => r.iso === 'TR'));
+      else h += panel('TAKVİM', (G.events || []).map((e, i) => `<div class="hrow" style="cursor:default;${e.e < Date.now() ? 'opacity:.45' : ''}"><b style="width:26px;color:var(--am)">${i + 1}</b><div><b>${esc(e.n)}</b><div class="sub">${esc(e.c)}${e.ctry ? ' · ' + esc(e.ctry) : ''}</div></div><div class="r"><b>${dtf({day: 'numeric', month: 'short'}).format(e.s)}</b></div></div>`).join('') || emptyB());
+      h += panel('MOTOGP HABERLERİ', cnRows(mergeNews(['motogp'], 20), 20));
+    }
+    return h;
+  }
+};
+// canlı skor: ESPN'den doğrudan (tarayıcı), olmazsa bulut verisi
+const SPL = {t: 0, fail: 0, busy: false};
+const ymdT = t => dk(t).split('.').reverse().join('');
+async function sporLive(force) {
+  if (SPL.busy || SPL.fail > 3 || !/^s-(gundem|lig|avrupa)$/.test(route) || !CNT.m || !CNT.m.foot) return;
+  if (!force && Date.now() - SPL.t < 25e3) return;
+  SPL.t = Date.now(); SPL.busy = true; let changed = false;
+  const P = {lig: 'soccer/tur.1', ucl: 'soccer/uefa.champions', uel: 'soccer/uefa.europa', uecl: 'soccer/uefa.europa.conf'};
+  await Promise.all(Object.keys(P).map(async lg => {
+    const F = CNT.m.foot[lg]; if (!F) return;
+    const ms = F.m || []; const near = ms.some(m => m.st === 'in' || (m.st === 'pre' && Math.abs(m.t - Date.now()) < 3 * 36e5) || (m.st === 'post' && Date.now() - m.t < 4 * 36e5));
+    if (!near && !force) return;
+    try {
+      const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?dates=${ymdT(Date.now() - 864e5)}-${ymdT(Date.now() + 864e5)}`, 12000)).json();
+      (j.events || []).map(espnEv).forEach(m => { const i = ms.findIndex(x => x.id === m.id); const sig = x => [x.st, x.h.s, x.a.s, x.clk].join('|'); if (i < 0) { ms.push(m); changed = true; } else if (sig(ms[i]) !== sig(m)) { ms[i] = m; changed = true; } });
+      F.m = ms; SPL.fail = 0;
+    } catch (e) { SPL.fail++; }
+  }));
+  SPL.busy = false;
+  if (changed && /^s-(gundem|lig|avrupa)$/.test(route) && !shOpen) { const y = window.scrollY; renderPage(); window.scrollTo(0, y); }
+}
+
+/* ============================ MÜZİK ============================ */
+const YTK = () => LS.get('ytkey', '');
+let MZL = LS.get('mzl', []);
+const MZ = {q: '', res: null, busy: false, trend: LS.get('mztr', null)};
+const GENRES = [['Türkçe Pop', '#E0457B', '#6E1D45'], ['Türkçe Rock', '#E35D3A', '#5E2112'], ['Anadolu Rock', '#D98A2B', '#57310E'], ['Türk Sanat Müziği', '#8C6BD6', '#33235A'], ['Türk Halk Müziği', '#3FA36B', '#16452B'], ['Arabesk', '#C9455A', '#47141F'], ['Türkçe Rap', '#4F7BE0', '#1A2B5C'], ['Caz', '#2E9FA8', '#0E3C41'], ['Klasik Müzik', '#B8913F', '#463510'], ['Lo-fi · Odaklan', '#6C7BD9', '#222A5A'], ["80'ler 90'lar", '#D9569E', '#4B1736'], ['Akustik', '#7FA34A', '#2C4015']];
+const dec2 = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+function parseYT(u) {
+  try {
+    const x = new URL(String(u).trim()); if (!/youtu/.test(x.hostname)) return null;
+    let v = x.searchParams.get('v'), list = x.searchParams.get('list');
+    if (/youtu\.be$/.test(x.hostname)) v = x.pathname.slice(1).split('/')[0];
+    const m = x.pathname.match(/\/(shorts|embed|live)\/([\w-]{11})/); if (m) v = m[2];
+    if (list && /^(LM|LL|WL|RDMM)$/.test(list)) list = null;
+    return {v: v || null, list: list || null, url: x.href, music: /music\./.test(x.hostname)};
+  } catch (e) { return null; }
+}
+const ytThumb = it => it.img || (it.v ? `https://i.ytimg.com/vi/${it.v}/mqdefault.jpg` : '');
+const ytmPath = it => it.v ? '/watch?v=' + it.v + (it.list ? '&list=' + it.list : '') : it.list ? '/playlist?list=' + it.list : (it.url ? new URL(it.url).pathname + new URL(it.url).search : '/');
+// oynatıcı
+const PL = {cur: null, big: false};
+function play(it) {
+  if (!it.v && !it.list) { location.href = ytmHref(ytmPath(it)); return; }
+  PL.cur = it;
+  const p = new URLSearchParams({autoplay: '1', playsinline: '1', rel: '0', modestbranding: '1'}); if (it.list) p.set('list', it.list);
+  const src = 'https://www.youtube.com/embed/' + (it.v || 'videoseries') + '?' + p;
+  $('#ply').innerHTML = `<div class="box"><div class="row"><div class="pf"><iframe src="${esc(src)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="YouTube"></iframe></div><div class="nm"><b>${esc(it.title || 'YouTube')}</b><span>${it.ch ? esc(it.ch) : it.list && !it.v ? 'Çalma listesi' : 'YouTube'}</span></div><button class="ib" data-pl="big" aria-label="Büyüt">${IC2.exp}</button><a class="ib am" ${aAttr(ytmHref(ytmPath(it)))} aria-label="YouTube Music">${IC2.out}</a><button class="ib" data-pl="x" aria-label="Kapat">✕</button></div></div>`;
+  document.body.classList.add('plon'); setBig(/^m-/.test(route) ? true : PL.big);
+}
+function setBig(b) { PL.big = b; $('#ply').classList.toggle('big', b); document.body.classList.toggle('plbig', b); }
+function stopPlay() { $('#ply').innerHTML = ''; PL.cur = null; document.body.classList.remove('plon', 'plbig'); }
+async function ytApi(path) { const j = await (await tfetch('https://www.googleapis.com/youtube/v3/' + path + '&key=' + encodeURIComponent(YTK()), 15000)).json(); return (j.items || []).map(x => { const sn = x.snippet || {}; const th = sn.thumbnails || {}; return {v: typeof x.id === 'string' ? x.id : x.id.videoId, title: dec2(sn.title || ''), ch: dec2(sn.channelTitle || ''), img: (th.medium || th.high || th.default || {}).url || ''}; }).filter(x => x.v); }
+const ytSearch = q => ytApi('search?part=snippet&type=video&maxResults=20&regionCode=TR&q=' + encodeURIComponent(q));
+async function loadTrend() { if (!YTK() || (MZ.trend && Date.now() - MZ.trend.at < 3 * 36e5)) return; try { MZ.trend = {at: Date.now(), items: await ytApi('videos?part=snippet&chart=mostPopular&regionCode=TR&videoCategoryId=10&maxResults=25')}; LS.set('mztr', MZ.trend); if (route === 'm-kesfet') renderPage(); } catch (e) {} }
+function vRow(x, saved) {
+  return `<div class="vr"><div class="th" ${xr('play', x)}>${im(ytThumb(x))}</div><div class="tx" ${xr('play', x)}><div class="t1">${esc(x.title || 'Video')}</div><div class="t2x">${esc(x.ch || (x.list && !x.v ? 'Çalma listesi' : x.v ? 'Video' : 'Bağlantı'))}</div></div><div class="ac"><a class="ib am" ${aAttr(ytmHref(ytmPath(x)))} aria-label="YouTube Music'te aç">${IC2.out}</a>${saved ? `<button class="ib" data-mz="del:${esc(x.id)}" aria-label="Sil">✕</button>` : `<button class="ib" ${xr('save', x)} aria-label="Listeme ekle">${IC2.plus}</button>`}</div></div>`;
+}
+async function mzSearch(q) {
+  q = String(q || '').trim(); if (!q) return; MZ.q = q;
+  if (!YTK()) { location.href = ytmHref('/search?q=' + encodeURIComponent(q)); return; }
+  MZ.busy = true; MZ.res = null; if (route !== 'm-kesfet') go('m-kesfet'); else renderPage();
+  try { MZ.res = await ytSearch(q); } catch (e) { MZ.res = []; toast('YouTube araması başarısız · anahtarı kontrol et'); }
+  MZ.busy = false; if (route === 'm-kesfet') { renderPage(); const r = $('#mzres'); if (r) r.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+}
+PAGES['m-kesfet'] = {
+  html() {
+    const key = !!YTK();
+    let h = ttl('Müzik', 'YouTube Music · Premium') +
+      `<div class="ymh"><div class="k">${IC2.note}<span>YouTube Music</span></div><div class="d">Doğrudan uygulamada açılır · uygulama içinde de çalar</div><div class="g2"><a class="btn yt" ${aAttr(ytmHref('/'))}>▶ YT MUSIC'İ AÇ</a><a class="btn" ${aAttr(ytHref('/'))}>YOUTUBE</a></div></div>` +
+      `<div class="qt"><a ${aAttr(ytmHref('/'))}>${IC2.home}Ana sayfa</a><a ${aAttr(ytmHref('/explore'))}>${IC2.disc}Keşfet</a><a ${aAttr(ytmHref('/library'))}>${IC2.lib}Kitaplığım</a><a ${aAttr(ytmHref('/playlist?list=LM'))}>${IC2.heart}Beğendiklerim</a></div>` +
+      `<div class="srch"><input class="inp" id="mzq" placeholder="Şarkı, sanatçı, albüm…" value="${esc(MZ.q)}" enterkeyhint="search"><button class="btn go" data-mz="ara">ARA</button></div>`;
+    if (MZ.busy) h += panel('SONUÇLAR', '<div class="empty">Aranıyor…</div>');
+    else if (MZ.res) h += `<div id="mzres"></div>` + panel('SONUÇLAR · ' + esc(MZ.q).toLocaleUpperCase('tr'), MZ.res.length ? MZ.res.map(x => vRow(x)).join('') : emptyB('Sonuç yok'), `<a ${aAttr(ytmHref('/search?q=' + encodeURIComponent(MZ.q)))}>YT Music ›</a>`);
+    h += `<div class="sec-h"><b>Türler & ruh hali</b></div><div class="tiles">${GENRES.map(([n, a, b]) => key ? `<div class="tile" style="--bgc:linear-gradient(135deg,${a},${b})" data-mz="gen:${esc(n)}">${esc(n)}</div>` : `<a class="tile" style="--bgc:linear-gradient(135deg,${a},${b})" ${aAttr(ytmHref('/search?q=' + encodeURIComponent(n)))}>${esc(n)}</a>`).join('')}</div>`;
+    if (key && MZ.trend && MZ.trend.items.length) h += panel('TREND · TÜRKİYE', MZ.trend.items.map(x => vRow(x)).join(''));
+    if (MZL.length) h += panel('LİSTELERİM', MZL.slice(0, 4).map(x => vRow(x, true)).join(''), '<a data-go="m-liste">Tümü ›</a>');
+    h += panel('MÜZİK GÜNDEMİ', cnRows(mergeNews(['muzik'], 6), 6), '<a data-go="m-haber">Tümü ›</a>');
+    return h;
+  },
+  after() { const i = $('#mzq'); if (i) i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); i.blur(); mzSearch(i.value); } }); loadTrend(); }
+};
+PAGES['m-liste'] = {
+  html() {
+    return ttl('Listelerim', MZL.length ? MZL.length + ' kayıt' : 'YouTube · YT Music') +
+      panel('EKLE', `<div class="pb"><input class="inp" id="mzu" placeholder="YouTube / YT Music bağlantısı" inputmode="url"><input class="inp" id="mzn" placeholder="Ad (isteğe bağlı)" style="margin-top:8px"><button class="btn go bk" style="margin-top:8px" data-mz="add">LİSTEYE EKLE</button></div>`) +
+      panel('KAYITLI', MZL.length ? MZL.map(x => vRow(x, true)).join('') : emptyB('Henüz kayıt yok')) +
+      panel('YOUTUBE ARAMA ANAHTARI', `<div class="pb"><input class="inp" type="password" id="ytk" placeholder="İsteğe bağlı · YouTube Data API" value="${esc(YTK())}" autocomplete="off"><div class="g2" style="margin-top:8px"><button class="btn" data-mz="key">KAYDET</button><a class="btn" ${aAttr('https://console.cloud.google.com/apis/library/youtube.googleapis.com')}>ANAHTAR AL ↗</a></div></div>`);
+  }
+};
+PAGES['m-haber'] = {
+  html() { return ttl('Müzik Haberleri', 'Yeni şarkılar, albümler, sahne') + `<div class="qk"><a data-go="k-konser" style="cursor:pointer">Konserler</a>${ext(ytmHref('/explore'), 'Yeni çıkanlar')}</div>` + panel('MÜZİK HABERLERİ', cnRows(mergeNews(['muzik'], 60), 60)) + panel('KONSER GÜNDEMİ', cnRows(mergeNews(['konser'], 10), 10), '<a data-go="k-konser">Tümü ›</a>'); }
+};
+async function mzAdd() {
+  const u = ($('#mzu') || {}).value, n = (($('#mzn') || {}).value || '').trim(); const p = parseYT(u);
+  if (!p) { toast('Geçerli bir YouTube bağlantısı değil'); return; }
+  const it = {id: Date.now().toString(36), v: p.v, list: p.list, url: p.url, title: n || '', ch: '', img: '', at: Date.now()};
+  if (!it.title) { try { const j = await (await tfetch('https://noembed.com/embed?url=' + encodeURIComponent(p.v ? 'https://www.youtube.com/watch?v=' + p.v : p.url), 8000)).json(); if (j.title) { it.title = j.title; it.ch = j.author_name || ''; it.img = j.thumbnail_url || ''; } } catch (e) {} }
+  if (!it.title) it.title = p.list && !p.v ? 'Çalma listesi' : p.v ? 'Video' : 'YouTube Music';
+  MZL.unshift(it); LS.set('mzl', MZL); toast('Eklendi'); renderPage();
+}
+
+/* ---------- tıklamalar (yeni bölümler) ---------- */
+function xAct(type, o) {
+  if (type === 'otd') otdSheet(o);
+  else if (type === 'film') filmSheet(o);
+  else if (type === 'book') bookSheet(o);
+  else if (type === 'team') teamSheet(o);
+  else if (type === 'play') play(o);
+  else if (type === 'save') { if (!MZL.some(x => x.v === o.v)) { MZL.unshift(Object.assign({id: Date.now().toString(36), at: Date.now()}, o)); LS.set('mzl', MZL); } toast('Listelerime eklendi'); }
+}
+function mzAct(a) {
+  const i = a.indexOf(':'), k = i < 0 ? a : a.slice(0, i), v = i < 0 ? '' : a.slice(i + 1);
+  if (k === 'ara') { const q = ($('#mzq') || {}).value; mzSearch(q); }
+  else if (k === 'gen') { MZ.q = v; mzSearch(v); }
+  else if (k === 'yplay') { if (shOpen) closeSheet(); ytSearch(v).then(r => { if (r && r[0]) play(r[0]); else toast('Bulunamadı'); }).catch(() => toast('YouTube araması başarısız')); }
+  else if (k === 'add') mzAdd();
+  else if (k === 'del') { MZL = MZL.filter(x => x.id !== v); LS.set('mzl', MZL); renderPage(); }
+  else if (k === 'key') { const val = (($('#ytk') || {}).value || '').trim(); LS.set('ytkey', val); MZ.trend = null; toast(val ? 'Anahtar kaydedildi' : 'Anahtar silindi'); renderPage(); }
+  else if (k === 'fav' || k === 'unfav') { const [id, n] = v.split('|'); FAV = k === 'fav' ? {id, n} : null; LS.set('fav', FAV); closeSheet(); toast(FAV ? '★ ' + esc(n) : 'Kaldırıldı'); renderPage(); }
+  else if (k === 'pickfav') { const r = (((foot('lig').tb || [])[0] || {}).rows || []).find(x => (x.f + ' ' + x.n).toLocaleLowerCase('tr').includes(v.toLocaleLowerCase('tr').slice(0, 6))); if (r) { FAV = {id: r.id, n: r.n}; LS.set('fav', FAV); toast('★ ' + esc(r.n)); renderPage(); } else toast('Puan tablosu bekleniyor'); }
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-sec],[data-cn],[data-x],[data-kx],[data-mz],[data-pl]'); if (!t) return; const d = t.dataset;
+  if (d.sec) { e.preventDefault(); goSec(d.sec); return; }
+  if (d.cn) { const [l, i] = d.cn.split(':'); const x = (NLS[+l] || [])[+i]; if (x) newsSheet(x); return; }
+  if (d.x) { const r = XR[+d.x]; if (r) xAct(r[0], r[1]); return; }
+  if (d.kx) { const i = d.kx.indexOf(':'); KX[d.kx.slice(0, i)] = d.kx.slice(i + 1); LS.set('kx', KX); if (!d.go) renderPage(); return; }
+  if (d.mz) { mzAct(d.mz); return; }
+  if (d.pl) { if (d.pl === 'big') setBig(!PL.big); else stopPlay(); }
+});
+setInterval(() => { if (document.hidden) return; const was = CNT.m && CNT.m.at; loadContent().then(() => { if (secOf(route) !== 'fin' && CNT.m && CNT.m.at !== was && !shOpen && !document.activeElement.matches('input')) { const y = window.scrollY; renderPage(); window.scrollTo(0, y); } }); }, 60e3);
+setInterval(() => { if (!document.hidden) sporLive(); }, 30e3);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { loadContent(); sporLive(true); } });
+
+
 /* ---------- zamanlayıcılar ---------- */
 setInterval(() => { $('#clock').textContent = fTime(Date.now()); $$('[data-cd]').forEach(el => el.textContent = countdown(+el.dataset.cd)); }, 1000);
 setInterval(() => { if (!document.hidden) refreshMarks(); }, 10e3);
@@ -1645,6 +2578,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) { wsC
   route = PAGES[location.hash.slice(1)] ? location.hash.slice(1) : 'home'; if (!location.hash) history.replaceState(null, '', '#home');
   mergeCom(); if (CLOUD.m) applyCloud();
   renderNav(); paintStat(); paintTape(); renderPage(true);
+  loadContent().then(() => { if (secOf(route) !== 'fin' && !shOpen) renderPage(); });
   const lines = ['F SEVİM TERMİNAL v4.0', '> BINANCE CANLI AKIŞ ............ BAĞLANIYOR', '> BULUT TARAMASI (GITHUB) ....... YÜKLENİYOR', '> SİNYAL MOTORU ................. HAZIR'];
   const pre = $('#boot pre'); let i = 0; const tick = setInterval(() => { pre.textContent = lines.slice(0, ++i).join('\n'); if (i >= lines.length) clearInterval(tick); }, 220);
   setTimeout(() => $('#boot').classList.add('hide'), 1400);
