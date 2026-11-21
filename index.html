@@ -454,6 +454,40 @@ body.plon #ply{display:block}
 #ply.big .row{flex-wrap:wrap}
 .mini2{margin-bottom:12px}.mini2 .cdc{margin:0}.mini2 .cdc .t{font-size:16px}.mini2 .cdc .cd2{font-size:18px}
 #ply.big .pf{width:100%;height:auto;aspect-ratio:16/9;order:-1}
+/* v5.2 */
+.gc{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;background:linear-gradient(160deg,hsl(var(--h) 52% 40%),hsl(calc(var(--h) + 40) 58% 13%));color:#fff;overflow:hidden;text-align:left}
+.gc:before{content:"";position:absolute;right:-35%;top:-18%;width:95%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.09)}
+.gc:after{content:"";position:absolute;left:10px;top:10px;width:22px;height:2px;background:rgba(255,255,255,.7);border-radius:2px}
+.gc b{position:relative;font-size:13px;font-weight:800;line-height:1.22;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.01em}
+.fg .pc,.hsc .pc{min-width:0}.gc{min-width:0}.gc b,.gc span{max-width:100%}
+.gc span{position:relative;font-size:10px;opacity:.8;margin-top:5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.br .cv{position:relative}.br .cv .gc{padding:5px}.br .cv .gc b{font-size:7.5px;-webkit-line-clamp:4}.br .cv .gc:after{display:none}
+.po2{position:relative}.po2 .gc b{font-size:14px}
+img.ov{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pc .im .rt,.pc .im .nw2,.evd{z-index:2}
+.evd{position:absolute;left:6px;top:6px;background:var(--gold);color:#1B1305;font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:.03em}
+.rnav{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--p);border:1px solid var(--ln);border-radius:16px}
+.pn .rnav{border:0;border-bottom:1px solid var(--ln);border-radius:0;background:none}
+.rnav button{width:44px;height:44px;flex:none;border-radius:12px;border:1px solid var(--ln2);background:var(--p2);color:var(--am);font-size:24px;font-weight:700;cursor:pointer;line-height:1}
+.rnav button:disabled{opacity:.25;cursor:default}
+.rnav div{flex:1;text-align:center;min-width:0}
+.rnav b{display:block;font-size:15.5px;font-weight:800;letter-spacing:.02em}
+.rnav span{font-size:11.5px;color:var(--tx3);font-weight:600}
+.hero.ts{min-height:280px}
+.tlr.on{background:var(--am-s)}
+.tile i{position:absolute;right:10px;top:10px;font-style:normal;font-size:10.5px;font-weight:800;background:rgba(0,0,0,.28);padding:2px 7px;border-radius:10px;z-index:1}
+.tile.on{outline:2px solid var(--am);outline-offset:2px}
+.vr.on{background:var(--am-s)}
+.vr .th .du{position:absolute;right:4px;bottom:4px;background:rgba(0,0,0,.78);color:#fff;font-size:9.5px;font-weight:700;padding:1px 4px;border-radius:4px;z-index:1}
+#ply .pf{width:96px;height:54px}
+#ply .bx{display:none}
+#ply.big .bx{display:grid}
+#ply .nm{cursor:pointer}
+#ply.big .row{justify-content:center;gap:8px}
+#ply.big .nm{flex:1 1 100%;padding:2px 4px}
+#ply.big .ib{width:44px;height:44px}
+body.plon main{padding-bottom:calc(150px + var(--safe-b))}
+body.plon.plbig main{padding-bottom:calc(220px + 56vw + var(--safe-b))}
 </style>
 </head>
 <body>
@@ -470,7 +504,7 @@ body.plon #ply{display:block}
   <nav class="fkeys" id="fk"></nav>
 </header>
 <div class="scrim" id="scrim"></div>
-<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v5.0</div></div><div class="dr-n" id="drn"></div></nav>
+<nav class="drawer"><div class="dr-h"><i class="logo"></i><div>TERMİNAL · v5.2</div></div><div class="dr-n" id="drn"></div></nav>
 <main id="view"></main>
 <div class="sbg" id="sbg"></div>
 <div class="sheet" id="sheet"><div class="grab"></div><div id="shc"></div></div>
@@ -908,6 +942,8 @@ function espnTable(j) {
       voley: [GN('voleybol Sultanlar Ligi OR Efeler Ligi when:7d'), GN('voleybol Şampiyonlar Ligi OR milli takım voleybol when:14d')],
       f1: [GN('Formula 1 when:3d'), GN('Formula 1 Grand Prix when:2d', 'en')],
       motogp: [GN('MotoGP when:7d'), GN('Toprak Razgatlıoğlu when:10d')],
+      tenis: [GN('tenis turnuva when:4d'), GN('Wimbledon OR Roland Garros OR US Open OR Avustralya Açık OR ATP OR WTA when:4d')],
+      diger: [GN('hentbol OR atletizm OR güreş OR judo OR boks OR yüzme OR jimnastik OR okçuluk OR tekvando OR eskrim when:5d'), GN('milli sporcu şampiyon madalya when:5d')],
       gs: [GN('Galatasaray when:2d')], fb: [GN('Fenerbahçe when:2d')], bjk: [GN('Beşiktaş when:2d')], ts: [GN('Trabzonspor when:3d')], kay: [GN('Kayserispor when:5d')]
     };
     {
@@ -950,13 +986,24 @@ function espnTable(j) {
     var ESPN = 'https://site.api.espn.com/apis/site/v2/sports/', ESPN2 = 'https://site.api.espn.com/apis/v2/sports/';
     var LG = {lig: 'soccer/tur.1', ucl: 'soccer/uefa.champions', uel: 'soccer/uefa.europa', uecl: 'soccer/uefa.europa.conf'};
     var ymd = function (t) { var d = new Date(t + 3 * 36e5); return d.getUTCFullYear() + String(d.getUTCMonth() + 1).padStart(2, '0') + String(d.getUTCDate()).padStart(2, '0'); };
+    var sNow = new Date(Date.now() + 3 * 36e5), sY = sNow.getUTCMonth() >= 6 ? sNow.getUTCFullYear() : sNow.getUTCFullYear() - 1;
+    var SS = Date.UTC(sY, 6, 1), SE = Date.UTC(sY + 1, 5, 30), full = stale('footfull', 60), fullOk = true;
     for (var lg in LG) {
-      var F = C.foot[lg] || {};
-      try { var sb = await get(ESPN + LG[lg] + '/scoreboard?limit=400&dates=' + ymd(Date.now() - 24 * 864e5) + '-' + ymd(Date.now() + 40 * 864e5), 'json', 2); F.m = (sb.events || []).map(espnEv); F.name = sb.leagues && sb.leagues[0] && sb.leagues[0].name; }
-      catch (e) { C.errors.push('maç ' + lg); }
+      var F = C.foot[lg] || {}; if (F.season !== sY) F = {season: sY};
+      var map = {}; (F.m || []).forEach(function (m) { map[m.id] = m; });
+      var ranges = [];
+      if (full || !(F.m || []).length) for (var s0 = SS; s0 <= SE; s0 += 30 * 864e5) ranges.push([s0, Math.min(s0 + 29 * 864e5, SE)]);
+      else ranges.push([Date.now() - 4 * 864e5, Date.now() + 14 * 864e5]);
+      var gotAny = false;
+      await pool(ranges, 3, async function (r) {
+        try { var sb = await get(ESPN + LG[lg] + '/scoreboard?limit=500&dates=' + ymd(r[0]) + '-' + ymd(r[1]), 'json', 2); (sb.events || []).forEach(function (e) { var m = espnEv(e); map[m.id] = m; }); gotAny = true; if (sb.leagues && sb.leagues[0]) F.name = sb.leagues[0].name; }
+        catch (e) { C.errors.push('maç ' + lg + ' ' + ymd(r[0])); fullOk = false; }
+      });
+      F.m = Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return a.t - b.t; });
       try { F.tb = espnTable(await get(ESPN2 + LG[lg] + '/standings', 'json', 2)); } catch (e) { C.errors.push('puan ' + lg); }
       F.at = Date.now(); C.foot[lg] = F;
     }
+    if (full && fullOk) done('footfull');
     log('futbol:', Object.keys(C.foot).map(function (k) { return k + ' ' + ((C.foot[k].m || []).length) + 'm/' + (((C.foot[k].tb || [])[0] || {rows: []}).rows.length) + 't'; }).join(', '));
     try { var nb = await get(ESPN + 'basketball/nba/scoreboard?dates=' + ymd(Date.now() - 2 * 864e5) + '-' + ymd(Date.now() + 2 * 864e5), 'json', 2); C.nba = (nb.events || []).map(espnEv); } catch (e) { C.errors.push('nba'); }
 
@@ -992,11 +1039,121 @@ function espnTable(j) {
       } catch (e) { C.errors.push('motogp ' + e.message); }
     }
 
+
+    /* --- tiyatro & konser programı (Bubilet; yedek Biletix) 30 dk --- */
+    var ECITY = [['kayseri', 'Kayseri'], ['istanbul', 'İstanbul'], ['ankara', 'Ankara'], ['izmir', 'İzmir']];
+    if (stale('events', 30) || !C.events) {
+      var EV = {tiyatro: {}, konser: {}}, evN = 0, jobs = [];
+      ECITY.forEach(function (c) { ['tiyatro', 'konser'].forEach(function (tg) { jobs.push([c[0], c[1], tg]); }); });
+      await pool(jobs, 3, async function (j) {
+        var list = [];
+        try { var html = await get('https://www.bubilet.com.tr/' + j[0] + '/etiket/' + j[2], 'text', 2); list = extractEvents(html, 'https://www.bubilet.com.tr', j[1]); } catch (e) { C.errors.push('bubilet ' + j[0] + '/' + j[2]); }
+        if (list.length < 4) { try { list = list.concat(await biletix(j[1], j[2])); } catch (e) { C.errors.push('biletix ' + j[0] + '/' + j[2]); } }
+        var seenE = {};
+        list = list.filter(function (x) { var k = normT(x.n) + '|' + (x.t ? new Date(x.t + 3 * 36e5).toISOString().slice(0, 10) : ''); if (!x.n || seenE[k]) return false; seenE[k] = 1; return !x.t || x.t > Date.now() - 864e5; })
+          .sort(function (a, b) { return (a.t || 9e15) - (b.t || 9e15); }).slice(0, 80);
+        EV[j[2]][j[0]] = list; evN += list.length;
+      });
+      // afişi olmayanlara etkinlik sayfasından og:image (önbellekli)
+      var OG = C.og || {}, need = [];
+      ['tiyatro', 'konser'].forEach(function (tg) { for (var c in EV[tg]) EV[tg][c].forEach(function (x) { if (!x.img && x.u) { if (OG[x.u]) x.img = OG[x.u]; else if (OG[x.u] !== '' && need.indexOf(x.u) < 0) need.push(x.u); } }); });
+      await pool(need.slice(0, 30), 4, async function (u) { try { var h2 = await get(u, 'text', 1); var mm = h2.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) || h2.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i); OG[u] = mm ? dec(mm[1]) : ''; } catch (e) { OG[u] = ''; } });
+      ['tiyatro', 'konser'].forEach(function (tg) { for (var c in EV[tg]) EV[tg][c].forEach(function (x) { if (!x.img && OG[x.u]) x.img = OG[x.u]; }); });
+      var ogk = Object.keys(OG); if (ogk.length > 800) ogk.slice(0, ogk.length - 800).forEach(function (k) { delete OG[k]; });
+      C.og = OG;
+      if (evN) { C.events = EV; done('events'); } else if (!C.events) C.events = EV;
+      log('etkinlik:', evN, '(afiş sorgusu ' + Math.min(need.length, 30) + ')');
+    }
+
+    /* --- müzik listeleri: YouTube araması + gömülebilirlik kontrolü (3 sa) --- */
+    var yr = new Date().getFullYear();
+    var MZQ = [['yeni', 'Yeni Çıkanlar', 'yeni çıkan türkçe şarkılar ' + yr, 900], ['hit', 'Türkiye Hitleri', 'en çok dinlenen türkçe şarkılar ' + yr, 900], ['pop', 'Türkçe Pop', 'türkçe pop şarkılar', 900], ['rock', 'Türkçe Rock', 'türkçe rock şarkılar', 900], ['anadolu', 'Anadolu Rock', 'anadolu rock', 900], ['tsm', 'Türk Sanat Müziği', 'türk sanat müziği şarkılar', 1200], ['thm', 'Türk Halk Müziği', 'türk halk müziği türküler', 1200], ['arabesk', 'Arabesk', 'arabesk şarkılar', 900], ['rap', 'Türkçe Rap', 'türkçe rap şarkılar', 900], ['caz', 'Caz', 'jazz classics', 3600], ['klasik', 'Klasik Müzik', 'classical music masterpieces', 4 * 3600], ['lofi', 'Lo-fi · Odaklan', 'lofi hip hop focus', 4 * 3600], ['nostalji', "80'ler 90'lar", '90lar türkçe pop şarkılar', 900], ['akustik', 'Akustik', 'türkçe akustik şarkılar', 900]];
+    if (stale('yt', 180) || !C.yt) {
+      var Y = C.yt || {}, OK = C.ytok || {}, yN = 0;
+      await pool(MZQ, 2, async function (g) {
+        try {
+          var r = await fetch('https://www.youtube.com/results?search_query=' + encodeURIComponent(g[2]) + '&sp=EgIQAQ%253D%253D&hl=tr&gl=TR', {headers: Object.assign({}, UA, {'Accept-Language': 'tr-TR,tr;q=0.9', Cookie: 'CONSENT=YES+cb; SOCS=CAI'})});
+          var vids = ytParse(await r.text(), g[3]).slice(0, 30);
+          await pool(vids, 5, async function (v) { if (OK[v.v] != null) return; try { var o = await fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + v.v)); OK[v.v] = o.ok ? 1 : 0; } catch (e) {} });
+          var good = vids.filter(function (v) { return OK[v.v] !== 0; }).slice(0, 25);
+          if (good.length) { Y[g[0]] = {n: g[1], items: good}; yN++; }
+        } catch (e) { C.errors.push('yt ' + g[0]); }
+      });
+      var okk = Object.keys(OK); if (okk.length > 3000) okk.slice(0, okk.length - 3000).forEach(function (k) { delete OK[k]; });
+      C.yt = Y; C.ytok = OK; if (yN) done('yt'); log('müzik listeleri:', yN + '/' + MZQ.length);
+    }
     C.at = Date.now();
     fs.writeFileSync('data/content.json', JSON.stringify(C));
     log('yazıldı: content.json', (fs.statSync('data/content.json').size / 1024).toFixed(0) + 'KB', C.errors.length ? 'hatalar: ' + C.errors.join('; ') : '');
   }
 
+  function normT(s) { return String(s || '').toLocaleLowerCase('tr').replace(/[^a-z0-9çğıöşü]+/g, ''); }
+  function walkJ(o, fn, d) { d = d || 0; if (!o || typeof o !== 'object' || d > 45) return; if (!Array.isArray(o)) fn(o); for (var k in o) { var v = o[k]; if (v && typeof v === 'object') walkJ(v, fn, d + 1); } }
+  function parseDT(v) {
+    var TRMON = {ocak: 0, şubat: 1, mart: 2, nisan: 3, mayıs: 4, haziran: 5, temmuz: 6, ağustos: 7, eylül: 8, ekim: 9, kasım: 10, aralık: 11};
+    if (v == null || v === '') return null;
+    if (typeof v === 'number') return v < 1e11 ? v * 1000 : v;
+    var s = String(v).trim(), m;
+    if ((m = s.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})(?:[ T,-]+(\d{1,2})[:.](\d{2}))?/))) return Date.UTC(+m[3], +m[2] - 1, +m[1], (+m[4] || 20) - 3, +m[5] || 0);
+    if ((m = s.match(/(\d{1,2})\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)(?:\s+(\d{4}))?(?:\D+(\d{1,2})[:.](\d{2}))?/i))) {
+      var mo = TRMON[m[2].toLocaleLowerCase('tr')], now = new Date(), y = m[3] ? +m[3] : now.getUTCFullYear();
+      var t = Date.UTC(y, mo, +m[1], (+m[4] || 20) - 3, +m[5] || 0); if (!m[3] && t < Date.now() - 60 * 864e5) t = Date.UTC(y + 1, mo, +m[1], (+m[4] || 20) - 3, +m[5] || 0); return t;
+    }
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(s)) s += '+03:00';
+    var p = Date.parse(s); return isNaN(p) ? null : p;
+  }
+  function extractEvents(html, base, city) {
+    var out = [];
+    var abs = function (u) { if (!u) return ''; u = dec(String(u)).trim(); var nm = u.match(/\/_next\/image\?url=([^&]+)/); if (nm) u = decodeURIComponent(nm[1]); if (/^\/\//.test(u)) return 'https:' + u; if (/^\//.test(u)) return base + u; return /^https?:/.test(u) ? u : ''; };
+    var pick = function (im) { if (!im) return ''; if (typeof im === 'string') return im; if (Array.isArray(im)) return pick(im[0]); return im.url || im.contentUrl || im.src || im.original || ''; };
+    var add = function (o) {
+      var n = o.name || o.title || o.eventName || o.event_name; if (!n || typeof n !== 'string' || n.length > 160) return;
+      var loc = o.location || o.venue || o.place || o.venueName || ''; if (Array.isArray(loc)) loc = loc[0] || '';
+      var v = typeof loc === 'string' ? loc : (loc.name || loc.title || '');
+      var off = o.offers || {}; if (Array.isArray(off)) off = off[0] || {};
+      var pr = off.lowPrice || off.price || o.minPrice || o.min_price || o.price || '';
+      var url = o.url || o.link || o.href || (o.slug ? '/' + String(city).toLocaleLowerCase('tr').replace('i̇', 'i') + '/etkinlik/' + o.slug : '');
+      out.push({n: dec(n).trim(), t: parseDT(o.startDate || o.start_date || o.eventDate || o.date || o.startTime || o.start || o.sessionDate || o.firstSessionDate), v: dec(String(v || '')).trim(), img: abs(pick(o.image || o.poster || o.posterUrl || o.posterImage || o.imageUrl || o.image_url || o.cover || o.coverImage || o.thumbnail)), u: abs(url), p: pr && +String(pr).replace(',', '.') ? String(pr) : '', c: city});
+    };
+    var re = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi, m;
+    while ((m = re.exec(html))) { try { walkJ(JSON.parse(m[1].trim()), function (o) { var ty = o['@type']; ty = Array.isArray(ty) ? ty.join(' ') : String(ty || ''); if (/Event/.test(ty)) add(o); }); } catch (e) {} }
+    if (out.length < 4) {
+      var nd = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i);
+      if (nd) { try { walkJ(JSON.parse(nd[1]), function (o) { if ((typeof o.name === 'string' || typeof o.title === 'string') && (o.startDate || o.start_date || o.eventDate || o.date || o.sessionDate || o.firstSessionDate) && (o.slug || o.url || o.image || o.poster || o.imageUrl)) add(o); }); } catch (e) {} }
+    }
+    if (out.length < 4) {
+      var ar = /<a[^>]+href=["']([^"'#?]*\/etkinlik\/[^"'#?]+)["'][^>]*>([\s\S]*?)<\/a>/gi, a2, seenU = {};
+      while ((a2 = ar.exec(html))) {
+        var u = abs(a2[1]); if (!u || seenU[u]) continue; seenU[u] = 1;
+        var inner = a2[2], im2 = (inner.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i) || [])[1] || (inner.match(/srcset=["']([^"' ]+)/i) || [])[1] || '';
+        var alt = dec((inner.match(/alt=["']([^"']{3,})["']/i) || [])[1] || '');
+        var lines = dec(inner.replace(/<[^>]+>/g, '\n')).split('\n').map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).filter(Boolean);
+        var nm2 = alt || lines.filter(function (l) { return l.length > 2 && !/^\d/.test(l) && !/₺|TL\b/.test(l); })[0] || u.split('/').pop().replace(/-/g, ' ');
+        var dl = lines.join(' ');
+        out.push({n: nm2.replace(/\s+(afişi|posteri|görseli)$/i, '').slice(0, 100), t: parseDT(dl), v: '', img: abs(im2), u: u, p: (dl.match(/(\d[\d.,]*)\s*(?:₺|TL)/) || [])[1] || '', c: city});
+      }
+    }
+    return out;
+  }
+  async function biletix(cityName, tag) {
+    var cat = tag === 'tiyatro' ? 'ART' : 'MUSIC';
+    var url = 'https://www.biletix.com/solr/tr/select/?start=0&rows=60&wt=json&sort=start%20asc&fq=end%3A%5BNOW%20TO%20NOW%2B365DAY%5D&fq=category%3A' + cat + '&fq=city%3A%22' + encodeURIComponent(cityName) + '%22';
+    var j = await get(url, 'json', 1);
+    return ((j.response || {}).docs || []).map(function (d) { return {n: d.name || '', t: parseDT(d.start), v: d.venue || '', img: '', u: d.id ? 'https://www.biletix.com/etkinlik/' + d.id + '/TURKIYE/tr' : '', p: '', c: cityName}; });
+  }
+  function ytParse(html, maxSec) {
+    var m = html.match(/ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/); if (!m) return [];
+    var j; try { j = JSON.parse(m[1]); } catch (e) { return []; }
+    var out = [], seen = {};
+    walkJ(j, function (o) {
+      var v = o.videoRenderer; if (!v || !v.videoId || seen[v.videoId]) return; seen[v.videoId] = 1;
+      var len = v.lengthText && v.lengthText.simpleText; if (!len) return;
+      var sec = len.split(':').reduce(function (a, b) { return a * 60 + +b; }, 0); if (sec < 90 || sec > (maxSec || 900)) return;
+      var tt = v.title ? (v.title.runs ? v.title.runs.map(function (r) { return r.text; }).join('') : v.title.simpleText) : '';
+      out.push({v: v.videoId, title: tt || '', ch: (v.ownerText && v.ownerText.runs && v.ownerText.runs[0] && v.ownerText.runs[0].text) || '', d: len});
+    });
+    return out;
+  }
   function parseFilms(html) {
     var out = [];
     var TRM = {ocak: 0, şubat: 1, mart: 2, nisan: 3, mayıs: 4, haziran: 5, temmuz: 6, ağustos: 7, eylül: 8, ekim: 9, kasım: 10, aralık: 11};
@@ -2040,13 +2197,13 @@ const IC2 = {
 const SECS = [['fin', 'Finans', 'home'], ['kul', 'Kültür Sanat', 'k-vitrin'], ['spo', 'Spor', 's-gundem'], ['muz', 'Müzik', 'm-kesfet']];
 const SNAV = {
   kul: [['k-vitrin', 'VİTRİN', 'Vitrin'], ['k-sinema', 'SİNEMA', 'Sinema'], ['k-tiyatro', 'TİYATRO', 'Tiyatro'], ['k-konser', 'KONSER', 'Konserler'], ['k-kitap', 'KİTAP', 'Yeni Kitaplar'], ['k-tarih', 'TARİH', 'Tarihte Bugün']],
-  spo: [['s-gundem', 'GÜNDEM', 'Gündem & Canlı'], ['s-lig', 'SÜPER LİG', 'Süper Lig'], ['s-avrupa', 'AVRUPA', 'Avrupa Kupaları'], ['s-basket', 'BASKETBOL', 'Basketbol'], ['s-voley', 'VOLEYBOL', 'Voleybol'], ['s-motor', 'F1 · MOTOGP', 'F1 & MotoGP']],
+  spo: [['s-gundem', 'GÜNDEM', 'Gündem & Canlı'], ['s-lig', 'SÜPER LİG', 'Süper Lig'], ['s-avrupa', 'AVRUPA', 'Avrupa Kupaları'], ['s-motor', 'F1 · MOTOGP', 'F1 & MotoGP'], ['s-haber', 'HABERLER', 'Spor Haberleri']],
   muz: [['m-kesfet', 'KEŞFET', 'Keşfet'], ['m-liste', 'LİSTELERİM', 'Listelerim'], ['m-haber', 'HABERLER', 'Müzik Haberleri']]
 };
 const secOf = r => /^k-/.test(r) ? 'kul' : /^s-/.test(r) ? 'spo' : /^m-/.test(r) ? 'muz' : 'fin';
 const SECLAST = LS.get('seclast', {});
-const KX = Object.assign({sin: 'vizyon', ksort: 'yeni', kbc: 'ekonomi', kbl: 'tr', ktar: 'tr', slig: 'puan', lign: 'all', sav: 'ucl', savt: 'mac', sbas: 'gundem', smot: 'f1', smott: 'pilot', mmt: 'all'}, LS.get('kx', {}));
-Object.assign(CATL, {kultur: 'KÜLTÜR', sinema: 'SİNEMA', tiyatro: 'TİYATRO', konser: 'KONSER', kitap: 'KİTAP', yerel: 'KAYSERİ', tarih: 'TARİH', muzik: 'MÜZİK', futbol: 'FUTBOL', transfer: 'TRANSFER', avrupa: 'AVRUPA', basket: 'BASKETBOL', voley: 'VOLEYBOL', f1: 'FORMULA 1', motogp: 'MOTOGP', elestiri: 'ELEŞTİRİ', gs: 'GALATASARAY', fb: 'FENERBAHÇE', bjk: 'BEŞİKTAŞ', ts: 'TRABZONSPOR', kay: 'KAYSERİSPOR'});
+const KX = Object.assign({sin: 'vizyon', ksort: 'yeni', kbc: 'ekonomi', kbl: 'tr', ktar: 'tr', slig: 'puan', lign: 'all', sav: 'ucl', savt: 'mac', sbas: 'gundem', smot: 'f1', smott: 'pilot', mmt: 'all', kbm: 'kanon', kcity: 'kayseri', spn: 'all'}, LS.get('kx', {}));
+Object.assign(CATL, {kultur: 'KÜLTÜR', sinema: 'SİNEMA', tiyatro: 'TİYATRO', konser: 'KONSER', kitap: 'KİTAP', yerel: 'KAYSERİ', tarih: 'TARİH', muzik: 'MÜZİK', futbol: 'FUTBOL', transfer: 'TRANSFER', avrupa: 'AVRUPA', basket: 'BASKETBOL', voley: 'VOLEYBOL', f1: 'FORMULA 1', motogp: 'MOTOGP', tenis: 'TENİS', diger: 'DİĞER BRANŞLAR', elestiri: 'ELEŞTİRİ', gs: 'GALATASARAY', fb: 'FENERBAHÇE', bjk: 'BEŞİKTAŞ', ts: 'TRABZONSPOR', kay: 'KAYSERİSPOR'});
 
 function renderNav() {
   const sec = secOf(route);
@@ -2119,6 +2276,116 @@ function cnFlow(items) {
 }
 function flowWire() { $$('[data-flow]').forEach(n => { let to; n.addEventListener('touchstart', () => { n.classList.add('ps'); clearTimeout(to); }, {passive: true}); n.addEventListener('touchend', () => { to = setTimeout(() => n.classList.remove('ps'), 2500); }); }); }
 
+/* ---------- tarih serisi: eski Türk tarihinden bugüne, her gün bir kesit ---------- */
+const TSERI = [
+  ['MÖ 3. yüzyıl', -230, 'TR', 'Asya Hun Devleti', 'Mete Han', 'Bozkırda bilinen ilk büyük Türk siyasi birliği Asya Hunlarıdır. Mete Han (MÖ 209) orduyu onlu sisteme göre örgütledi ve Çin\'i vergiye bağladı. Bu askeri düzen, sonraki Türk devletlerine örnek oldu.'],
+  ['MÖ 221', -221, 'DÜNYA', 'Çin\'in birleşmesi ve Çin Seddi', 'Çin Seddi', 'Qin Shi Huang savaşan Çin krallıklarını tek yönetim altında topladı. Yazı, ölçü ve para birliği sağlandı. Kuzeydeki bozkır halklarına, özellikle Hunlara karşı surlar birleştirilerek Çin Seddi\'nin temeli atıldı.'],
+  ['MÖ 218–201', -218, 'DÜNYA', 'II. Pön Savaşı ve Hannibal', 'Hannibal', 'Kartacalı Hannibal filleriyle Alpler\'i aşıp Roma\'yı kendi topraklarında yendi, ama şehri alamadı. Savaşı sonunda Roma kazandı ve Batı Akdeniz\'in tek hâkimi oldu.'],
+  ['MÖ 2. yüzyıl', -130, 'DÜNYA', 'İpek Yolu', 'İpek Yolu', 'Han hanedanı döneminde Çin\'i Orta Asya, İran ve Akdeniz\'e bağlayan ticaret ağı işlemeye başladı. İpek, baharat, kâğıt, din ve fikirler bu yolla yayıldı. Yolun büyük bölümü yüzyıllar boyunca Türk boylarının yurdundan geçti.'],
+  ['MÖ 27', -27, 'DÜNYA', 'Roma İmparatorluğu', 'Augustus', 'Octavianus "Augustus" unvanını aldı ve Roma Cumhuriyeti imparatorluğa dönüştü. İki yüzyıl sürecek "Pax Romana" ile Akdeniz tek bir siyasi ve ekonomik alan hâline geldi.'],
+  ['375', 375, 'TR', 'Kavimler Göçü', 'Kavimler Göçü', 'Avrupa Hunları Karadeniz\'in kuzeyine ilerleyince Gotlar ve diğer Germen kabileleri batıya göç etti. Bu büyük hareket Avrupa\'nın etnik haritasını değiştirdi ve Batı Roma\'nın çöküşünü hızlandırdı.'],
+  ['434–453', 434, 'TR', 'Attila ve Avrupa Hun İmparatorluğu', 'Attila', 'Attila döneminde Hunlar Ren\'den Hazar\'a uzanan bir güç oldu; Doğu ve Batı Roma ağır vergiler ödedi. 451\'deki Katalaun Savaşı ve İtalya seferi Avrupa siyasetini derinden etkiledi.'],
+  ['476', 476, 'DÜNYA', 'Batı Roma\'nın yıkılışı', 'Batı Roma İmparatorluğu', 'Son Batı Roma imparatoru tahttan indirildi. Bu tarih genellikle Antik Çağ\'ın sonu, Orta Çağ\'ın başlangıcı kabul edilir. Doğu Roma (Bizans) ise bin yıl daha yaşadı.'],
+  ['552', 552, 'TR', 'Göktürk Kağanlığı', 'Göktürkler', 'Bumin Kağan Avarlara karşı ayaklanarak "Türk" adını taşıyan ilk devleti kurdu. Göktürkler Mançurya\'dan Karadeniz\'e uzandı; İpek Yolu ticaretini denetleyip Bizans ve Sasanilerle diplomasi yürüttü.'],
+  ['622', 622, 'DÜNYA', 'Hicret ve İslam\'ın yayılışı', 'Hicret', 'Hz. Muhammed\'in Mekke\'den Medine\'ye göçü Hicri takvimin başlangıcı oldu. Sonraki yüzyılda İslam devleti İspanya\'dan Orta Asya\'ya yayıldı ve Türklerle doğrudan temas kurdu.'],
+  ['732–735', 732, 'TR', 'Orhun Yazıtları', 'Orhun Yazıtları', 'Kül Tigin ve Bilge Kağan adına dikilen yazıtlar, Türk adının ve Türkçenin bilinen en eski uzun metinleridir. Bilge Kağan halkına seslenir, devletin kuruluşunu ve dağılma tehlikesini anlatır.'],
+  ['744', 744, 'TR', 'Uygur Kağanlığı', 'Uygur Kağanlığı', 'Uygurlar Göktürklerin yerine bozkırın hâkimi oldu. Şehirler kurdular, yerleşik hayata geçtiler; kendi alfabelerini, kâğıt ve matbaa kullanımını geliştirerek zengin bir yazılı kültür bıraktılar.'],
+  ['751', 751, 'TR', 'Talas Savaşı', 'Talas Muharebesi', 'Abbasiler ile Çin ordusu Talas\'ta karşılaştı; Karluk Türklerinin taraf değiştirmesiyle Abbasiler kazandı. Orta Asya\'da Çin etkisi geriledi, Türklerin İslam\'a geçişi hızlandı, kâğıt yapımı batıya yayıldı.'],
+  ['800', 800, 'DÜNYA', 'Şarlman\'ın taç giymesi', 'Şarlman', 'Frank kralı Şarlman Roma\'da imparator ilan edildi. Batı Avrupa\'nın büyük bölümü tek yönetimde toplandı; bu, Kutsal Roma İmparatorluğu fikrinin ve Orta Çağ Avrupa düzeninin temeli oldu.'],
+  ['10. yüzyıl', 940, 'TR', 'Karahanlılar: ilk Müslüman Türk devleti', 'Karahanlılar', 'Satuk Buğra Han\'ın İslam\'ı kabulüyle Karahanlılar ilk Müslüman Türk devleti oldu. Kaşgar ve Balasagun bilim ve kültür merkezi hâline geldi; Türkçe edebi dil olarak gelişti.'],
+  ['1040', 1040, 'TR', 'Dandanakan ve Büyük Selçuklu', 'Dandanakan Muharebesi', 'Tuğrul ve Çağrı Beyler Gaznelileri yenerek Büyük Selçuklu Devleti\'ni kurdu. Selçuklular kısa sürede İran, Irak ve Bağdat\'ı alarak İslam dünyasının siyasi liderliğini üstlendi.'],
+  ['1054', 1054, 'DÜNYA', 'Doğu–Batı kiliselerinin ayrılığı', 'Doğu-Batı Ayrılığı', 'Roma ve Konstantinopolis kiliseleri birbirini aforoz etti; Katolik ve Ortodoks dünyası kesin olarak ayrıldı. Bu ayrılık Avrupa ve Bizans siyasetini yüzyıllarca etkiledi.'],
+  ['1069–1074', 1070, 'TR', 'Kutadgu Bilig ve Divanu Lugati\'t-Türk', 'Divânu Lugâti\'t-Türk', 'Yusuf Has Hacib devlet yönetimini anlatan Kutadgu Bilig\'i, Kaşgarlı Mahmud Türkçenin ilk büyük sözlüğü Divanu Lugati\'t-Türk\'ü yazdı. İki eser Türk dili ve kültürünün temel kaynaklarıdır.'],
+  ['1071', 1071, 'TR', 'Malazgirt Muharebesi', 'Malazgirt Muharebesi', 'Sultan Alparslan, Bizans İmparatoru Romen Diyojen\'i yenip esir aldı. Anadolu\'nun kapıları Türklere açıldı; bu zafer Anadolu\'nun Türk yurdu olmasının başlangıcı sayılır.'],
+  ['1077', 1077, 'TR', 'Anadolu Selçuklu Devleti', 'Anadolu Selçuklu Devleti', 'Kutalmışoğlu Süleyman Şah İznik merkezli Anadolu Selçuklu Devleti\'ni kurdu. Başkent daha sonra Konya oldu; kervansaraylar, medreseler ve ticaret yollarıyla Anadolu yeniden şekillendi.'],
+  ['1096', 1096, 'DÜNYA', 'Haçlı Seferleri', 'Birinci Haçlı Seferi', 'Papa\'nın çağrısıyla Avrupa\'dan Kudüs\'e seferler başladı. İki yüzyıl süren Haçlı Seferleri Anadolu, Suriye ve Mısır\'ı etkiledi; Avrupa ile Doğu arasında ticaret ve bilgi akışını da artırdı.'],
+  ['1176', 1176, 'TR', 'Miryokefalon', 'Miryokefalon Muharebesi', 'II. Kılıç Arslan Bizans ordusunu ağır yenilgiye uğrattı. Bizans\'ın Anadolu\'yu geri alma umudu sona erdi; Batı kaynaklarında Anadolu bu dönemden itibaren "Turchia" diye anılmaya başladı.'],
+  ['1206', 1206, 'DÜNYA', 'Moğol İmparatorluğu', 'Cengiz Han', 'Temuçin bozkır boylarını birleştirip Cengiz Han unvanını aldı. Moğollar tarihin en geniş kara imparatorluğunu kurdu; Çin\'den Doğu Avrupa\'ya uzanan bu düzen Asya ve İslam dünyasını derinden değiştirdi.'],
+  ['1215', 1215, 'DÜNYA', 'Magna Carta', 'Magna Carta', 'İngiliz baronları Kral John\'a kralın yetkilerini sınırlayan bir belge imzalattı. Hukukun üstünlüğü ve anayasal yönetim düşüncesinin simgesi hâline geldi.'],
+  ['1243', 1243, 'TR', 'Kösedağ Savaşı', 'Kösedağ Muharebesi', 'Moğollar Anadolu Selçuklu ordusunu yendi; devlet İlhanlılara bağımlı hâle geldi. Merkezi otorite zayıfladı ve Anadolu Beylikleri dönemi başladı; Osmanlı da bu ortamda doğdu.'],
+  ['1299', 1299, 'TR', 'Osmanlı Beyliği', 'Osman Gazi', 'Osman Bey, Söğüt ve çevresinde Bizans sınırında bir beylik kurdu. Uç bölgesindeki bu küçük beylik, üç kıtaya yayılacak ve altı yüzyıl sürecek bir imparatorluğa dönüştü.'],
+  ['1347–1351', 1347, 'DÜNYA', 'Kara Veba', 'Kara Ölüm', 'İpek Yolu ve deniz ticaretiyle yayılan veba Avrupa nüfusunun yaklaşık üçte birini öldürdü. İş gücü kıtlığı feodal düzeni sarstı, ücretleri ve toplumsal yapıyı değiştirdi.'],
+  ['1402', 1402, 'TR', 'Ankara Savaşı', 'Ankara Muharebesi', 'Timur, Yıldırım Bayezid\'i yenip esir aldı. Osmanlı Devleti Fetret Devri\'ne girdi; şehzadeler arasındaki taht kavgası 1413\'te Çelebi Mehmed\'in birliği yeniden kurmasıyla bitti.'],
+  ['1450 civarı', 1450, 'DÜNYA', 'Gutenberg ve matbaa', 'Johannes Gutenberg', 'Gutenberg hareketli metal harflerle baskıyı yaygınlaştırdı. Kitaplar ucuzladı, bilgi hızla yayıldı; Rönesans, Reform ve bilimsel devrimin önü açıldı.'],
+  ['1453', 1453, 'TR', 'İstanbul\'un Fethi', 'İstanbul\'un Fethi', 'II. Mehmed (Fatih) 53 günlük kuşatmanın ardından Konstantinopolis\'i aldı ve Bizans sona erdi. Osmanlı imparatorluğa dönüştü; olay pek çok tarihçiye göre Orta Çağ\'ın sonudur.'],
+  ['1492', 1492, 'DÜNYA', 'Kolomb ve Amerika', 'Kristof Kolomb', 'Kolomb Atlantik\'i geçerek Amerika kıtasına ulaştı. Coğrafi Keşifler dünya ticaretini, nüfus hareketlerini ve imparatorluk rekabetini kökten değiştirdi. Aynı yıl İspanya\'dan sürülen Yahudilerin bir kısmı Osmanlı\'ya yerleşti.'],
+  ['1498', 1498, 'DÜNYA', 'Hindistan deniz yolu', 'Vasco da Gama', 'Vasco da Gama Ümit Burnu\'nu dolaşarak Hindistan\'a ulaştı. Baharat ticareti Akdeniz ve Orta Doğu yollarından okyanuslara kaydı; bu, Osmanlı ve Memlük gelirlerini uzun vadede etkiledi.'],
+  ['1517', 1517, 'TR', 'Mısır Seferi ve Yavuz Sultan Selim', 'I. Selim', 'Yavuz Sultan Selim Mercidabık ve Ridaniye\'de Memlükleri yendi. Suriye, Mısır ve Hicaz Osmanlı\'ya geçti; halifelik ve kutsal şehirlerin koruyuculuğu Osmanlı padişahlarına intikal etti.'],
+  ['1517', 1517.5, 'DÜNYA', 'Reform', 'Martin Luther', 'Martin Luther Katolik Kilisesi\'ni eleştiren 95 tezini yayımladı. Protestanlık doğdu; Avrupa\'da din savaşları, yeni devlet-kilise ilişkileri ve modern düşüncenin önemli adımları bu süreçten çıktı.'],
+  ['1526', 1526, 'TR', 'Babür İmparatorluğu', 'Babür İmparatorluğu', 'Timur soyundan gelen Babür Şah, Panipat\'ta Delhi Sultanlığı\'nı yenerek Hindistan\'da Babür İmparatorluğu\'nu kurdu. Türk-Moğol kökenli bu hanedan Tac Mahal gibi eserler bıraktı.'],
+  ['1520–1566', 1526.5, 'TR', 'Kanuni dönemi ve Mohaç', 'I. Süleyman', 'Kanuni Sultan Süleyman döneminde Osmanlı en geniş sınırlarına ulaştı; 1526 Mohaç Savaşı ile Macaristan alındı, 1529\'da Viyana kuşatıldı. Kanunnameler devlet düzenini sistemleştirdi.'],
+  ['1538', 1538, 'TR', 'Preveze Deniz Savaşı', 'Preveze Deniz Muharebesi', 'Barbaros Hayreddin Paşa komutasındaki Osmanlı donanması Haçlı donanmasını yendi. Akdeniz uzun süre Osmanlı denizi oldu.'],
+  ['1543', 1543, 'DÜNYA', 'Kopernik ve Bilimsel Devrim', 'Nikolas Kopernik', 'Kopernik Dünya\'nın Güneş etrafında döndüğünü savunan eserini yayımladı. Galileo, Kepler ve Newton\'la süren Bilimsel Devrim doğaya bakışı değiştirdi.'],
+  ['1648', 1648, 'DÜNYA', 'Vestfalya Barışı', 'Vestfalya Barışı', 'Otuz Yıl Savaşları Vestfalya Barışı ile sona erdi. Egemen devletlerin birbirinin iç işlerine karışmaması ilkesi modern uluslararası sistemin temeli oldu.'],
+  ['1683', 1683, 'TR', 'II. Viyana Kuşatması', 'Viyana Kuşatması (1683)', 'Merzifonlu Kara Mustafa Paşa\'nın Viyana kuşatması başarısız oldu. Ardından gelen savaşlar 1699 Karlofça Antlaşması\'yla bitti; Osmanlı ilk kez büyük toprak kaybetti ve duraklama dönemi derinleşti.'],
+  ['1687', 1687, 'DÜNYA', 'Newton\'un Principia\'sı', 'Isaac Newton', 'Isaac Newton hareket yasalarını ve evrensel çekim kanununu yayımladı. Modern fizik ve mühendisliğin temeli atıldı.'],
+  ['1727', 1727, 'TR', 'İbrahim Müteferrika matbaası', 'İbrahim Müteferrika', 'İbrahim Müteferrika Osmanlı\'da Türkçe kitap basan ilk matbaayı kurdu. Sözlük, tarih ve coğrafya kitapları basıldı; bilginin yayılmasında yeni bir dönem başladı.'],
+  ['1760 sonrası', 1760, 'DÜNYA', 'Sanayi Devrimi', 'Sanayi Devrimi', 'İngiltere\'de buhar makinesi, dokuma tezgâhları ve fabrikalarla üretim makineleşti. Kentleşme, işçi sınıfı ve küresel sermaye birikimi bu dönüşümle doğdu.'],
+  ['1774', 1774, 'TR', 'Küçük Kaynarca Antlaşması', 'Küçük Kaynarca Antlaşması', 'Osmanlı-Rus savaşı sonunda imzalanan antlaşmayla Kırım bağımsız oldu ve Rusya Karadeniz\'e indi. Osmanlı ilk kez savaş tazminatı ödedi; Rusya Ortodoksların koruyuculuğunu iddia etmeye başladı.'],
+  ['1776', 1776, 'DÜNYA', 'ABD Bağımsızlık Bildirgesi', 'Amerika Birleşik Devletleri Bağımsızlık Bildirgesi', 'On üç Amerikan kolonisi İngiltere\'den bağımsızlığını ilan etti. Bildirge, doğal haklar ve halk egemenliği fikrini siyasi bir programa dönüştürdü.'],
+  ['1789', 1789, 'DÜNYA', 'Fransız Devrimi', 'Fransız Devrimi', 'Fransa\'da mutlak monarşi yıkıldı; İnsan ve Yurttaş Hakları Bildirisi yayımlandı. Yaydığı milliyetçilik ve eşitlik fikirleri çok uluslu imparatorlukları, Osmanlı\'yı da derinden etkiledi.'],
+  ['1815', 1815, 'DÜNYA', 'Viyana Kongresi', 'Viyana Kongresi', 'Napolyon savaşlarından sonra Avrupa\'nın büyük güçleri yeni bir denge kurdu. Bu düzen yaklaşık bir yüzyıl boyunca büyük bir Avrupa savaşını engelledi.'],
+  ['1826', 1826, 'TR', 'Vaka-i Hayriye', 'Vaka-i Hayriye', 'II. Mahmud Yeniçeri Ocağı\'nı kaldırdı ve yerine modern bir ordu kurdu. Osmanlı\'da köklü askeri ve idari reformların önü açıldı.'],
+  ['1839', 1839, 'TR', 'Tanzimat Fermanı', 'Tanzimat Fermanı', 'Mustafa Reşid Paşa\'nın okuduğu fermanla can, mal ve namus güvencesi ile kanun önünde eşitlik ilan edildi. Osmanlı modernleşmesinin en önemli dönemi başladı.'],
+  ['1848', 1848, 'DÜNYA', '1848 Devrimleri', '1848 Devrimleri', 'Avrupa\'nın birçok başkentinde liberal ve milliyetçi ayaklanmalar çıktı. Çoğu bastırılsa da anayasal yönetim, ulus devlet ve işçi hareketleri fikirleri güç kazandı.'],
+  ['1853–1856', 1853, 'TR', 'Kırım Savaşı', 'Kırım Savaşı', 'Osmanlı, İngiltere ve Fransa ile birlikte Rusya\'ya karşı savaştı. Savaş sırasında 1854\'te ilk dış borç alındı; Paris Antlaşması\'yla Osmanlı Avrupa devletler sistemine kabul edildi.'],
+  ['1869', 1869, 'DÜNYA', 'Süveyş Kanalı', 'Süveyş Kanalı', 'Akdeniz\'i Kızıldeniz\'e bağlayan kanal açıldı. Avrupa ile Asya arasındaki deniz yolu binlerce kilometre kısaldı; bölgenin stratejik önemi arttı.'],
+  ['1876', 1876, 'TR', 'I. Meşrutiyet ve Kanun-i Esasi', 'Kanûn-ı Esâsî', 'Osmanlı\'nın ilk anayasası Kanun-i Esasi ilan edildi ve ilk meclis toplandı. Meclis 1878\'de II. Abdülhamid tarafından kapatıldı, ama anayasal yönetim fikri yaşamaya devam etti.'],
+  ['1877–1878', 1877, 'TR', '93 Harbi', '1877-1878 Osmanlı-Rus Savaşı', 'Rumi 1293 yılında başladığı için 93 Harbi denen savaşta Osmanlı ağır yenildi. Berlin Antlaşması\'yla Balkanlarda büyük topraklar kaybedildi, Anadolu\'ya büyük göç dalgası başladı.'],
+  ['1881', 1881, 'TR', 'Mustafa Kemal\'in doğumu', 'Mustafa Kemal Atatürk', 'Mustafa Kemal Selanik\'te doğdu. Askeri okullarda yetişen genç subay, ilerleyen yıllarda Kurtuluş Savaşı\'nın önderi ve Türkiye Cumhuriyeti\'nin kurucusu oldu.'],
+  ['1908', 1908, 'TR', 'II. Meşrutiyet', 'İkinci Meşrutiyet', 'İttihat ve Terakki\'nin baskısıyla anayasa yeniden yürürlüğe girdi, meclis açıldı. Basın, siyasi partiler ve fikir hayatı canlandı; ancak dönem savaşlar ve iç çatışmalarla geçti.'],
+  ['1912–1913', 1912, 'TR', 'Balkan Savaşları', 'Balkan Savaşları', 'Balkan devletlerinin ittifakı karşısında Osmanlı Rumeli\'nin neredeyse tamamını kaybetti. Büyük göç ve kayıplar Türk milliyetçiliğinin güçlenmesinde belirleyici oldu.'],
+  ['1914', 1914, 'DÜNYA', 'I. Dünya Savaşı', 'Birinci Dünya Savaşı', 'Saraybosna suikastıyla başlayan savaşta Avrupa\'nın büyük güçleri karşı karşıya geldi. Osmanlı İttifak Devletleri yanında savaşa girdi. Savaş dört imparatorluğun sonunu getirdi.'],
+  ['1915', 1915, 'TR', 'Çanakkale Savaşları', 'Çanakkale Savaşı', 'İtilaf donanması 18 Mart\'ta Boğaz\'ı geçemedi; ardından gelen kara harekâtı da sonuçsuz kaldı. Çanakkale, Mustafa Kemal\'in adını duyurduğu ve milli belleğin temel taşı olan bir direniştir.'],
+  ['1917', 1917, 'DÜNYA', 'Rus Devrimi', 'Ekim Devrimi', 'Çarlık yıkıldı, ardından Bolşevikler iktidarı aldı. Rusya savaştan çekildi ve dünyanın ilk sosyalist devleti kuruldu; 20. yüzyılın ideolojik bölünmesi başladı.'],
+  ['1918', 1918, 'TR', 'Mondros Ateşkesi', 'Mondros Ateşkes Antlaşması', 'Osmanlı yenilgiyi kabul ederek Mondros\'u imzaladı. İtilaf devletleri boğazlar ve İstanbul dahil birçok bölgeyi işgal etti; Anadolu\'da direniş örgütlenmeye başladı.'],
+  ['1919', 1919, 'TR', 'Kurtuluş Savaşı başlıyor', 'Türk Kurtuluş Savaşı', 'Mustafa Kemal 19 Mayıs\'ta Samsun\'a çıktı. Amasya Genelgesi, Erzurum ve Sivas kongreleriyle milli egemenliğe dayanan bağımsızlık mücadelesi örgütlendi.'],
+  ['1919', 1919.5, 'DÜNYA', 'Versay Antlaşması', 'Versay Antlaşması', 'I. Dünya Savaşı\'nın galipleri Almanya\'ya ağır şartlar dayattı. Milletler Cemiyeti kuruldu; ancak antlaşmanın yarattığı tepki 20 yıl sonra yeni bir dünya savaşının zeminini hazırladı.'],
+  ['1920', 1920, 'TR', 'TBMM\'nin açılışı', 'Türkiye Büyük Millet Meclisi', '23 Nisan 1920\'de Ankara\'da Büyük Millet Meclisi açıldı. Milli egemenliğe dayanan yeni devletin temeli atıldı; Sevr Antlaşması tanınmadı.'],
+  ['1922', 1922, 'TR', 'Büyük Taarruz', 'Büyük Taarruz', '26 Ağustos\'ta başlayan taarruz 30 Ağustos\'ta Dumlupınar\'da kesin zaferle sonuçlandı. Anadolu kurtuldu; Mudanya Ateşkesi ve saltanatın kaldırılması takip etti.'],
+  ['1923', 1923, 'TR', 'Lozan Antlaşması', 'Lozan Antlaşması', '24 Temmuz 1923\'te imzalanan Lozan Antlaşması ile yeni Türk devletinin sınırları ve bağımsızlığı uluslararası alanda tanındı; kapitülasyonlar kaldırıldı.'],
+  ['1923', 1923.5, 'TR', 'Cumhuriyet\'in ilanı', 'Türkiye Cumhuriyeti\'nin ilanı', '29 Ekim 1923\'te Cumhuriyet ilan edildi ve Mustafa Kemal ilk cumhurbaşkanı seçildi. Ankara başkent oldu.'],
+  ['1924–1934', 1928, 'TR', 'Cumhuriyet devrimleri', 'Harf Devrimi', 'Halifeliğin kaldırılması, Medeni Kanun (1926), Harf Devrimi (1928), kadınlara seçme ve seçilme hakkı (1934) ve Soyadı Kanunu ile toplum ve devlet köklü biçimde yeniden düzenlendi.'],
+  ['1929', 1929, 'DÜNYA', 'Büyük Buhran', 'Büyük Buhran', 'New York borsasındaki çöküşle başlayan kriz tüm dünyaya yayıldı. İşsizlik ve korumacılık arttı; Türkiye\'de devletçilik ve planlı sanayileşme politikası bu dönemde benimsendi.'],
+  ['1938', 1938, 'TR', 'Atatürk\'ün vefatı', 'Mustafa Kemal Atatürk\'ün ölümü', 'Mustafa Kemal Atatürk 10 Kasım 1938\'de İstanbul Dolmabahçe Sarayı\'nda hayatını kaybetti. İsmet İnönü cumhurbaşkanı seçildi.'],
+  ['1939', 1939, 'DÜNYA', 'II. Dünya Savaşı', 'İkinci Dünya Savaşı', 'Almanya\'nın Polonya\'yı işgaliyle başlayan savaş tarihin en ölümcül savaşı oldu. Türkiye savaşın büyük bölümünde tarafsız kaldı; aynı yıl Hatay Türkiye\'ye katıldı.'],
+  ['1944', 1944, 'DÜNYA', 'Bretton Woods', 'Bretton Woods sistemi', 'Savaş sonrası para düzeni için toplanan konferansta IMF ve Dünya Bankası kuruldu. Kurlar dolara, dolar altına bağlandı; bu sistem 1971\'e kadar sürdü.'],
+  ['1945', 1945, 'DÜNYA', 'Birleşmiş Milletler', 'Birleşmiş Milletler', 'Savaşın sonunda Birleşmiş Milletler kuruldu; Türkiye kurucu üyeler arasındaydı. Atom bombasının kullanılması nükleer çağı başlattı.'],
+  ['1947', 1947, 'DÜNYA', 'Soğuk Savaş ve Marshall Planı', 'Marshall Planı', 'ABD ve SSCB arasında iki kutuplu rekabet başladı. Truman Doktrini ve Marshall Planı ile Batı Avrupa\'ya, Türkiye dahil, ekonomik ve askeri yardım yapıldı.'],
+  ['1950', 1950, 'TR', 'Çok partili hayat ve 1950 seçimleri', '1950 Türkiye genel seçimleri', '1946\'da çok partili sisteme geçildi. 14 Mayıs 1950 seçimlerinde iktidar ilk kez sandıkla el değiştirdi.'],
+  ['1952', 1952, 'TR', 'Türkiye NATO\'da', 'NATO', 'Kore Savaşı\'na asker gönderen Türkiye 1952\'de NATO\'ya katıldı. Batı ittifakının güneydoğu kanadında yer aldı.'],
+  ['1957', 1957, 'DÜNYA', 'Sputnik ve uzay çağı', 'Sputnik 1', 'SSCB ilk yapay uydu Sputnik\'i yörüngeye gönderdi. Uzay yarışı başladı; bilim, eğitim ve teknolojiye yapılan yatırımlar hızlandı.'],
+  ['1961', 1961, 'TR', 'Almanya\'ya işçi göçü', 'Türkiye\'den Almanya\'ya göç', 'Türkiye ile Batı Almanya arasında işgücü anlaşması imzalandı. Yüz binlerce kişi Avrupa\'ya göç etti; işçi dövizleri ekonominin önemli kaynağı oldu.'],
+  ['1969', 1969, 'DÜNYA', 'Ay\'a iniş', 'Apollo 11', 'Apollo 11 ile Neil Armstrong ve Buzz Aldrin Ay\'a ayak basan ilk insanlar oldu. Olay dünya çapında yüz milyonlarca kişi tarafından canlı izlendi.'],
+  ['1973', 1973, 'DÜNYA', 'Petrol krizi', '1973 petrol krizi', 'Arap petrol ambargosuyla fiyatlar birkaç katına çıktı. Batı\'da yüksek enflasyon ve durgunluk yaşandı; enerji güvenliği küresel gündemin merkezine yerleşti.'],
+  ['1973', 1973.5, 'TR', 'Boğaziçi Köprüsü', '15 Temmuz Şehitler Köprüsü', 'Cumhuriyet\'in 50. yılında Boğaz\'ın iki yakasını bağlayan ilk köprü açıldı. Avrupa ile Asya karayoluyla birleşti.'],
+  ['1980', 1980, 'TR', '24 Ocak Kararları', '24 Ocak Kararları', 'İthal ikameci modelden dışa açık, piyasa ekonomisine geçişi başlatan istikrar programı açıklandı. Kur, faiz ve dış ticarette serbestleşme dönemi başladı.'],
+  ['1989', 1989, 'DÜNYA', 'Berlin Duvarı\'nın yıkılışı', 'Berlin Duvarı\'nın yıkılışı', 'Doğu Avrupa\'daki rejimler peş peşe çöktü ve Berlin Duvarı yıkıldı. Almanya 1990\'da birleşti; Soğuk Savaş sona erdi.'],
+  ['1991', 1991, 'TR', 'SSCB\'nin dağılması ve Türk cumhuriyetleri', 'Sovyetler Birliği\'nin dağılması', 'Sovyetler Birliği dağıldı. Azerbaycan, Kazakistan, Kırgızistan, Özbekistan ve Türkmenistan bağımsızlığını ilan etti; Türkiye bu devletleri ilk tanıyan ülke oldu.'],
+  ['1991', 1991.5, 'DÜNYA', 'World Wide Web', 'World Wide Web', 'Tim Berners-Lee\'nin geliştirdiği web herkese açıldı. İnternet birkaç yıl içinde iletişimi, ticareti ve bilgiye erişimi kökten değiştirdi.'],
+  ['1996', 1996, 'TR', 'Gümrük Birliği', 'Avrupa Birliği–Türkiye Gümrük Birliği', 'Türkiye ile Avrupa Birliği arasındaki Gümrük Birliği yürürlüğe girdi. Sanayi ürünlerinde gümrükler kalktı; Türk sanayisi Avrupa pazarıyla bütünleşti.'],
+  ['1999', 1999, 'TR', 'Marmara Depremi', '1999 Gölcük depremi', '17 Ağustos 1999\'daki 7,4 büyüklüğündeki deprem Marmara Bölgesi\'nde büyük yıkıma yol açtı. Afet yönetimi ve yapı denetimi yeniden ele alındı.'],
+  ['1999', 1999.5, 'DÜNYA', 'Euro', 'Euro', 'Avrupa\'nın ortak para birimi euro kullanılmaya başladı; banknotlar 2002\'de dolaşıma girdi. Avrupa Merkez Bankası tek para politikasını üstlendi.'],
+  ['2001', 2001, 'TR', '2001 ekonomik krizi', '2001 Türkiye ekonomik krizi', 'Şubat 2001\'de kur rejimi çöktü, lira sert değer kaybetti, bankacılık sistemi sarsıldı. Ardından merkez bankası bağımsızlığı ve bankacılık reformları geldi.'],
+  ['2001', 2001.5, 'DÜNYA', '11 Eylül', '11 Eylül saldırıları', 'ABD\'ye yönelik saldırılar küresel güvenlik politikalarını değiştirdi. Afganistan ve Irak savaşları ile "terörle mücadele" dönemi başladı.'],
+  ['2005', 2005, 'TR', 'Yeni Türk Lirası', 'Türk lirası', 'Liradan altı sıfır atıldı ve Yeni Türk Lirası kullanılmaya başladı. Para birimi 2009\'da yeniden "Türk lirası" adını aldı.'],
+  ['2007', 2007, 'DÜNYA', 'Akıllı telefon çağı', 'iPhone (1. nesil)', 'Dokunmatik akıllı telefonların yaygınlaşmasıyla mobil internet gündelik hayatın merkezine yerleşti. Medya, bankacılık ve ticaret cebe taşındı.'],
+  ['2008', 2008, 'DÜNYA', 'Küresel finans krizi', '2007-2008 finansal krizi', 'ABD konut piyasasındaki çöküş Lehman Brothers\'ın batmasıyla küresel bir krize dönüştü. Merkez bankaları sıfır faiz ve parasal genişleme dönemine geçti.'],
+  ['2009', 2009, 'DÜNYA', 'Bitcoin', 'Bitcoin', 'Satoshi Nakamoto takma adlı geliştiricinin tasarladığı Bitcoin ağı çalışmaya başladı. Blokzincir teknolojisi ve kripto varlık piyasası bu adımla doğdu.'],
+  ['2020', 2020, 'DÜNYA', 'COVID-19 salgını', 'COVID-19 pandemisi', 'Dünya Sağlık Örgütü COVID-19\'u küresel salgın ilan etti. Kapanmalar, uzaktan çalışma ve dev mali destekler ekonomiyi ve gündelik hayatı değiştirdi.'],
+  ['2023', 2023, 'TR', '6 Şubat depremleri ve Cumhuriyet\'in 100. yılı', '2023 Kahramanmaraş depremleri', 'Kahramanmaraş merkezli iki büyük deprem 11 ili etkiledi ve ağır kayıplara yol açtı. Aynı yıl Türkiye Cumhuriyeti kuruluşunun 100. yılını kutladı.']
+].sort((a, b) => a[1] - b[1]);
+const TSERI_START = Date.UTC(2026, 10, 20, 21);  // 21 Kasım 2026 (TR) = 1. gün
+
+/* ---------- kabul görmüş eserler (kapak ve ayrıntı Google Kitaplar'dan) ---------- */
+const KANON = {
+  ekonomi: [['Ulusların Zenginliği', 'Adam Smith'], ['İstihdam, Faiz ve Paranın Genel Teorisi', 'John Maynard Keynes'], ['Ulusların Düşüşü', 'Daron Acemoğlu'], ['Yirmi Birinci Yüzyılda Kapital', 'Thomas Piketty'], ['Kölelik Yolu', 'Friedrich Hayek'], ['Kapitalizm ve Özgürlük', 'Milton Friedman'], ['Büyük Dönüşüm', 'Karl Polanyi'], ['Siyah Kuğu', 'Nassim Nicholas Taleb'], ['Akıllı Yatırımcı', 'Benjamin Graham'], ['Paranın Psikolojisi', 'Morgan Housel'], ['Dürtme', 'Richard Thaler'], ['Maniler, Panikler ve Çöküşler', 'Charles Kindleberger'], ['Büyük Açık', 'Michael Lewis'], ['İlkeler', 'Ray Dalio'], ['Türkiye\'nin 200 Yıllık İktisadi Tarihi', 'Şevket Pamuk'], ['Küreselleşme Büyük Hayal Kırıklığı', 'Joseph Stiglitz']],
+  tarih: [['Osmanlı İmparatorluğu Klasik Çağ', 'Halil İnalcık'], ['İmparatorluğun En Uzun Yüzyılı', 'İlber Ortaylı'], ['Sapiens', 'Yuval Noah Harari'], ['Tüfek, Mikrop ve Çelik', 'Jared Diamond'], ['İpek Yolları', 'Peter Frankopan'], ['Kısa 20. Yüzyıl', 'Eric Hobsbawm'], ['Modern Türkiye\'nin Doğuşu', 'Bernard Lewis'], ['Atatürk', 'Andrew Mango'], ['Türklerin Tarihi', 'Jean-Paul Roux'], ['Türk Kültür Tarihine Giriş', 'Bahaeddin Ögel'], ['Konstantinopolis Düşerken', 'Steven Runciman'], ['Mukaddime', 'İbn Haldun'], ['Akdeniz', 'Fernand Braudel'], ['Nutuk', 'Mustafa Kemal Atatürk']],
+  felsefe: [['Devlet', 'Platon'], ['Nikomakhos\'a Etik', 'Aristoteles'], ['Kendime Düşünceler', 'Marcus Aurelius'], ['Ahlak Mektupları', 'Seneca'], ['Yöntem Üzerine Konuşma', 'Descartes'], ['Etika', 'Spinoza'], ['Saf Aklın Eleştirisi', 'Kant'], ['Böyle Buyurdu Zerdüşt', 'Nietzsche'], ['Batı Felsefesi Tarihi', 'Bertrand Russell'], ['Sisifos Söyleni', 'Albert Camus'], ['Felsefenin Öyküsü', 'Will Durant'], ['Sofie\'nin Dünyası', 'Jostein Gaarder'], ['İdeal Devlet', 'Farabi'], ['Leviathan', 'Thomas Hobbes']],
+  psikoloji: [['İnsanın Anlam Arayışı', 'Viktor Frankl'], ['Hızlı ve Yavaş Düşünme', 'Daniel Kahneman'], ['Düşlerin Yorumu', 'Sigmund Freud'], ['İnsan ve Sembolleri', 'Carl Jung'], ['Sevme Sanatı', 'Erich Fromm'], ['Özgürlükten Kaçış', 'Erich Fromm'], ['İknanın Psikolojisi', 'Robert Cialdini'], ['Duygusal Zeka', 'Daniel Goleman'], ['Akış', 'Mihaly Csikszentmihalyi'], ['Kitleler Psikolojisi', 'Gustave Le Bon'], ['Öğrenilmiş İyimserlik', 'Martin Seligman'], ['Mindset', 'Carol Dweck'], ['Nietzsche Ağladığında', 'Irvin Yalom']],
+  sosyoloji: [['Protestan Ahlakı ve Kapitalizmin Ruhu', 'Max Weber'], ['Toplumsal İşbölümü', 'Emile Durkheim'], ['Akışkan Modernite', 'Zygmunt Bauman'], ['Ayrım', 'Pierre Bourdieu'], ['Gündelik Yaşamda Benliğin Sunumu', 'Erving Goffman'], ['Amerika\'da Demokrasi', 'Alexis de Tocqueville'], ['Hayali Cemaatler', 'Benedict Anderson'], ['Hapishanenin Doğuşu', 'Michel Foucault'], ['Yorgunluk Toplumu', 'Byung-Chul Han'], ['Karakter Aşınması', 'Richard Sennett'], ['Sosyolojik Düşün', 'C. Wright Mills'], ['Türk Modernleşmesi', 'Şerif Mardin'], ['Türkçülüğün Esasları', 'Ziya Gökalp']]
+};
+
 /* ============================ KÜLTÜR SANAT ============================ */
 const CITY = 'Kayseri';
 const KLINKS = {
@@ -2165,7 +2432,7 @@ const rtVal = f => f.rt ? (f.rt['Üyeler'] ?? f.rt['Seyirci'] ?? f.rt['Beyazperd
 const isNewF = f => f.date && Date.now() - f.date < 8 * 864e5 && f.date <= Date.now() + 864e5;
 function filmCard(f) {
   const r = rtVal(f);
-  return `<div class="pc" ${xr('film', f)}><div class="im">${f.img ? im(f.img, f.title) : `<div class="noimg-t">${esc(f.title)}</div>`}${r ? `<span class="rt">★ ${nf(r, 1)}</span>` : ''}${isNewF(f) ? '<span class="nw2">YENİ</span>' : ''}</div><div class="tt">${esc(f.title)}</div><div class="st">${esc(f.genre || f.dur || '')}</div></div>`;
+  return `<div class="pc" ${xr('film', f)}><div class="im">${genCover(f.title, f.genre)}${ovImg(f.img, f.title)}${r ? `<span class="rt">★ ${nf(r, 1)}</span>` : ''}${isNewF(f) ? '<span class="nw2">YENİ</span>' : ''}</div><div class="tt">${esc(f.title)}</div><div class="st">${esc(f.genre || f.dur || '')}</div></div>`;
 }
 function filmSheet(f) {
   const rv = (cm().reviews || {})[f.id] || []; const R = f.rt || {}; const rk = Object.keys(R).slice(0, 3); const L = nlReg(rv);
@@ -2179,59 +2446,53 @@ function filmSheet(f) {
     ${f.url ? `<a class="btn bk" ${aAttr(f.url)}>BEYAZPERDE · TÜM YORUMLAR ↗</a>` : ''}
     ${rv.length ? `<div class="sec-h"><b>Eleştiriler & yorumlar</b></div><div class="pn">${rv.map((x, i) => `<div class="nw" data-cn="${L}:${i}"><div class="tm">${dtf({day: '2-digit', month: '2-digit'}).format(x.ts)}</div><div class="tx"><div class="so">${esc(x.src)}</div><div class="ti">${esc(x.title)}</div></div></div>`).join('')}</div>` : ''}`);
 }
-// kitaplar (Google Books)
+// ortak: üretilmiş kapak (görsel yoksa ya da yüklenemezse)
+const hueOf = s => Math.abs([...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7)) % 360;
+const genCover = (t, sub, seed) => `<div class="gc" style="--h:${hueOf(seed || t)}"><b>${esc(t)}</b>${sub ? `<span>${esc(sub)}</span>` : ''}</div>`;
+const ovImg = (u, alt) => u ? `<img class="ov" src="${esc(u)}" alt="${esc(alt || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : '';
+
+// kitaplar: kabul görmüş eserler + yeni çıkanlar (Google Kitaplar)
 const BKC = [['ekonomi', 'EKONOMİ', 'ekonomi', 'subject:"Business & Economics"'], ['tarih', 'TARİH', 'tarih', 'subject:History'], ['felsefe', 'FELSEFE', 'felsefe', 'subject:Philosophy'], ['psikoloji', 'PSİKOLOJİ', 'psikoloji', 'subject:Psychology'], ['sosyoloji', 'SOSYOLOJİ', 'sosyoloji', 'subject:"Social Science"']];
 const BOOKS = LS.get('books', {}), BKBUSY = {};
-function booksCached(c, l) { const b = BOOKS[c + '|' + l]; return b && Date.now() - b.at < 12 * 36e5 ? b.items : null; }
+const gbMap = v => { const i = v.volumeInfo || {}; const il = i.imageLinks || {}; return {id: v.id, t: (i.title || '') + (i.subtitle ? ': ' + i.subtitle : ''), a: (i.authors || []).join(', '), p: i.publisher || '', d: i.publishedDate || '', pg: i.pageCount, img: (il.thumbnail || il.smallThumbnail || '').replace(/^http:/, 'https:').replace('&edge=curl', ''), ds: String(i.description || '').replace(/<[^>]+>/g, ' ').slice(0, 1200), url: i.infoLink || i.previewLink || '', r: i.averageRating, rc: i.ratingsCount}; };
+function booksCached(c, l) { const b = BOOKS[c + '|' + l]; return b && Date.now() - b.at < (l === 'kanon' ? 60 * 864e5 : 12 * 36e5) ? b.items : null; }
 async function loadBooks(c, l) {
   const key = c + '|' + l; if (BKBUSY[key]) return BKBUSY[key];
-  const cat = BKC.find(x => x[0] === c) || BKC[0];
-  const qs = l === 'tr' ? [cat[2], cat[3]] : [cat[3]];
   BKBUSY[key] = (async () => {
-    const yr = new Date().getFullYear(); let all = [];
-    for (const q of qs) {
-      try {
-        const j = await (await tfetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&orderBy=newest&printType=books&maxResults=40&langRestrict=${l === 'tr' ? 'tr' : 'en'}`, 15000)).json();
-        all = all.concat((j.items || []).map(v => { const i = v.volumeInfo || {}; const il = i.imageLinks || {}; return {id: v.id, t: (i.title || '') + (i.subtitle ? ': ' + i.subtitle : ''), a: (i.authors || []).join(', '), p: i.publisher || '', d: i.publishedDate || '', pg: i.pageCount, img: (il.thumbnail || il.smallThumbnail || '').replace(/^http:/, 'https:').replace('&edge=curl', ''), ds: String(i.description || '').replace(/<[^>]+>/g, ' ').slice(0, 1200), url: i.infoLink || i.previewLink || '', cat: (i.categories || []).join(', ')}; }));
-      } catch (e) {}
+    let items = [];
+    if (l === 'kanon') {
+      const list = KANON[c] || [];
+      items = await Promise.all(list.map(async ([t, a]) => {
+        const base = {id: 'k' + hueOf(t + a), t, a, p: '', d: '', img: '', ds: '', url: 'https://www.google.com/search?tbm=bks&q=' + encodeURIComponent(t + ' ' + a)};
+        try {
+          const j = await (await tfetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent('intitle:' + t + ' inauthor:' + a.split(' ').pop())}&maxResults=5&printType=books`, 15000)).json();
+          const c2 = (j.items || []).map(gbMap); const best = c2.find(x => x.img && x.ds) || c2.find(x => x.img) || c2[0];
+          return best ? Object.assign(base, best, {t, a: best.a || a}) : base;
+        } catch (e) { return base; }
+      }));
+    } else {
+      const cat = BKC.find(x => x[0] === c) || BKC[0]; const qs = l === 'tr' ? [cat[2], cat[3]] : [cat[3]]; const yr = new Date().getFullYear(); let all = [];
+      for (const q of qs) { try { const j = await (await tfetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&orderBy=newest&printType=books&maxResults=40&langRestrict=${l === 'tr' ? 'tr' : 'en'}`, 15000)).json(); all = all.concat((j.items || []).map(gbMap)); } catch (e) {} }
+      const seen = new Set();
+      items = all.filter(b => { const k = b.t.toLocaleLowerCase('tr').slice(0, 40); if (!b.t || seen.has(k)) return false; seen.add(k); return parseInt(b.d) >= yr - 2; }).sort((a, b) => String(b.d).localeCompare(String(a.d)));
     }
-    const seen = new Set();
-    const items = all.filter(b => { const k = b.t.toLocaleLowerCase('tr').slice(0, 40); if (!b.t || seen.has(k)) return false; seen.add(k); return parseInt(b.d) >= yr - 2; }).sort((a, b) => String(b.d).localeCompare(String(a.d)));
-    BOOKS[key] = {at: items.length ? Date.now() : Date.now() - 11.5 * 36e5, items}; LS.set('books', BOOKS);
+    const ok = l === 'kanon' ? items.some(b => b.img) : items.length;
+    BOOKS[key] = {at: ok ? Date.now() : Date.now() - (l === 'kanon' ? 59.9 * 864e5 : 11.5 * 36e5), items}; LS.set('books', BOOKS);
     delete BKBUSY[key]; return items;
   })();
   return BKBUSY[key];
 }
 const bkDate = d => { if (!d) return ''; const [y, m] = d.split('-'); return m ? dtf({month: 'short', year: 'numeric'}).format(Date.UTC(+y, +m - 1, 15)) : y; };
-const bookCard = b => `<div class="pc" ${xr('book', b)}><div class="im">${b.img ? im(b.img, b.t) : `<div class="noimg-t">${esc(b.t)}</div>`}</div><div class="tt">${esc(b.t)}</div><div class="st">${esc(b.a)}</div></div>`;
-const bookRow = b => `<div class="br" ${xr('book', b)}><div class="cv">${b.img ? im(b.img) : ''}</div><div class="tx"><div class="t1">${esc(b.t)}</div><div class="t2x">${esc(b.a)}${b.p ? ' · ' + esc(b.p) : ''}</div><div class="t2x t3">${bkDate(b.d)}${b.pg ? ' · ' + b.pg + ' sayfa' : ''}</div>${b.ds ? `<div class="t3x">${esc(b.ds)}</div>` : ''}</div></div>`;
+const bookCard = b => `<div class="pc" ${xr('book', b)}><div class="im">${genCover(b.t, b.a)}${ovImg(b.img, b.t)}</div><div class="tt">${esc(b.t)}</div><div class="st">${esc(b.a)}</div></div>`;
+const bookRow = b => `<div class="br" ${xr('book', b)}><div class="cv">${genCover(b.t, '', b.t)}${ovImg(b.img)}</div><div class="tx"><div class="t1">${esc(b.t)}</div><div class="t2x">${esc(b.a)}${b.p ? ' · ' + esc(b.p) : ''}</div><div class="t2x t3">${bkDate(b.d)}${b.pg ? ' · ' + b.pg + ' sayfa' : ''}${b.r ? ' · ★ ' + nf(b.r, 1) : ''}</div>${b.ds ? `<div class="t3x">${esc(b.ds)}</div>` : ''}</div></div>`;
 function bookSheet(b) {
   const q = encodeURIComponent(b.t.split(':')[0] + ' ' + (b.a || '').split(',')[0]);
-  openSheet(`<div class="fd"><div class="po2">${im(b.img, b.t)}</div><div class="m"><h3 class="sh-t" style="font-size:19px;margin-bottom:8px;color:var(--tx);line-height:1.3">${esc(b.t)}</h3>${b.a ? `<div>Yazar <b>${esc(b.a)}</b></div>` : ''}${b.p ? `<div>Yayınevi <b>${esc(b.p)}</b></div>` : ''}${b.d ? `<div>Yayın <b>${bkDate(b.d)}</b></div>` : ''}${b.pg ? `<div>Sayfa <b>${b.pg}</b></div>` : ''}</div></div>
+  openSheet(`<div class="fd"><div class="po2" style="position:relative">${genCover(b.t, b.a)}${ovImg(b.img, b.t)}</div><div class="m"><h3 class="sh-t" style="font-size:19px;margin-bottom:8px;color:var(--tx);line-height:1.3">${esc(b.t)}</h3>${b.a ? `<div>Yazar <b>${esc(b.a)}</b></div>` : ''}${b.p ? `<div>Yayınevi <b>${esc(b.p)}</b></div>` : ''}${b.d ? `<div>Yayın <b>${bkDate(b.d)}</b></div>` : ''}${b.pg ? `<div>Sayfa <b>${b.pg}</b></div>` : ''}${b.r ? `<div>Puan <b>★ ${nf(b.r, 1)}</b>${b.rc ? ` (${b.rc})` : ''}</div>` : ''}</div></div>
     ${b.ds ? `<p class="syn" style="margin-top:14px">${esc(b.ds)}</p>` : ''}
-    <div class="g2" style="margin-top:14px">${KX.kbl === 'tr' ? `<a class="btn go" ${aAttr('https://www.kitapyurdu.com/index.php?route=product/search&filter_name=' + q)}>KİTAPYURDU</a><a class="btn" ${aAttr('https://www.dr.com.tr/search?q=' + q)}>D&amp;R</a>` : `<a class="btn go" ${aAttr('https://www.amazon.com.tr/s?k=' + q)}>AMAZON</a><a class="btn" ${aAttr('https://www.goodreads.com/search?q=' + q)}>GOODREADS</a>`}</div>
+    <div class="g2" style="margin-top:14px"><a class="btn go" ${aAttr('https://www.kitapyurdu.com/index.php?route=product/search&filter_name=' + q)}>KİTAPYURDU</a><a class="btn" ${aAttr('https://www.dr.com.tr/search?q=' + q)}>D&amp;R</a></div>
     ${b.url ? `<a class="btn bk" style="margin-top:8px" ${aAttr(b.url)}>GOOGLE KİTAPLAR ↗</a>` : ''}`);
 }
 
-PAGES['k-vitrin'] = {
-  html() {
-    const T = tarihData(), C = cm(), films = (C.films || []).slice().sort((a, b) => (b.date || 0) - (a.date || 0));
-    let h = ttl('Kültür Sanat', longDay(Date.now()));
-    const p1 = T && pickKesit(T, 'tr'), p2 = T && pickKesit(T, 'dunya');
-    if (p1) h += heroKesit(p1, 'GÜNÜN KESİTİ · TÜRK TARİHİ');
-    if (films.length) h += `<div class="sec-h"><b>Vizyonda</b><a data-go="k-sinema">Tümü ›</a></div><div class="hsc" style="margin:0 -14px">${films.slice(0, 14).map(filmCard).join('')}</div>`;
-    const bk = booksCached('ekonomi', 'tr');
-    h += `<div class="sec-h"><b>Yeni Kitaplar · Ekonomi</b><a data-go="k-kitap">Tümü ›</a></div><div class="hsc" id="vbk" style="margin:0 -14px">${bk ? (bk.length ? bk.slice(0, 12).map(bookCard).join('') : emptyB('Kitap bulunamadı')) : '<div class="empty" style="width:100%">Yükleniyor…</div>'}</div>`;
-    if (p2) h += heroKesit(p2, 'DÜNYA TARİHİ', true);
-    h += panel('KÜLTÜR SANAT AKIŞI', cnFlow(mergeNews(['kultur', 'sinema', 'tiyatro', 'konser', 'kitap', 'muzik'], 50)));
-    const yer = mergeNews(['yerel'], 8); if (yer.length) h += panel(CITY.toLocaleUpperCase('tr') + "'DE", cnRows(yer, 8));
-    return h;
-  },
-  after() {
-    flowWire(); loadContent().then(ensureTarih);
-    if (!booksCached('ekonomi', 'tr')) loadBooks('ekonomi', 'tr').then(it => { const e = $('#vbk'); if (e && route === 'k-vitrin') e.innerHTML = it.length ? it.slice(0, 12).map(bookCard).join('') : emptyB('Kitap bulunamadı'); });
-  }
-};
 PAGES['k-sinema'] = {
   html() {
     const films = (cm().films || []).slice();
@@ -2244,45 +2505,114 @@ PAGES['k-sinema'] = {
     return h;
   }
 };
-function stagePage(kind, title, re) {
+// tiyatro & konser programı
+const ECITY = [['kayseri', 'KAYSERİ'], ['istanbul', 'İSTANBUL'], ['ankara', 'ANKARA'], ['izmir', 'İZMİR']];
+const evList = (kind, city) => ((cm().events || {})[kind] || {})[city] || [];
+const evDay = t => dtf({day: 'numeric', month: 'short'}).format(t).toLocaleUpperCase('tr');
+const evTime = t => dtf({weekday: 'short', hour: '2-digit', minute: '2-digit'}).format(t);
+function evCard(e) {
+  return `<div class="pc" ${xr('ev', e)}><div class="im">${genCover(e.n, e.v, e.n)}${ovImg(e.img, e.n)}${e.t ? `<span class="evd">${evDay(e.t)}</span>` : ''}</div><div class="tt">${esc(e.n)}</div><div class="st">${e.t ? esc(evTime(e.t)) : ''}${e.v ? (e.t ? ' · ' : '') + esc(e.v) : ''}</div></div>`;
+}
+function evSheet(e) {
+  openSheet(`<div class="fd"><div class="po2" style="position:relative">${genCover(e.n, e.v, e.n)}${ovImg(e.img, e.n)}</div><div class="m"><h3 class="sh-t" style="font-size:20px;margin-bottom:8px;color:var(--tx);line-height:1.3">${esc(e.n)}</h3>
+    ${e.t ? `<div>Tarih <b>${dtf({weekday: 'long', day: 'numeric', month: 'long'}).format(e.t)}</b></div><div>Saat <b>${fTime(e.t)}</b></div>` : ''}${e.v ? `<div>Mekân <b>${esc(e.v)}</b></div>` : ''}${e.c ? `<div>Şehir <b>${esc(e.c)}</b></div>` : ''}${e.p ? `<div>Fiyat <b>${esc(e.p)} ₺'den</b></div>` : ''}</div></div>
+    <div class="g2" style="margin-top:16px">${e.u ? `<a class="btn go" ${aAttr(e.u)}>BİLET AL ↗</a>` : ''}<a class="btn" ${aAttr('https://www.google.com/search?q=' + encodeURIComponent(e.n + ' ' + (e.c || '')))}>DETAY ARA</a></div>`);
+}
+
+PAGES['k-vitrin'] = {
+  html() {
+    const T = tarihData(), C = cm(), films = (C.films || []).slice().sort((a, b) => (b.date || 0) - (a.date || 0));
+    let h = ttl('Kültür Sanat', longDay(Date.now()));
+    const ts = tsToday(); h += tsHero(ts, 'GÜNÜN KESİTİ');
+    const ev = evList('tiyatro', 'kayseri').concat(evList('konser', 'kayseri')).filter(e => !e.t || e.t > Date.now() - 3 * 36e5).sort((a, b) => (a.t || 9e15) - (b.t || 9e15)).slice(0, 14);
+    if (ev.length) h += `<div class="sec-h"><b>Kayseri'de sahnede</b><a data-go="k-tiyatro">Tümü ›</a></div><div class="hsc" style="margin:0 -14px">${ev.map(evCard).join('')}</div>`;
+    if (films.length) h += `<div class="sec-h"><b>Vizyonda</b><a data-go="k-sinema">Tümü ›</a></div><div class="hsc" style="margin:0 -14px">${films.slice(0, 14).map(filmCard).join('')}</div>`;
+    const bk = booksCached('ekonomi', 'kanon') || KANON.ekonomi.map(([t, a]) => ({id: t, t, a}));
+    h += `<div class="sec-h"><b>Okuma listesi · Ekonomi</b><a data-go="k-kitap">Tümü ›</a></div><div class="hsc" id="vbk" style="margin:0 -14px">${bk.slice(0, 14).map(bookCard).join('')}</div>`;
+    const p2 = T && pickKesit(T, 'dunya'); if (p2) h += heroKesit(p2, 'TARİHTE BUGÜN', true);
+    h += panel('KÜLTÜR SANAT AKIŞI', cnFlow(mergeNews(['kultur', 'sinema', 'tiyatro', 'konser', 'kitap', 'muzik'], 50)));
+    return h;
+  },
+  after() {
+    flowWire(); loadContent().then(ensureTarih); tsWiki(tsToday());
+    if (!booksCached('ekonomi', 'kanon')) loadBooks('ekonomi', 'kanon').then(it => { const e = $('#vbk'); if (e && route === 'k-vitrin') e.innerHTML = it.slice(0, 14).map(bookCard).join(''); });
+  }
+};
+function stagePage(kind, title) {
   return {
     html() {
-      const yer = mergeNews(['yerel'], 30).filter(x => re.test(x.title + ' ' + (x.desc || '')));
-      return ttl(title, kind === 'tiyatro' ? 'Sahne gündemi' : 'Konser ve sahne') + `<div class="qk">${KLINKS[kind].map(([n, u]) => ext(u, n)).join('')}</div>` +
-        (yer.length ? panel(CITY.toLocaleUpperCase('tr') + "'DE", cnRows(yer, 8)) : '') +
-        panel(title.toLocaleUpperCase('tr') + ' HABERLERİ', cnRows(mergeNews([kind], 50), 50)) +
-        (kind === 'konser' ? `<a class="btn bk" style="margin-bottom:12px" data-go="m-kesfet">♫ MÜZİK · YOUTUBE MUSIC</a>` : '');
+      const c = KX.kcity, cl = (ECITY.find(x => x[0] === c) || ECITY[0])[1];
+      const ev = evList(kind, c);
+      const wk = ev.filter(e => e.t && e.t < Date.now() + 7 * 864e5), later = ev.filter(e => !e.t || e.t >= Date.now() + 7 * 864e5);
+      let h = ttl(title, ev.length ? ev.length + ' etkinlik · ' + cl.charAt(0) + cl.slice(1).toLocaleLowerCase('tr') : 'Sahne programı') + segx('kcity', ECITY);
+      if (!ev.length) h += panel('SAHNE PROGRAMI', emptyB(CNT.m ? 'Program şu an alınamadı' : null));
+      if (wk.length) h += panel('BU HAFTA', `<div class="fg">${wk.map(evCard).join('')}</div>`);
+      if (later.length) h += panel(wk.length ? 'YAKINDA' : 'SAHNEDE & YAKINDA', `<div class="fg">${later.slice(0, 48).map(evCard).join('')}</div>`);
+      h += `<div class="qk">${KLINKS[kind].map(([n, u]) => ext(u, n)).join('')}</div>`;
+      h += panel(title.toLocaleUpperCase('tr') + ' HABERLERİ', cnRows(mergeNews([kind], 30), 30));
+      return h;
     }
   };
 }
-PAGES['k-tiyatro'] = stagePage('tiyatro', 'Tiyatro', /tiyatro|oyun|sahne|perde|gösteri/i);
-PAGES['k-konser'] = stagePage('konser', 'Konserler', /konser|müzik|şarkı|festival|sahne|orkestra|resital/i);
+PAGES['k-tiyatro'] = stagePage('tiyatro', 'Tiyatro');
+PAGES['k-konser'] = stagePage('konser', 'Konserler');
 PAGES['k-kitap'] = {
   html() {
-    const it = booksCached(KX.kbc, KX.kbl), cat = BKC.find(x => x[0] === KX.kbc) || BKC[0];
-    return ttl('Yeni Kitaplar', 'Son yayınlar') + segx('kbc', BKC.map(x => [x[0], x[1]])) +
-      `<div class="seg" style="margin-bottom:10px">${[['tr', 'TÜRKÇE'], ['en', 'DÜNYA']].map(([v, l]) => `<button class="${KX.kbl === v ? 'on' : ''}" data-kx="kbl:${v}">${l}</button>`).join('')}</div>` +
-      panel('YENİ ÇIKANLAR · ' + cat[1], it ? (it.length ? it.slice(0, 30).map(bookRow).join('') : emptyB('Kitap bulunamadı')) : '<div class="empty">Yükleniyor…</div>') +
-      panel('KİTAP DÜNYASINDAN', cnRows(mergeNews(['kitap'], 30), 30));
-  },
-  after() { if (!booksCached(KX.kbc, KX.kbl)) { const k = KX.kbc + KX.kbl; loadBooks(KX.kbc, KX.kbl).then(() => { if (route === 'k-kitap' && KX.kbc + KX.kbl === k && !shOpen) renderPage(); }); } }
-};
-PAGES['k-tarih'] = {
-  html() {
-    const T = tarihData(); const tabs = [['tr', 'TÜRK TARİHİ'], ['dunya', 'DÜNYA TARİHİ'], ['dogum', 'DOĞUMLAR'], ['olum', 'ÖLÜMLER']];
-    const p = T && pickKesit(T, KX.ktar === 'dunya' ? 'dunya' : 'tr');
-    let h = ttl('Tarihte Bugün', dtf({day: 'numeric', month: 'long', weekday: 'long'}).format(Date.now()));
-    if (p) h += heroKesit(p, KX.ktar === 'dunya' ? 'GÜNÜN KESİTİ · DÜNYA' : 'GÜNÜN KESİTİ · TÜRK TARİHİ');
-    h += segx('ktar', tabs);
-    const L = T ? (T[KX.ktar] || []) : null;
-    h += panel((tabs.find(x => x[0] === KX.ktar) || tabs[0])[1], L ? (L.length ? L.map(otdRow).join('') : emptyB('Kayıt yok')) : '<div class="empty">Yükleniyor…</div>');
-    if (T && T.gun && T.gun.length) h += panel('BUGÜN', T.gun.map(otdRow).join(''));
-    h += panel('TARİH & ARKEOLOJİ', cnRows(mergeNews(['tarih'], 20), 20));
+    const kan = KX.kbm === 'kanon', l = kan ? 'kanon' : KX.kbl, cat = BKC.find(x => x[0] === KX.kbc) || BKC[0];
+    const it = booksCached(KX.kbc, l) || (kan ? (KANON[KX.kbc] || []).map(([t, a]) => ({id: t, t, a})) : null);
+    let h = ttl('Kitaplar', kan ? 'Kabul görmüş eserler' : 'Yeni yayınlar') + segx('kbc', BKC.map(x => [x[0], x[1]])) +
+      `<div class="seg" style="margin-bottom:10px">${[['kanon', 'ÖNE ÇIKANLAR'], ['yeni', 'YENİ ÇIKANLAR']].map(([v, lb]) => `<button class="${KX.kbm === v ? 'on' : ''}" data-kx="kbm:${v}">${lb}</button>`).join('')}</div>`;
+    if (!kan) h += `<div class="seg" style="margin-bottom:10px">${[['tr', 'TÜRKÇE'], ['en', 'DÜNYA']].map(([v, lb]) => `<button class="${KX.kbl === v ? 'on' : ''}" data-kx="kbl:${v}">${lb}</button>`).join('')}</div>`;
+    h += panel((kan ? 'OKUMA LİSTESİ · ' : 'YENİ ÇIKANLAR · ') + cat[1], it ? (it.length ? it.slice(0, 30).map(bookRow).join('') : emptyB('Kitap bulunamadı')) : '<div class="empty">Yükleniyor…</div>');
+    h += panel('KİTAP DÜNYASINDAN', cnRows(mergeNews(['kitap'], 30), 30));
     return h;
   },
-  after() { loadContent().then(ensureTarih); }
+  after() { const l = KX.kbm === 'kanon' ? 'kanon' : KX.kbl; if (!booksCached(KX.kbc, l)) { const k = KX.kbc + l; loadBooks(KX.kbc, l).then(() => { if (route === 'k-kitap' && KX.kbc + (KX.kbm === 'kanon' ? 'kanon' : KX.kbl) === k && !shOpen) { const y = window.scrollY; renderPage(); window.scrollTo(0, y); } }); } }
 };
 
+// tarih serisi: her gün bir kesit
+const WSUM = LS.get('wsum', {}), WSBUSY = {};
+const tsDay = () => Math.max(0, Math.floor((Date.now() - TSERI_START) / 864e5));
+const tsToday = () => tsDay() % TSERI.length;
+let TSI = null;
+async function tsWiki(i) {
+  const e = TSERI[i]; if (!e || WSUM[e[4]] || WSBUSY[e[4]]) return; WSBUSY[e[4]] = 1;
+  try { const j = await (await tfetch('https://tr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(e[4].replace(/ /g, '_')), 12000)).json(); WSUM[e[4]] = {img: (j.originalimage && j.originalimage.width <= 1600 ? j.originalimage.source : '') || (j.thumbnail && j.thumbnail.source) || '', th: (j.thumbnail && j.thumbnail.source) || '', ex: String(j.extract || '').slice(0, 900), url: (j.content_urls && j.content_urls.mobile && j.content_urls.mobile.page) || ''}; }
+  catch (x) { WSUM[e[4]] = {img: '', ex: '', url: 'https://tr.m.wikipedia.org/wiki/' + encodeURIComponent(e[4].replace(/ /g, '_'))}; }
+  const ks = Object.keys(WSUM); if (ks.length > 140) ks.slice(0, ks.length - 140).forEach(k => delete WSUM[k]);
+  LS.set('wsum', WSUM); delete WSBUSY[e[4]];
+  $$(`[data-tsimg="${i}"]`).forEach(n => { const w = WSUM[e[4]]; if (w && (w.img || w.th)) n.innerHTML = `<img src="${esc(w.img || w.th)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`; });
+}
+function tsHero(i, k) {
+  const e = TSERI[i]; if (!e) return ''; const w = WSUM[e[4]] || {};
+  return `<div class="hero ts ${w.img || w.th ? '' : 'noimg'}" ${xr('ts', i)}><span class="tsim" data-tsimg="${i}">${w.img || w.th ? `<img src="${esc(w.img || w.th)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}</span><div class="in"><div class="k">${k} · ${e[2] === 'TR' ? 'TÜRK TARİHİ' : 'DÜNYA TARİHİ'}</div><div class="y">${esc(e[0])}</div><div class="t" style="font-weight:800;font-size:18px">${esc(e[3])}</div><div class="t" style="font-size:13.5px;color:var(--tx2);margin-top:6px;font-weight:500">${esc(e[5])}</div></div></div>`;
+}
+function tsSheet(i) {
+  const e = TSERI[i]; if (!e) return; const w = WSUM[e[4]] || {};
+  openSheet(`${w.img || w.th ? `<div style="border-radius:14px;overflow:hidden;margin-bottom:14px;max-height:280px;background:var(--p3)"><img src="${esc(w.img || w.th)}" referrerpolicy="no-referrer" style="width:100%;display:block;object-fit:cover;max-height:280px" onerror="this.parentNode.remove()"></div>` : ''}
+    <div class="t3" style="font-size:11px;font-weight:700;letter-spacing:.1em">${esc(e[0])} · ${e[2] === 'TR' ? 'TÜRK TARİHİ' : 'DÜNYA TARİHİ'}</div>
+    <h3 style="font-size:21px;line-height:1.3;margin:8px 0 10px">${esc(e[3])}</h3><p class="syn">${esc(e[5])}</p>
+    ${w.ex ? `<div class="sec-h"><b>Vikipedi'den</b></div><p class="syn" style="font-size:13.5px">${esc(w.ex)}</p>` : ''}
+    <a class="btn go bk" style="margin-top:14px" ${aAttr(w.url || 'https://tr.m.wikipedia.org/wiki/' + encodeURIComponent(e[4].replace(/ /g, '_')))}>VİKİPEDİ'DE OKU ↗</a>`);
+  tsWiki(i).then(() => { if (shOpen && !w.ex && WSUM[e[4]] && WSUM[e[4]].ex) tsSheet(i); });
+}
+PAGES['k-tarih'] = {
+  html() {
+    const today = tsToday(); if (TSI == null) TSI = today;
+    const e = TSERI[TSI];
+    let h = ttl('Tarih', 'Eski Türklerden bugüne · ' + (TSI + 1) + '/' + TSERI.length);
+    h += tsHero(TSI, TSI === today ? 'GÜNÜN KESİTİ' : (TSI < today ? 'ÖNCEKİ KESİT' : 'SIRADAKİ'));
+    h += `<div class="rnav" style="margin-bottom:12px"><button data-ts="-1" ${TSI <= 0 ? 'disabled' : ''}>‹</button><div><b>${esc(e[0])}</b><span>${TSI === today ? 'BUGÜN' : TSI < today ? (today - TSI) + ' gün önce' : 'yakında'}</span></div><button data-ts="1" ${TSI >= TSERI.length - 1 ? 'disabled' : ''}>›</button></div>`;
+    h += panel('SERİ', TSERI.map((x, i) => `<div class="tlr ${i === TSI ? 'on' : ''}" ${xr('tsgo', i)} style="${i > today ? 'opacity:.42' : ''}"><div class="yr" style="width:86px;font-size:13px">${esc(x[0])}<small>${x[2] === 'TR' ? 'Türk tarihi' : 'Dünya'}</small></div><div class="tx"><b>${esc(x[3])}</b></div></div>`).join(''), '<a data-ts="today">Bugün ›</a>');
+    const T = tarihData(); const tabs = [['tr', 'TÜRK'], ['dunya', 'DÜNYA'], ['dogum', 'DOĞUMLAR'], ['olum', 'ÖLÜMLER']];
+    h += `<div class="sec-h"><b>Tarihte bugün</b><span class="sub">${dtf({day: 'numeric', month: 'long'}).format(Date.now())}</span></div>` + segx('ktar', tabs);
+    const L = T ? (T[KX.ktar] || []) : null;
+    h += panel((tabs.find(x => x[0] === KX.ktar) || tabs[0])[1], L ? (L.length ? L.slice(0, 25).map(otdRow).join('') : emptyB('Kayıt yok')) : '<div class="empty">Yükleniyor…</div>');
+    h += panel('TARİH & ARKEOLOJİ HABERLERİ', cnRows(mergeNews(['tarih'], 15), 15));
+    return h;
+  },
+  after() { loadContent().then(ensureTarih); tsWiki(TSI); const n = $('.tlr.on'); if (n && window.scrollY < 50) {} }
+};
 /* ============================ SPOR ============================ */
 const LGN = {lig: 'Süper Lig', ucl: 'Şampiyonlar Ligi', uel: 'UEFA Avrupa Ligi', uecl: 'Konferans Ligi'};
 const foot = lg => (cm().foot || {})[lg] || {};
@@ -2361,50 +2691,77 @@ PAGES['s-gundem'] = {
     if (nxt.length) h += panel('SIRADAKİ MAÇLAR', matchList(nxt, tr));
     const f = nextF1(), g = nextMGP();
     if (f && g) h += `<div class="g2 mini2">${f1Hero(f, true)}${mgpHero(g, true)}</div>`; else if (f || g) h += f ? f1Hero(f, true) : mgpHero(g, true);
-    h += panel('SPOR AKIŞI', cnFlow(mergeNews(['futbol', 'transfer', 'avrupa', 'basket', 'voley', 'f1', 'motogp'], 60)));
+    h += panel('SPOR AKIŞI', cnFlow(mergeNews(['futbol', 'transfer', 'avrupa', 'basket', 'voley', 'tenis', 'f1', 'motogp', 'diger'], 70)), '<a data-go="s-haber">Tümü ›</a>');
     return h;
   },
   after() { flowWire(); sporLive(); }
 };
 const TEAMN = [['all', 'TÜMÜ', ['futbol', 'transfer']], ['gs', 'GALATASARAY'], ['fb', 'FENERBAHÇE'], ['bjk', 'BEŞİKTAŞ'], ['ts', 'TRABZONSPOR'], ['kay', 'KAYSERİSPOR']];
+// haftalar: her takımın kaçıncı maçı olduğuna göre hafta (maç günü) numarası
+const RD = {}, seasonBusy = {};
+function roundsOf(ms) {
+  const arr = ms.slice().sort((a, b) => a.t - b.t), cnt = {}, R = [];
+  arr.forEach(m => { const r = Math.max(cnt[m.h.id] || 0, cnt[m.a.id] || 0) + 1; m.rd = r; cnt[m.h.id] = r; cnt[m.a.id] = r; (R[r - 1] = R[r - 1] || []).push(m); });
+  return R.filter(Boolean);
+}
+function curRound(R) { for (let i = 0; i < R.length; i++) if (R[i].some(m => m.st !== 'post' && m.t > Date.now() - 2 * 864e5)) return i; return R.length - 1; }
+function roundView(lg, label, tr) {
+  const ms = foot(lg).m || [];
+  if (!ms.length) return panel('FİKSTÜR', `<div class="empty">${seasonBusy[lg] === true ? 'Fikstür yükleniyor…' : 'Fikstür alınamadı'}</div>`);
+  const R = roundsOf(ms), cur = curRound(R); let i = RD[lg]; if (i == null || i >= R.length || i < 0) i = RD[lg] = cur;
+  const g = R[i] || [], t0 = g.length ? g[0].t : 0, t1 = g.length ? g[g.length - 1].t : 0;
+  const rng = t0 ? dtf({day: 'numeric', month: 'short'}).format(t0) + (dk(t0) !== dk(t1) ? ' – ' + dtf({day: 'numeric', month: 'short'}).format(t1) : '') : '';
+  const done = g.length && g.every(m => m.st === 'post');
+  return `<div class="pn"><div class="rnav"><button data-rd="${lg}:-1" ${i <= 0 ? 'disabled' : ''}>‹</button><div><b>${i + 1}. ${label}</b><span>${rng}${i === cur ? ' · GÜNCEL' : done ? ' · TAMAMLANDI' : ''}</span></div><button data-rd="${lg}:1" ${i >= R.length - 1 ? 'disabled' : ''}>›</button></div><div class="rlist" data-swipe="${lg}">${matchList(g, tr)}</div></div>`;
+}
+async function seasonFetch(lg) {
+  if (seasonBusy[lg]) return; seasonBusy[lg] = true;
+  const P = {lig: 'soccer/tur.1', ucl: 'soccer/uefa.champions', uel: 'soccer/uefa.europa', uecl: 'soccer/uefa.europa.conf'};
+  const now = new Date(), y = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1, ranges = [];
+  for (let s = Date.UTC(y, 6, 1); s <= Date.UTC(y + 1, 5, 30); s += 30 * 864e5) ranges.push([s, s + 29 * 864e5]);
+  const map = {};
+  await Promise.all(ranges.map(async r => { try { const j = await (await tfetch(`https://site.api.espn.com/apis/site/v2/sports/${P[lg]}/scoreboard?limit=500&dates=${ymdT(r[0])}-${ymdT(r[1])}`, 20000)).json(); (j.events || []).forEach(e => { const m = espnEv(e); map[m.id] = m; }); } catch (e) {} }));
+  CNT.m = CNT.m || {}; CNT.m.foot = CNT.m.foot || {}; const F = CNT.m.foot[lg] = CNT.m.foot[lg] || {};
+  const ms = Object.values(map); if (ms.length) { (F.m || []).forEach(m => { if (!map[m.id]) ms.push(m); }); F.m = ms.sort((a, b) => a.t - b.t); }
+  if (!F.tb || !F.tb.length) { try { F.tb = espnTable(await (await tfetch(`https://site.api.espn.com/apis/v2/sports/${P[lg]}/standings`, 15000)).json()); } catch (e) {} }
+  seasonBusy[lg] = 'done';
+  if (/^s-(lig|avrupa|gundem)$/.test(route) && !shOpen) { const yy = window.scrollY; renderPage(); window.scrollTo(0, yy); }
+}
+function needSeason(lg, min) { loadContent().then(() => { const n = (foot(lg).m || []).length; if (n < min && !seasonBusy[lg]) seasonFetch(lg); }); }
+function swipeWire() {
+  $$('[data-swipe]').forEach(n => { let x0 = null, y0 = 0; n.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive: true}); n.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null; if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) { const b = $(`[data-rd="${n.dataset.swipe}:${dx < 0 ? 1 : -1}"]`); if (b && !b.disabled) b.click(); } }); });
+}
 PAGES['s-lig'] = {
   html() {
-    const F = foot('lig'), tb = (F.tb || [])[0], ms = F.m || [], tr = TRT(), live = ms.filter(m => m.st === 'in');
-    let h = ttl('Süper Lig', F.name && F.name !== 'Turkish Super Lig' ? F.name : 'Trendyol Süper Lig', F.at ? fTime(F.at) : '') + segx('slig', [['puan', 'PUAN DURUMU'], ['fikstur', 'FİKSTÜR'], ['sonuc', 'SONUÇLAR'], ['haber', 'HABERLER']]);
+    const F = foot('lig'), tb = (F.tb || [])[0], ms = F.m || [], live = ms.filter(m => m.st === 'in');
+    const tab = KX.slig === 'sonuc' ? 'fikstur' : KX.slig;
+    let h = ttl('Süper Lig', 'Trendyol Süper Lig', F.at ? fTime(F.at) : '') + segx('slig', [['puan', 'PUAN DURUMU'], ['fikstur', 'FİKSTÜR'], ['haber', 'HABERLER']]);
     if (live.length) h += panel('<span class="dn">● CANLI</span>', live.map(m => matchRow(m)).join(''));
-    if (KX.slig === 'puan') h += panel('PUAN DURUMU', tb ? tableHtml(tb.rows) : emptyB());
-    else if (KX.slig === 'fikstur') h += panel('FİKSTÜR', matchList(ms.filter(m => m.st === 'pre').sort((a, b) => a.t - b.t), null, 'Planlanmış maç yok'));
-    else if (KX.slig === 'sonuc') h += panel('SONUÇLAR', matchList(ms.filter(m => m.st === 'post').sort((a, b) => b.t - a.t), null, 'Sonuç yok'));
+    if (tab === 'puan') h += panel('PUAN DURUMU', tb ? tableHtml(tb.rows) : emptyB(seasonBusy.lig === true ? 'Yükleniyor…' : null));
+    else if (tab === 'fikstur') h += roundView('lig', 'HAFTA', null);
     else { const t = TEAMN.find(x => x[0] === KX.lign) || TEAMN[0]; h += segx('lign', TEAMN.map(x => [x[0], x[1]])) + panel(t[0] === 'all' ? 'SÜPER LİG HABERLERİ' : t[1], cnRows(mergeNews(t[2] || [t[0]], 60), 60)); }
     return h;
   },
-  after() { sporLive(); }
+  after() { sporLive(); swipeWire(); needSeason('lig', 150); }
 };
 PAGES['s-avrupa'] = {
   html() {
-    const lg = KX.sav, F = foot(lg), tr = TRT(), ms = (F.m || []);
+    const lg = KX.sav, F = foot(lg), tr = TRT(), ms = F.m || [];
     const trm = ms.filter(m => isTR(m.h, tr) || isTR(m.a, tr));
-    const up = ms.filter(m => m.st !== 'post' && m.t < Date.now() + 21 * 864e5).sort((a, b) => a.t - b.t), past = ms.filter(m => m.st === 'post').sort((a, b) => b.t - a.t).slice(0, 40);
     let h = ttl('Avrupa Kupaları', LGN[lg], F.at ? fTime(F.at) : '') + segx('sav', [['ucl', 'ŞAMPİYONLAR LİGİ'], ['uel', 'AVRUPA LİGİ'], ['uecl', 'KONFERANS LİGİ']]) +
-      `<div class="seg" style="margin-bottom:10px">${[['mac', 'MAÇLAR'], ['puan', 'PUAN DURUMU'], ['haber', 'HABERLER']].map(([v, l]) => `<button class="${KX.savt === v ? 'on' : ''}" data-kx="savt:${v}">${l}</button>`).join('')}</div>`;
+      `<div class="seg" style="margin-bottom:10px">${[['mac', 'FİKSTÜR'], ['puan', 'PUAN DURUMU'], ['haber', 'HABERLER']].map(([v, l]) => `<button class="${KX.savt === v ? 'on' : ''}" data-kx="savt:${v}">${l}</button>`).join('')}</div>`;
     if (KX.savt === 'mac') {
-      if (trm.length) { const tu = trm.filter(m => m.st !== 'post').sort((a, b) => a.t - b.t), tp = trm.filter(m => m.st === 'post').sort((a, b) => b.t - a.t).slice(0, 4); h += panel('TÜRK TAKIMLARI', tu.concat(tp).map(m => matchRow(m, tr)).join('')); }
-      h += panel('SIRADAKİ MAÇLAR', matchList(up, tr, 'Planlanmış maç yok')) + panel('SONUÇLAR', matchList(past, tr, 'Sonuç yok'));
+      if (trm.length) { const tu = trm.filter(m => m.st !== 'post').sort((a, b) => a.t - b.t).slice(0, 4), tp = trm.filter(m => m.st === 'post').sort((a, b) => b.t - a.t).slice(0, 4); h += panel('TÜRK TAKIMLARI', tu.concat(tp).map(m => matchRow(m, tr)).join('')); }
+      h += roundView(lg, 'MAÇ GÜNÜ', tr);
     } else if (KX.savt === 'puan') h += (F.tb || []).length ? F.tb.map(g => panel(esc(String(g.n || 'PUAN DURUMU').replace(/league phase/i, 'Lig aşaması').replace(/^group/i, 'Grup')).toLocaleUpperCase('tr'), tableHtml(g.rows, tr))).join('') : panel('PUAN DURUMU', emptyB());
     else h += panel('AVRUPA HABERLERİ', cnRows(mergeNews(['avrupa'], 60), 60));
     return h;
   },
-  after() { sporLive(); }
+  after() { sporLive(); swipeWire(); needSeason(KX.sav, 60); }
 };
-PAGES['s-basket'] = {
-  html() {
-    const nba = (cm().nba || []).slice().sort((a, b) => a.t - b.t);
-    return ttl('Basketbol', 'BSL · EuroLeague · NBA') + `<div class="qk">${[['TBF · BSL', 'https://www.tbf.org.tr'], ['EuroLeague', 'https://www.euroleaguebasketball.net'], ['NBA', 'https://www.nba.com']].map(([n, u]) => ext(u, n)).join('')}</div>` + segx('sbas', [['gundem', 'GÜNDEM'], ['nba', 'NBA SKORLARI']]) +
-      (KX.sbas === 'nba' ? panel('NBA', matchList(nba, null, 'Maç yok')) : panel('BASKETBOL HABERLERİ', cnRows(mergeNews(['basket'], 60), 60)));
-  }
-};
-PAGES['s-voley'] = {
-  html() { return ttl('Voleybol', 'Sultanlar Ligi · Efeler Ligi · Milli Takımlar') + `<div class="qk">${[['TVF', 'https://www.tvf.org.tr'], ['CEV', 'https://www.cev.eu'], ['Volleyball World', 'https://en.volleyballworld.com']].map(([n, u]) => ext(u, n)).join('')}</div>` + panel('VOLEYBOL HABERLERİ', cnRows(mergeNews(['voley'], 60), 60)); }
+const SPN = [['all', 'TÜMÜ', ['futbol', 'transfer', 'avrupa', 'basket', 'voley', 'tenis', 'f1', 'motogp', 'diger']], ['futbol', 'FUTBOL', ['futbol', 'transfer', 'avrupa']], ['basket', 'BASKETBOL', ['basket']], ['voley', 'VOLEYBOL', ['voley']], ['tenis', 'TENİS', ['tenis']], ['motor', 'MOTOR', ['f1', 'motogp']], ['diger', 'DİĞER', ['diger']]];
+PAGES['s-haber'] = {
+  html() { const t = SPN.find(x => x[0] === KX.spn) || SPN[0]; return ttl('Spor Haberleri', 'Tüm branşlar') + segx('spn', SPN.map(x => [x[0], x[1]])) + panel(t[1] === 'TÜMÜ' ? 'SPOR AKIŞI' : t[1], cnRows(mergeNews(t[2], 80), 80)); }
 };
 PAGES['s-motor'] = {
   html() {
@@ -2454,8 +2811,9 @@ async function sporLive(force) {
 /* ============================ MÜZİK ============================ */
 const YTK = () => LS.get('ytkey', '');
 let MZL = LS.get('mzl', []);
-const MZ = {q: '', res: null, busy: false, trend: LS.get('mztr', null)};
-const GENRES = [['Türkçe Pop', '#E0457B', '#6E1D45'], ['Türkçe Rock', '#E35D3A', '#5E2112'], ['Anadolu Rock', '#D98A2B', '#57310E'], ['Türk Sanat Müziği', '#8C6BD6', '#33235A'], ['Türk Halk Müziği', '#3FA36B', '#16452B'], ['Arabesk', '#C9455A', '#47141F'], ['Türkçe Rap', '#4F7BE0', '#1A2B5C'], ['Caz', '#2E9FA8', '#0E3C41'], ['Klasik Müzik', '#B8913F', '#463510'], ['Lo-fi · Odaklan', '#6C7BD9', '#222A5A'], ["80'ler 90'lar", '#D9569E', '#4B1736'], ['Akustik', '#7FA34A', '#2C4015']];
+const MZ = {q: '', res: null, busy: false, show: null, trend: LS.get('mztr', null)};
+const GENRES = [['pop', 'Türkçe Pop', '#E0457B', '#6E1D45'], ['rock', 'Türkçe Rock', '#E35D3A', '#5E2112'], ['anadolu', 'Anadolu Rock', '#D98A2B', '#57310E'], ['tsm', 'Türk Sanat Müziği', '#8C6BD6', '#33235A'], ['thm', 'Türk Halk Müziği', '#3FA36B', '#16452B'], ['arabesk', 'Arabesk', '#C9455A', '#47141F'], ['rap', 'Türkçe Rap', '#4F7BE0', '#1A2B5C'], ['caz', 'Caz', '#2E9FA8', '#0E3C41'], ['klasik', 'Klasik Müzik', '#B8913F', '#463510'], ['lofi', 'Lo-fi · Odaklan', '#6C7BD9', '#222A5A'], ['nostalji', "80'ler 90'lar", '#D9569E', '#4B1736'], ['akustik', 'Akustik', '#7FA34A', '#2C4015']];
+const ytList = k => ((cm().yt || {})[k] || {}).items || [];
 const dec2 = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
 function parseYT(u) {
   try {
@@ -2464,63 +2822,115 @@ function parseYT(u) {
     if (/youtu\.be$/.test(x.hostname)) v = x.pathname.slice(1).split('/')[0];
     const m = x.pathname.match(/\/(shorts|embed|live)\/([\w-]{11})/); if (m) v = m[2];
     if (list && /^(LM|LL|WL|RDMM)$/.test(list)) list = null;
-    return {v: v || null, list: list || null, url: x.href, music: /music\./.test(x.hostname)};
+    return {v: v || null, list: list || null, url: x.href};
   } catch (e) { return null; }
 }
 const ytThumb = it => it.img || (it.v ? `https://i.ytimg.com/vi/${it.v}/mqdefault.jpg` : '');
 const ytmPath = it => it.v ? '/watch?v=' + it.v + (it.list ? '&list=' + it.list : '') : it.list ? '/playlist?list=' + it.list : (it.url ? new URL(it.url).pathname + new URL(it.url).search : '/');
-// oynatıcı
-const PL = {cur: null, big: false};
-function play(it) {
-  if (!it.v && !it.list) { location.href = ytmHref(ytmPath(it)); return; }
-  PL.cur = it;
-  const p = new URLSearchParams({autoplay: '1', playsinline: '1', rel: '0', modestbranding: '1'}); if (it.list) p.set('list', it.list);
-  const src = 'https://www.youtube.com/embed/' + (it.v || 'videoseries') + '?' + p;
-  $('#ply').innerHTML = `<div class="box"><div class="row"><div class="pf"><iframe src="${esc(src)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="YouTube"></iframe></div><div class="nm"><b>${esc(it.title || 'YouTube')}</b><span>${it.ch ? esc(it.ch) : it.list && !it.v ? 'Çalma listesi' : 'YouTube'}</span></div><button class="ib" data-pl="big" aria-label="Büyüt">${IC2.exp}</button><a class="ib am" ${aAttr(ytmHref(ytmPath(it)))} aria-label="YouTube Music">${IC2.out}</a><button class="ib" data-pl="x" aria-label="Kapat">✕</button></div></div>`;
-  document.body.classList.add('plon'); setBig(/^m-/.test(route) ? true : PL.big);
+
+// oynatıcı (YouTube IFrame API, sayfa içinde)
+const PL = {q: null, i: 0, list: null, big: false, title: '', err: 0};
+let YTP = null, ytApiP = null;
+function ytReady() {
+  if (window.YT && YT.Player) return Promise.resolve();
+  if (!ytApiP) ytApiP = new Promise(res => { const prev = window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady = () => { prev && prev(); res(); }; const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = () => { ytApiP = null; res(); }; document.head.appendChild(s); setTimeout(res, 12000); });
+  return ytApiP;
 }
-function setBig(b) { PL.big = b; $('#ply').classList.toggle('big', b); document.body.classList.toggle('plbig', b); }
-function stopPlay() { $('#ply').innerHTML = ''; PL.cur = null; document.body.classList.remove('plon', 'plbig'); }
+function dockShell() {
+  if ($('#ply .box')) return;
+  $('#ply').innerHTML = `<div class="box"><div class="row"><div class="pf"><div id="ytp"></div></div><div class="nm" data-pl="big"><b id="plt">Yükleniyor…</b><span id="pls"></span></div><button class="ib bx" data-pl="prev" aria-label="Önceki">⏮</button><button class="ib am" data-pl="tog" id="plpp" aria-label="Oynat/Duraklat">❚❚</button><button class="ib" data-pl="next" aria-label="Sonraki">⏭</button><a class="ib bx" id="plo" href="#" aria-label="YT Music'te aç">${IC2.out}</a><button class="ib bx" data-pl="big" aria-label="Küçült">${IC2.exp}</button><button class="ib" data-pl="x" aria-label="Kapat">✕</button></div></div>`;
+}
+function startDock() { dockShell(); document.body.classList.add('plon'); setBig(/^m-/.test(route) ? true : PL.big); }
+function mkPlayer(opt) {
+  YTP = new YT.Player('ytp', {width: '100%', height: '100%', videoId: opt.v || undefined, playerVars: Object.assign({autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1}, opt.list ? {list: opt.list, listType: 'playlist'} : {}),
+    events: {
+      onReady: e => { try { e.target.playVideo(); } catch (x) {} dockInfo(); },
+      onStateChange: e => { if (e.data === 1) PL.err = 0; if (e.data === 0 && PL.q) step(1); dockInfo(); },
+      onError: () => { PL.err++; if (PL.q && PL.err < Math.min(PL.q.length, 12)) step(1); else if (PL.list && PL.err < 12) { try { YTP.nextVideo(); } catch (x) {} } else toast('Bu içerik uygulama içinde çalınamıyor · YT Music ile aç'); }
+    }});
+}
+async function playQ(items, i = 0, title = '') {
+  items = (items || []).filter(x => x && x.v); if (!items.length) return;
+  PL.q = items; PL.i = i; PL.list = null; PL.title = title; PL.err = 0; startDock(); dockInfo();
+  await ytReady(); if (!(window.YT && YT.Player)) { toast('YouTube oynatıcı yüklenemedi'); return; }
+  if (!YTP) mkPlayer({v: items[i].v}); else YTP.loadVideoById(items[i].v);
+}
+async function playList(list, title, v) {
+  PL.q = null; PL.list = list; PL.title = title || 'Çalma listesi'; PL.err = 0; startDock(); dockInfo();
+  await ytReady(); if (!(window.YT && YT.Player)) { toast('YouTube oynatıcı yüklenemedi'); return; }
+  if (!YTP) mkPlayer({list, v}); else YTP.loadPlaylist({list, listType: 'playlist'});
+}
+function play(it) { if (it.list && !it.v) return playList(it.list, it.title); if (it.v) return playQ([it], 0, it.title); location.href = ytmHref(ytmPath(it)); }
+function step(d) { if (PL.q) { PL.i = (PL.i + d + PL.q.length) % PL.q.length; try { YTP.loadVideoById(PL.q[PL.i].v); } catch (x) {} dockInfo(); } else if (YTP) { try { d > 0 ? YTP.nextVideo() : YTP.previousVideo(); } catch (x) {} } }
+function togPlay() { if (!YTP || !YTP.getPlayerState) return; const st = YTP.getPlayerState(); st === 1 || st === 3 ? YTP.pauseVideo() : YTP.playVideo(); setTimeout(dockInfo, 300); }
+function dockInfo() {
+  const t = $('#plt'); if (!t) return;
+  const it = PL.q ? PL.q[PL.i] : null; let tt = it ? it.title : '', vid = it ? it.v : null;
+  try { const vd = YTP && YTP.getVideoData && YTP.getVideoData(); if (vd) { if (vd.title) tt = vd.title; if (vd.video_id) vid = vd.video_id; } } catch (x) {}
+  t.textContent = tt || PL.title || 'YouTube';
+  $('#pls').textContent = (it && it.ch ? it.ch + ' · ' : '') + (PL.q && PL.q.length > 1 ? (PL.i + 1) + '/' + PL.q.length + (PL.title ? ' · ' + PL.title : '') : PL.title || '');
+  let st = -1; try { st = YTP.getPlayerState(); } catch (x) {}
+  $('#plpp').innerHTML = st === 2 || st === 0 || st === 5 ? '▶' : '❚❚';
+  const o = $('#plo'); if (o) { const h = ytmHref(vid ? '/watch?v=' + vid + (PL.list ? '&list=' + PL.list : '') : PL.list ? '/playlist?list=' + PL.list : '/'); o.setAttribute('href', h); if (/^intent:/.test(h)) o.removeAttribute('target'); else o.setAttribute('target', '_blank'); }
+}
+function setBig(b) { PL.big = b; $('#ply').classList.toggle('big', b); document.body.classList.toggle('plbig', b && document.body.classList.contains('plon')); }
+function stopPlay() { try { YTP && YTP.destroy(); } catch (x) {} YTP = null; $('#ply').innerHTML = ''; PL.q = null; PL.list = null; document.body.classList.remove('plon', 'plbig'); }
+setInterval(() => { if (YTP && !document.hidden) dockInfo(); }, 4000);
+
+// arama: YouTube anahtarı varsa API, yoksa açık Piped sunucuları
 async function ytApi(path) { const j = await (await tfetch('https://www.googleapis.com/youtube/v3/' + path + '&key=' + encodeURIComponent(YTK()), 15000)).json(); return (j.items || []).map(x => { const sn = x.snippet || {}; const th = sn.thumbnails || {}; return {v: typeof x.id === 'string' ? x.id : x.id.videoId, title: dec2(sn.title || ''), ch: dec2(sn.channelTitle || ''), img: (th.medium || th.high || th.default || {}).url || ''}; }).filter(x => x.v); }
-const ytSearch = q => ytApi('search?part=snippet&type=video&maxResults=20&regionCode=TR&q=' + encodeURIComponent(q));
-async function loadTrend() { if (!YTK() || (MZ.trend && Date.now() - MZ.trend.at < 3 * 36e5)) return; try { MZ.trend = {at: Date.now(), items: await ytApi('videos?part=snippet&chart=mostPopular&regionCode=TR&videoCategoryId=10&maxResults=25')}; LS.set('mztr', MZ.trend); if (route === 'm-kesfet') renderPage(); } catch (e) {} }
-function vRow(x, saved) {
-  return `<div class="vr"><div class="th" ${xr('play', x)}>${im(ytThumb(x))}</div><div class="tx" ${xr('play', x)}><div class="t1">${esc(x.title || 'Video')}</div><div class="t2x">${esc(x.ch || (x.list && !x.v ? 'Çalma listesi' : x.v ? 'Video' : 'Bağlantı'))}</div></div><div class="ac"><a class="ib am" ${aAttr(ytmHref(ytmPath(x)))} aria-label="YouTube Music'te aç">${IC2.out}</a>${saved ? `<button class="ib" data-mz="del:${esc(x.id)}" aria-label="Sil">✕</button>` : `<button class="ib" ${xr('save', x)} aria-label="Listeme ekle">${IC2.plus}</button>`}</div></div>`;
+const ytSearch = q => ytApi('search?part=snippet&type=video&videoEmbeddable=true&maxResults=25&regionCode=TR&q=' + encodeURIComponent(q));
+const PIPED = ['https://pipedapi.kavin.rocks', 'https://pipedapi.adminforge.de', 'https://api.piped.private.coffee', 'https://pipedapi.r4fo.com'];
+async function pipedSearch(q) {
+  for (const b of PIPED) for (const f of ['music_songs', 'videos']) {
+    try { const j = await (await tfetch(b + '/search?q=' + encodeURIComponent(q) + '&filter=' + f, 7000)).json(); const it = (j.items || []).filter(x => x.url && /watch\?v=/.test(x.url) && !x.isShort).map(x => ({v: x.url.split('v=')[1].slice(0, 11), title: x.title || '', ch: (x.uploaderName || '').replace(/ - Topic$/, ''), img: x.thumbnail || ''})); if (it.length) return it.slice(0, 25); } catch (e) { break; }
+  }
+  return null;
 }
+async function anySearch(q) { if (YTK()) { try { return await ytSearch(q); } catch (e) {} } return pipedSearch(q); }
 async function mzSearch(q) {
-  q = String(q || '').trim(); if (!q) return; MZ.q = q;
-  if (!YTK()) { location.href = ytmHref('/search?q=' + encodeURIComponent(q)); return; }
-  MZ.busy = true; MZ.res = null; if (route !== 'm-kesfet') go('m-kesfet'); else renderPage();
-  try { MZ.res = await ytSearch(q); } catch (e) { MZ.res = []; toast('YouTube araması başarısız · anahtarı kontrol et'); }
-  MZ.busy = false; if (route === 'm-kesfet') { renderPage(); const r = $('#mzres'); if (r) r.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+  q = String(q || '').trim(); if (!q) return; MZ.q = q; MZ.show = null; MZ.busy = true; MZ.res = null;
+  if (route !== 'm-kesfet') go('m-kesfet'); else renderPage();
+  const r = await anySearch(q); MZ.busy = false; MZ.res = r || 'fail';
+  if (route === 'm-kesfet') { renderPage(); const e = $('#mzres'); if (e) e.scrollIntoView({behavior: 'smooth', block: 'start'}); }
 }
+async function loadTrend() { if (!YTK() || (MZ.trend && Date.now() - MZ.trend.at < 3 * 36e5)) return; try { MZ.trend = {at: Date.now(), items: await ytApi('videos?part=snippet&chart=mostPopular&regionCode=TR&videoCategoryId=10&maxResults=25')}; LS.set('mztr', MZ.trend); if (route === 'm-kesfet') renderPage(); } catch (e) {} }
+function vRows(items, title, saved) {
+  return items.map((x, i) => `<div class="vr ${PL.q && PL.q[PL.i] && PL.q[PL.i].v === x.v ? 'on' : ''}"><div class="th" ${xr('pq', {items, i, title})}>${im(ytThumb(x))}${x.d ? `<span class="du">${esc(x.d)}</span>` : ''}</div><div class="tx" ${xr('pq', {items, i, title})}><div class="t1">${esc(x.title || 'Video')}</div><div class="t2x">${esc(x.ch || (x.list && !x.v ? 'Çalma listesi' : 'YouTube'))}</div></div><div class="ac"><a class="ib am" ${aAttr(ytmHref(ytmPath(x)))} aria-label="YT Music'te aç">${IC2.out}</a>${saved ? `<button class="ib" data-mz="del:${esc(x.id)}" aria-label="Sil">✕</button>` : `<button class="ib" ${xr('save', x)} aria-label="Listeme ekle">${IC2.plus}</button>`}</div></div>`).join('');
+}
+const playAll = (k, n) => `<a data-mz="pall:${k}">▶ Tümünü çal</a>`;
 PAGES['m-kesfet'] = {
   html() {
-    const key = !!YTK();
-    let h = ttl('Müzik', 'YouTube Music · Premium') +
-      `<div class="ymh"><div class="k">${IC2.note}<span>YouTube Music</span></div><div class="d">Doğrudan uygulamada açılır · uygulama içinde de çalar</div><div class="g2"><a class="btn yt" ${aAttr(ytmHref('/'))}>▶ YT MUSIC'İ AÇ</a><a class="btn" ${aAttr(ytHref('/'))}>YOUTUBE</a></div></div>` +
-      `<div class="qt"><a ${aAttr(ytmHref('/'))}>${IC2.home}Ana sayfa</a><a ${aAttr(ytmHref('/explore'))}>${IC2.disc}Keşfet</a><a ${aAttr(ytmHref('/library'))}>${IC2.lib}Kitaplığım</a><a ${aAttr(ytmHref('/playlist?list=LM'))}>${IC2.heart}Beğendiklerim</a></div>` +
-      `<div class="srch"><input class="inp" id="mzq" placeholder="Şarkı, sanatçı, albüm…" value="${esc(MZ.q)}" enterkeyhint="search"><button class="btn go" data-mz="ara">ARA</button></div>`;
+    const hit = ytList('hit'), yeni = ytList('yeni');
+    let h = ttl('Müzik', 'Uygulama içinde çal · YouTube Music');
+    h += `<div class="ymh"><div class="k">${IC2.note}<span>Şimdi çal</span></div><div class="d">${hit.length ? 'Türkiye hitleri · ' + hit.length + ' şarkı' : 'Listeler hazırlanıyor'}</div><div class="g2">${hit.length ? `<button class="btn yt" data-mz="pall:hit">▶ HİTLERİ ÇAL</button>` : `<a class="btn yt" ${aAttr(ytmHref('/'))}>▶ YT MUSIC</a>`}${yeni.length ? `<button class="btn" data-mz="pall:yeni">YENİ ÇIKANLAR</button>` : `<a class="btn" ${aAttr(ytHref('/'))}>YOUTUBE</a>`}</div></div>`;
+    h += `<div class="srch"><input class="inp" id="mzq" placeholder="Şarkı, sanatçı, albüm…" value="${esc(MZ.q)}" enterkeyhint="search"><button class="btn go" data-mz="ara">ARA</button></div>`;
     if (MZ.busy) h += panel('SONUÇLAR', '<div class="empty">Aranıyor…</div>');
-    else if (MZ.res) h += `<div id="mzres"></div>` + panel('SONUÇLAR · ' + esc(MZ.q).toLocaleUpperCase('tr'), MZ.res.length ? MZ.res.map(x => vRow(x)).join('') : emptyB('Sonuç yok'), `<a ${aAttr(ytmHref('/search?q=' + encodeURIComponent(MZ.q)))}>YT Music ›</a>`);
-    h += `<div class="sec-h"><b>Türler & ruh hali</b></div><div class="tiles">${GENRES.map(([n, a, b]) => key ? `<div class="tile" style="--bgc:linear-gradient(135deg,${a},${b})" data-mz="gen:${esc(n)}">${esc(n)}</div>` : `<a class="tile" style="--bgc:linear-gradient(135deg,${a},${b})" ${aAttr(ytmHref('/search?q=' + encodeURIComponent(n)))}>${esc(n)}</a>`).join('')}</div>`;
-    if (key && MZ.trend && MZ.trend.items.length) h += panel('TREND · TÜRKİYE', MZ.trend.items.map(x => vRow(x)).join(''));
-    if (MZL.length) h += panel('LİSTELERİM', MZL.slice(0, 4).map(x => vRow(x, true)).join(''), '<a data-go="m-liste">Tümü ›</a>');
+    else if (MZ.res === 'fail') h += `<div id="mzres"></div>` + panel('SONUÇLAR', `<div class="empty">Uygulama içi arama şu an yanıt vermiyor</div><div class="pb"><a class="btn yt bk" ${aAttr(ytmHref('/search?q=' + encodeURIComponent(MZ.q)))}>"${esc(MZ.q)}" · YT MUSIC'TE ARA</a></div>`);
+    else if (MZ.res) h += `<div id="mzres"></div>` + panel('SONUÇLAR · ' + esc(MZ.q).toLocaleUpperCase('tr'), MZ.res.length ? vRows(MZ.res, MZ.q) : emptyB('Sonuç yok'), MZ.res.length ? `<a data-mz="pres">▶ Tümünü çal</a>` : '');
+    if (MZ.show) { const g = GENRES.find(x => x[0] === MZ.show); const L = ytList(MZ.show); if (g && L.length) h += `<div id="mzres"></div>` + panel(g[1].toLocaleUpperCase('tr'), vRows(L, g[1]), playAll(MZ.show)); }
+    h += `<div class="sec-h"><b>Türler & ruh hali</b></div><div class="tiles">${GENRES.map(([k, n, a, b]) => `<div class="tile ${MZ.show === k ? 'on' : ''}" style="--bgc:linear-gradient(135deg,${a},${b})" data-mz="gen:${k}">${esc(n)}${ytList(k).length ? `<i>▶ ${ytList(k).length}</i>` : ''}</div>`).join('')}</div>`;
+    if (yeni.length) h += panel('YENİ ÇIKANLAR', vRows(yeni.slice(0, 10), 'Yeni Çıkanlar'), playAll('yeni'));
+    if (hit.length) h += panel('TÜRKİYE HİTLERİ', vRows(hit.slice(0, 10), 'Türkiye Hitleri'), playAll('hit'));
+    if (YTK() && MZ.trend && MZ.trend.items.length) h += panel('TREND · TÜRKİYE', vRows(MZ.trend.items, 'Trend'));
+    h += `<div class="sec-h"><b>YouTube Music hesabım</b></div><div class="qt"><a ${aAttr(ytmHref('/'))}>${IC2.home}Ana sayfa</a><a ${aAttr(ytmHref('/explore'))}>${IC2.disc}Keşfet</a><a ${aAttr(ytmHref('/library'))}>${IC2.lib}Kitaplığım</a><a ${aAttr(ytmHref('/playlist?list=LM'))}>${IC2.heart}Beğendiklerim</a></div>`;
+    if (MZL.length) h += panel('LİSTELERİM', vRows(MZL.slice(0, 4), 'Listelerim', true), '<a data-go="m-liste">Tümü ›</a>');
     h += panel('MÜZİK GÜNDEMİ', cnRows(mergeNews(['muzik'], 6), 6), '<a data-go="m-haber">Tümü ›</a>');
     return h;
   },
-  after() { const i = $('#mzq'); if (i) i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); i.blur(); mzSearch(i.value); } }); loadTrend(); }
+  after() { const i = $('#mzq'); if (i) i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); i.blur(); mzSearch(i.value); } }); loadTrend(); ytReady(); }
 };
 PAGES['m-liste'] = {
   html() {
     return ttl('Listelerim', MZL.length ? MZL.length + ' kayıt' : 'YouTube · YT Music') +
       panel('EKLE', `<div class="pb"><input class="inp" id="mzu" placeholder="YouTube / YT Music bağlantısı" inputmode="url"><input class="inp" id="mzn" placeholder="Ad (isteğe bağlı)" style="margin-top:8px"><button class="btn go bk" style="margin-top:8px" data-mz="add">LİSTEYE EKLE</button></div>`) +
-      panel('KAYITLI', MZL.length ? MZL.map(x => vRow(x, true)).join('') : emptyB('Henüz kayıt yok')) +
+      panel('KAYITLI', MZL.length ? vRows(MZL, 'Listelerim', true) : emptyB('Henüz kayıt yok'), MZL.some(x => x.v) ? '<a data-mz="plst">▶ Tümünü çal</a>' : '') +
       panel('YOUTUBE ARAMA ANAHTARI', `<div class="pb"><input class="inp" type="password" id="ytk" placeholder="İsteğe bağlı · YouTube Data API" value="${esc(YTK())}" autocomplete="off"><div class="g2" style="margin-top:8px"><button class="btn" data-mz="key">KAYDET</button><a class="btn" ${aAttr('https://console.cloud.google.com/apis/library/youtube.googleapis.com')}>ANAHTAR AL ↗</a></div></div>`);
-  }
+  },
+  after() { ytReady(); }
 };
 PAGES['m-haber'] = {
-  html() { return ttl('Müzik Haberleri', 'Yeni şarkılar, albümler, sahne') + `<div class="qk"><a data-go="k-konser" style="cursor:pointer">Konserler</a>${ext(ytmHref('/explore'), 'Yeni çıkanlar')}</div>` + panel('MÜZİK HABERLERİ', cnRows(mergeNews(['muzik'], 60), 60)) + panel('KONSER GÜNDEMİ', cnRows(mergeNews(['konser'], 10), 10), '<a data-go="k-konser">Tümü ›</a>'); }
+  html() { return ttl('Müzik Haberleri', 'Yeni şarkılar, albümler, sahne') + `<div class="qk"><a data-go="k-konser" style="cursor:pointer">Konser programı</a>${ext(ytmHref('/explore'), 'YT Music · Yeni çıkanlar')}</div>` + panel('MÜZİK HABERLERİ', cnRows(mergeNews(['muzik'], 60), 60)) + panel('KONSER GÜNDEMİ', cnRows(mergeNews(['konser'], 10), 10), '<a data-go="k-konser">Tümü ›</a>'); }
 };
 async function mzAdd() {
   const u = ($('#mzu') || {}).value, n = (($('#mzn') || {}).value || '').trim(); const p = parseYT(u);
@@ -2536,15 +2946,22 @@ function xAct(type, o) {
   if (type === 'otd') otdSheet(o);
   else if (type === 'film') filmSheet(o);
   else if (type === 'book') bookSheet(o);
+  else if (type === 'ev') evSheet(o);
+  else if (type === 'ts') tsSheet(o);
+  else if (type === 'tsgo') { TSI = o; renderPage(); window.scrollTo({top: 0, behavior: 'smooth'}); }
   else if (type === 'team') teamSheet(o);
   else if (type === 'play') play(o);
+  else if (type === 'pq') { const x = o.items[o.i]; if (x.list && !x.v) playList(x.list, x.title); else playQ(o.items, o.i, o.title); }
   else if (type === 'save') { if (!MZL.some(x => x.v === o.v)) { MZL.unshift(Object.assign({id: Date.now().toString(36), at: Date.now()}, o)); LS.set('mzl', MZL); } toast('Listelerime eklendi'); }
 }
 function mzAct(a) {
   const i = a.indexOf(':'), k = i < 0 ? a : a.slice(0, i), v = i < 0 ? '' : a.slice(i + 1);
-  if (k === 'ara') { const q = ($('#mzq') || {}).value; mzSearch(q); }
-  else if (k === 'gen') { MZ.q = v; mzSearch(v); }
-  else if (k === 'yplay') { if (shOpen) closeSheet(); ytSearch(v).then(r => { if (r && r[0]) play(r[0]); else toast('Bulunamadı'); }).catch(() => toast('YouTube araması başarısız')); }
+  if (k === 'ara') mzSearch(($('#mzq') || {}).value);
+  else if (k === 'gen') { const L = ytList(v); if (L.length) { MZ.show = v; MZ.res = null; playQ(L, 0, (GENRES.find(x => x[0] === v) || [])[1]); renderPage(); const e = $('#mzres'); if (e) e.scrollIntoView({behavior: 'smooth', block: 'start'}); } else { const g = GENRES.find(x => x[0] === v); mzSearch(g ? g[1] : v); } }
+  else if (k === 'pall') { const L = ytList(v); if (L.length) playQ(L, 0, (cm().yt[v] || {}).n || ''); }
+  else if (k === 'pres') { if (Array.isArray(MZ.res)) playQ(MZ.res, 0, MZ.q); }
+  else if (k === 'plst') playQ(MZL.filter(x => x.v), 0, 'Listelerim');
+  else if (k === 'yplay') { if (shOpen) closeSheet(); anySearch(v).then(r => { if (r && r[0]) playQ(r.slice(0, 5), 0, 'Fragman'); else location.href = ytHref('/results?search_query=' + encodeURIComponent(v)); }); }
   else if (k === 'add') mzAdd();
   else if (k === 'del') { MZL = MZL.filter(x => x.id !== v); LS.set('mzl', MZL); renderPage(); }
   else if (k === 'key') { const val = (($('#ytk') || {}).value || '').trim(); LS.set('ytkey', val); MZ.trend = null; toast(val ? 'Anahtar kaydedildi' : 'Anahtar silindi'); renderPage(); }
@@ -2552,13 +2969,15 @@ function mzAct(a) {
   else if (k === 'pickfav') { const r = (((foot('lig').tb || [])[0] || {}).rows || []).find(x => (x.f + ' ' + x.n).toLocaleLowerCase('tr').includes(v.toLocaleLowerCase('tr').slice(0, 6))); if (r) { FAV = {id: r.id, n: r.n}; LS.set('fav', FAV); toast('★ ' + esc(r.n)); renderPage(); } else toast('Puan tablosu bekleniyor'); }
 }
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-sec],[data-cn],[data-x],[data-kx],[data-mz],[data-pl]'); if (!t) return; const d = t.dataset;
+  const t = e.target.closest('[data-sec],[data-cn],[data-x],[data-kx],[data-mz],[data-pl],[data-rd],[data-ts]'); if (!t || t === document.body) return; const d = t.dataset;
   if (d.sec) { e.preventDefault(); goSec(d.sec); return; }
   if (d.cn) { const [l, i] = d.cn.split(':'); const x = (NLS[+l] || [])[+i]; if (x) newsSheet(x); return; }
   if (d.x) { const r = XR[+d.x]; if (r) xAct(r[0], r[1]); return; }
-  if (d.kx) { const i = d.kx.indexOf(':'); KX[d.kx.slice(0, i)] = d.kx.slice(i + 1); LS.set('kx', KX); if (!d.go) renderPage(); return; }
+  if (d.kx) { const i = d.kx.indexOf(':'); const k = d.kx.slice(0, i), v = d.kx.slice(i + 1); KX[k] = v; LS.set('kx', KX); if (k === 'sav') RD[v] = null; if (!d.go) { const y = window.scrollY; renderPage(); window.scrollTo(0, y); } return; }
   if (d.mz) { mzAct(d.mz); return; }
-  if (d.pl) { if (d.pl === 'big') setBig(!PL.big); else stopPlay(); }
+  if (d.rd) { const [lg, s] = d.rd.split(':'); RD[lg] = (RD[lg] || 0) + +s; const y = window.scrollY; renderPage(); window.scrollTo(0, y); return; }
+  if (d.ts) { TSI = d.ts === 'today' ? tsToday() : Math.max(0, Math.min(TSERI.length - 1, (TSI ?? tsToday()) + +d.ts)); renderPage(); window.scrollTo({top: 0, behavior: 'smooth'}); return; }
+  if (d.pl) { if (d.pl === 'big') setBig(!PL.big); else if (d.pl === 'x') stopPlay(); else if (d.pl === 'tog') togPlay(); else step(d.pl === 'next' ? 1 : -1); }
 });
 setInterval(() => { if (document.hidden) return; const was = CNT.m && CNT.m.at; loadContent().then(() => { if (secOf(route) !== 'fin' && CNT.m && CNT.m.at !== was && !shOpen && !document.activeElement.matches('input')) { const y = window.scrollY; renderPage(); window.scrollTo(0, y); } }); }, 60e3);
 setInterval(() => { if (!document.hidden) sporLive(); }, 30e3);
